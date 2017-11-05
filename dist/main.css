@@ -10,10 +10,12 @@ body{
 	width: 100%;
 	height: 100%;
 	opacity: 0;
+  background: red;
 }
 .main{
 	width: 100%;
 	height: 100%;
+  overflow: hidden;
 	position: relative;
 	background: url(./static/img/background.png) no-repeat center/cover;
 }
@@ -41,3 +43,135 @@ background: -ms-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(117,189,209,1
 background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );
     }
+
+    /*-----------------------开视屏样式-----------------------*/
+    .start-screen{
+        display: none;
+        width:100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left: 0;  
+        overflow: hidden;      
+    }
+    .get-ready{
+        width: 3.6rem;
+        height: 0.95rem;    
+        position: absolute;
+        left: 50%;
+        top:30%;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        background: url(./static/img/gameWords.png) no-repeat top/cover;
+    }
+    .bird-animation{
+        width: 0.81rem;
+        height: 0.7rem;        
+        position: absolute;
+        left: 50%;
+        top:40%;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        background: url(./static/img/birds.png) no-repeat;
+        background-position:0% 0%; 
+        background-size: cover;
+        animation:csssprite .5s infinite steps(1),float 2s infinite linear; 
+        -webkit-animation:csssprite .5s infinite steps(1),float 2s infinite linear;
+    }
+
+@keyframes float
+{
+0% {  top:40%; }
+ 50% { top:38%; }
+  100% {  top:40%; }   
+}
+
+@-webkit-keyframes float 
+{
+0% {  top:40%; }
+ 50% { top:38%; }
+  100% {  top:40%; }
+}
+@keyframes csssprite
+{
+0% {  background-position:0% 0%; }
+ 33% {  background-position:50% 0%;  }
+  66% {  background-position:100% 0%;  }
+  100% {  background-position:50% 0%;  }
+   
+}
+
+@-webkit-keyframes csssprite 
+{
+0% {  background-position:0% 0%; }
+ 33% {  background-position:50% 0%;  }
+  66% {  background-position:100% 0%;  }
+  100% {  background-position:50% 0%;  }
+}
+
+@keyframes moveleft1
+{
+0% { left:0rem; }
+
+  100% { left:-6.4rem;  }
+   
+}
+
+@-webkit-keyframes moveleft1
+{
+0% { left:0rem; }
+  100% { left:-6.4rem;  }
+}
+@keyframes moveleft2
+{
+0% { left:6.4rem; }
+  100% { left:0rem;  }
+   
+}
+
+@-webkit-keyframes moveleft2
+{
+0% { left:6.4rem; }
+  100% { left:0rem;  }
+}
+
+.start-btn{
+        width: 1.9rem;
+        height: 0.95rem;    
+        position: absolute;
+        left: 50%;
+        top:70%;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);        
+        background: url(./static/img/btns.png) no-repeat top left;
+        background-size: 3.9rem 3.2rem;
+}
+.scroll-ground1{
+    width: 6.4rem;
+    height: 1.92rem;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;     
+       background: url(./static/img/ground.png) no-repeat top center/ cover;
+        animation:moveleft1 3s infinite linear; 
+        -webkit-animation:moveleft1 3s infinite linear;
+
+}
+.scroll-ground2{
+    width: 6.4rem;
+    height: 1.92rem;
+      position: absolute;
+      bottom: 0px;
+      left: 6.4rem;     
+       background: url(./static/img/ground.png) no-repeat top center/ cover;
+       animation:moveleft2 3s infinite linear; 
+        -webkit-animation:moveleft2 3s infinite linear;
+
+}
+    /*-----------------------开视屏样式-----------------------*/

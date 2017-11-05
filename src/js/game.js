@@ -3,7 +3,7 @@ export class Game {
         this.name = name;
     }
     start() {
-
+        console.log('test');
     }
     fail(context, time) {
 
