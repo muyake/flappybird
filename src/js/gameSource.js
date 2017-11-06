@@ -5,9 +5,10 @@
 const gameSourceUrl = {
     imageList: {
         //背景
-        //  flappybird: require('../Images/ico/flappybird.ico'),
+        // flappybird: require('../Images/ico/flappybird.ico'),
         BG: require('../Images/background.png'),
         birds: require('../Images/birds.png'),
+        allbird: require('../Images/allbird.png'),
         btns: require('../Images/btns.png'),
         gameWords: require('../Images/gameWords.png'),
         ground: require('../Images/ground.png'),

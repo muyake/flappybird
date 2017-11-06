@@ -124,6 +124,7 @@ var preLoadObj = {
             self.progressOverCallback();
             console.log(self.totalCount);
         }).catch(function(reason) {
+            console.log(reason);
             console.log('图片加载错误');
         });
     },

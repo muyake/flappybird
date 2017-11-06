@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,29 +70,110 @@
 "use strict";
 
 
-var _lib = __webpack_require__(1);
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var lib = {
+	$: function $(selector) {
+		return document.querySelector(selector);
+	},
+	getRandom: function getRandom(num1, num2) {
+		return num1 + Math.random() * (num2 - num1);
+	}
+};
+exports.lib = lib;
 
-var _adaptation = __webpack_require__(2);
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var _gameSource = __webpack_require__(3);
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//var BG = require(require('.../images/background2.png');
+
+
+//所有游戏需要加载的外部资源
+var gameSourceUrl = {
+    imageList: {
+        //背景
+        // flappybird: require('../Images/ico/flappybird.ico'),
+        BG: __webpack_require__(5),
+        birds: __webpack_require__(6),
+        allbird: __webpack_require__(43),
+        btns: __webpack_require__(7),
+        gameWords: __webpack_require__(8),
+        ground: __webpack_require__(9),
+        pipdown: __webpack_require__(10),
+        pipup: __webpack_require__(11),
+        scordbord: __webpack_require__(12),
+        score: __webpack_require__(13),
+        scorenum: __webpack_require__(14)
+
+    },
+    audioList: {
+        die: __webpack_require__(15),
+        hit: __webpack_require__(16),
+        point: __webpack_require__(17),
+        swooshing: __webpack_require__(18),
+        wing: __webpack_require__(19) //
+
+    }
+};
+exports.default = gameSourceUrl;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var config = {
+	canvasWidth: 0,
+	canvasHeight: 0,
+	groundHeight: 0,
+	grade: 1,
+	GRAVITY_FORCE: 90 * 6
+
+};
+exports.config = config;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _lib = __webpack_require__(0);
+
+var _adaptation = __webpack_require__(4);
+
+var _gameSource = __webpack_require__(1);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _preload = __webpack_require__(19);
+var _preload = __webpack_require__(20);
 
-var _gameEngine = __webpack_require__(24);
+var _gameEngine = __webpack_require__(25);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(2);
 
-var _spriteList = __webpack_require__(26);
+var _spriteList = __webpack_require__(27);
 
-var _cutscenes = __webpack_require__(39);
+var _cutscenes = __webpack_require__(34);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //html样式
-__webpack_require__(28);
-
+__webpack_require__(35);
 //加载公共函数
 
 //加载适配方案
@@ -106,72 +187,54 @@ __webpack_require__(28);
 
 var gameControl = new _gameEngine.Game('flappybird', 'mycanvas');
 var animateList = {
-    ctx: gameControl.context,
-    drawGround: function drawGround(time) {
-        _spriteList.spriteList.ground.draw();
-    },
-    drawBird: function drawBird(time) {
-        _spriteList.spriteList.bird.draw();
-    }
+	ctx: gameControl.context,
+	drawGround: function drawGround(time) {
+		_spriteList.spriteList.ground.draw();
+	},
+	drawBird: function drawBird(time) {
+		_spriteList.spriteList.bird.draw();
+	}
 };
 
 var option = {
-    gameSourceUrl: _gameSource2.default,
-    progressCallback: function progressCallback(progress) {
-        //console.log(progress);
-        var barSelector = _lib.lib.$('.progress-bar');
-        barSelector.style.width = progress * 100 + '%';
-    },
-    progressOverCallback: function progressOverCallback() {
-        var groundHeight = window.getComputedStyle(_lib.lib.$('.scroll-ground1'), null).height;
+	gameSourceUrl: _gameSource2.default,
+	progressCallback: function progressCallback(progress) {
+		//console.log(progress);
+		var barSelector = _lib.lib.$('.progress-bar');
+		barSelector.style.width = progress * 100 + '%';
+	},
+	progressOverCallback: function progressOverCallback() {
+		var groundHeight = window.getComputedStyle(_lib.lib.$('.scroll-ground1'), null).height;
 
-        _cutscenes.cutscenes.ready();
-        var canvasWidth = document.body.clientWidth;
-        var clientHeight = document.body.clientHeight;
-        _config.config.canvasWidth = canvasWidth;
-        _config.config.canvasHeight = clientHeight;
-
-        _config.config.ctx = gameControl.context;
-        //获取地面高度
-        _config.config.groundHeight = parseInt(groundHeight);
-        _lib.lib.$('#mycanvas').setAttribute('width', canvasWidth);
-        _lib.lib.$('#mycanvas').setAttribute('height', clientHeight);
-        _spriteList.spriteList.init();
-        _cutscenes.cutscenes.start();
-        gameControl.start();
-        _lib.lib.$('.start-btn').addEventListener('click', function () {
-            _cutscenes.cutscenes.start();
-            gameControl.start();
-        });
-        gameControl.startAnimate = function (time) {
-            _spriteList.spriteList.background.draw(gameControl.context, time, gameControl.fps.num);
-        };
-    }
+		_cutscenes.cutscenes.ready();
+		var canvasWidth = document.body.clientWidth;
+		var clientHeight = document.body.clientHeight;
+		_config.config.canvasWidth = canvasWidth;
+		_config.config.canvasHeight = clientHeight;
+		_config.config.ctx = gameControl.context;
+		//获取地面高度
+		_config.config.groundHeight = parseInt(groundHeight);
+		_lib.lib.$('#mycanvas').setAttribute('width', canvasWidth);
+		_lib.lib.$('#mycanvas').setAttribute('height', clientHeight);
+		_spriteList.spriteList.init();
+		_cutscenes.cutscenes.start();
+		gameControl.start();
+		_lib.lib.$('.start-btn').addEventListener('click', function () {
+			_cutscenes.cutscenes.start();
+			gameControl.start();
+		});
+		gameControl.startAnimate = function (time) {
+			_spriteList.spriteList.draw(gameControl.context, time, gameControl.fps.num);
+		};
+	}
 };
 _adaptation.adaptation.init(function () {
-    var gameSourceObj = _preload.preLoadObj.init(option);
-    console.log(gameSourceObj);
+	var gameSourceObj = _preload.preLoadObj.init(option);
+	console.log(gameSourceObj);
 });
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var lib = {
-    $: function $(selector) {
-        return document.querySelector(selector);
-    }
-};
-exports.lib = lib;
-
-/***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -207,138 +270,97 @@ var adaptation = function () {
 exports.adaptation = adaptation;
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//var BG = require(require('.../images/background2.png');
-
-
-//所有游戏需要加载的外部资源
-var gameSourceUrl = {
-    imageList: {
-        //背景
-        //  flappybird: require('../Images/ico/flappybird.ico'),
-        BG: __webpack_require__(4),
-        birds: __webpack_require__(5),
-        btns: __webpack_require__(6),
-        gameWords: __webpack_require__(7),
-        ground: __webpack_require__(8),
-        pipdown: __webpack_require__(9),
-        pipup: __webpack_require__(10),
-        scordbord: __webpack_require__(11),
-        score: __webpack_require__(12),
-        scorenum: __webpack_require__(13)
-
-    },
-    audioList: {
-        die: __webpack_require__(14),
-        hit: __webpack_require__(15),
-        point: __webpack_require__(16),
-        swooshing: __webpack_require__(17),
-        wing: __webpack_require__(18) //
-
-    }
-};
-exports.default = gameSourceUrl;
-
-/***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/background.png";
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/birds.png";
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/btns.png";
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/gameWords.png";
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/ground.png";
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/pipdown.png";
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/pipup.png";
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/scordbord.png";
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/score.png";
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/scorenum.png";
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/mp3/Die.mp3";
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/mp3/hit.mp3";
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/mp3/point.mp3";
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/mp3/swooshing.mp3";
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -347,7 +369,7 @@ module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var Promise = __webpack_require__(20).Promise;
+var Promise = __webpack_require__(21).Promise;
 
 var preLoadObj = {
     //Object.prototype.toString.call(o)能直接返回对象的类属性，形如"[object class]"的字符串，我们通过截取class，并能知道传入的对象是什么类型
@@ -475,6 +497,7 @@ var preLoadObj = {
             self.progressOverCallback();
             console.log(self.totalCount);
         }).catch(function (reason) {
+            console.log(reason);
             console.log('图片加载错误');
         });
     },
@@ -503,7 +526,7 @@ exports.preLoadObj = preLoadObj;
 //preLoadObj.init(option);
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;/*!
@@ -643,7 +666,7 @@ function flush() {
 function attemptVertx() {
   try {
     var r = require;
-    var vertx = __webpack_require__(23);
+    var vertx = __webpack_require__(24);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch (e) {
@@ -1664,10 +1687,10 @@ return Promise$2;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21), __webpack_require__(22)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22), __webpack_require__(23)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1857,7 +1880,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1884,13 +1907,13 @@ module.exports = g;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1901,7 +1924,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Game = undefined;
 
-__webpack_require__(25);
+__webpack_require__(26);
 
 var getTimeNow = function getTimeNow() {
 	return +new Date();
@@ -2061,7 +2084,7 @@ Game.prototype = {
 exports.Game = Game;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2194,7 +2217,7 @@ window.requestNextAnimationFrame = function () {
 }();
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2205,70 +2228,118 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.spriteList = undefined;
 
-var _ground = __webpack_require__(27);
+var _ground = __webpack_require__(28);
 
+var _lib = __webpack_require__(0);
+
+var _Pipeline = __webpack_require__(40);
+
+var _config = __webpack_require__(2);
+
+var _sourceConfig = __webpack_require__(41);
+
+var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
+
+var _grade = __webpack_require__(42);
+
+var _grade2 = _interopRequireDefault(_grade);
+
+var _bird = __webpack_require__(44);
+
+var _bird2 = _interopRequireDefault(_bird);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//加载公共函数
 var spriteList = {
+  pipelineList: [],
+  intervalArr: [{
+    mid: 210,
+    height: 100
+  }, {
+    mid: 100,
+    height: 80
+  }, {
+    mid: 150,
+    height: 90
+  }],
   init: function init() {
     this.background = new _ground.BG({
       name: "BG",
       top: 20,
       left: 0
     });
+    this.bird = new _bird2.default({
+      name: 'bird',
+      width: _sourceConfig2.default.birdConfig.width,
+      height: _sourceConfig2.default.birdConfig.height
+    });
+    var startleft = 30;
+    var interval = _config.config.canvasWidth / 2;
+    var self = this;
+    this.intervalArr.forEach(function (item, index) {
+      var num = _config.config.canvasHeight - _config.config.groundHeight;
+      var intervalH = _lib.lib.getRandom(num * 0.2, num * 0.25);
+      self.pipelineList.push(new _Pipeline.Pipeline({
+        isDown: true,
+        name: "pipeline",
+        left: startleft + interval * index,
+        height: item.mid - intervalH / 2
+      }));
+      self.pipelineList.push(new _Pipeline.Pipeline({
+        isDown: false,
+        name: "pipeline",
+        left: startleft + interval * index,
+        height: num - item.mid - item.height / 2
+      }));
+    });
+  },
+  update: function update() {
+    var length = this.pipelineList.length;
+    for (var i = 0; i < length; i = i + 2) {
+      var item = this.pipelineList[i];
+      var downitem = this.pipelineList[i + 1];
+      if (item.left < -item.width) {
+        item.left += _config.config.canvasWidth * 3 / 2;
+        downitem.left += _config.config.canvasWidth * 3 / 2;
+        var intervalObjIndex = i / 2;
+        var currentIntervalObj = this.intervalArr[intervalObjIndex];
+        var preIndex = intervalObjIndex - 1 < 0 ? this.intervalArr.length - 1 : intervalObjIndex - 1;
+        var mid = this.intervalArr[preIndex].mid;
+        var sign = Math.random() > 0.5 ? 1 : -1;
+        mid += sign * _lib.lib.getRandom(-_grade2.default['grade' + _config.config.grade].interval[0], _grade2.default['grade' + _config.config.grade].interval[1]);
+        var intervalObjHeight = _lib.lib.getRandom(_grade2.default['grade' + _config.config.grade].height[0], _grade2.default['grade' + _config.config.grade].height[1]);
+        currentIntervalObj.mid = mid;
+        currentIntervalObj.height = intervalObjHeight;
+        var num = _config.config.canvasHeight - _config.config.groundHeight;
+        if (currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height) {
+          currentIntervalObj.mid = _sourceConfig2.default.pipConfig.height - currentIntervalObj.height / 3;
+        }
+        if (num - currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height) {
+          currentIntervalObj.mid = num + currentIntervalObj.height - _sourceConfig2.default.pipConfig.height;
+        }
+        item.height = currentIntervalObj.mid - currentIntervalObj.height / 2;
+        item.imgtop = _sourceConfig2.default.pipConfig.height - item.height;
+        item.imgheight = item.height;
+        downitem.height = num - currentIntervalObj.mid - currentIntervalObj.height / 2;
+        downitem.top = _config.config.canvasHeight - downitem.height - _config.config.groundHeight;
+        downitem.imgheight = downitem.height;
+      }
+    }
+  },
+  draw: function draw(ctx, time, fpsNum) {
+    this.pipelineList.forEach(function (item) {
+      item.draw(ctx, time, fpsNum);
+    });
+    this.bird.draw(ctx, time, fpsNum);
+    this.background.draw(ctx, time, fpsNum);
+    this.update();
   }
-  // groundList: {
-  //   smallTree: new Sprite('sky1', new ImagePainter('./image/tree/smalltree.png'), [new behaviorList.moveLeftToRight()]),
-  //   twotrunksTree: new Sprite('sky1', new ImagePainter('./image/tree/tree-twotrunks.png'), [new behaviorList.moveLeftToRight()]),
-  // },
-  // grassList: {
-  //   grass: new Sprite('grass1', new GrassImagePainter('./image/grass/grass.png'), [new behaviorList.moveLeftToRight()]),
-  //   GRASS_VELOCITX: 0,
-  //   grassOffset: 0
-  // },
-  // SpriteSheetPainter:new PeopleSpriteSheetPainter(config.runnerCells,'./image/runpeople.png', true),
-  // bird: new Sprite('runner', peopleSpriteSheetPainter),
-  // spriteInit: function() {
-  //   this.skySprite.width = game.mycanvas.width;
-  //   this.skySprite.height = 500;
-  //   this.skySprite.velocityX = 8 * gameControl.speed;
-  //   this.skySprite.top = 0;
-  //   this.skySprite.left = 0;
-  //   //treeinit
-  //   this.treeList.smallTree.width = 137;
-  //   this.treeList.smallTree.height = 165;
-  //   this.treeList.smallTree.top = 232;
-  //   this.treeList.smallTree.left = 0;
-  //   this.treeList.smallTree.initialVelocitX = 20 * gameControl.speed;
-
-  //   //bigtreeinit
-  //   this.treeList.twotrunksTree.width = 224;
-  //   this.treeList.twotrunksTree.height = 224;
-  //   this.treeList.twotrunksTree.top = 185;
-  //   this.treeList.twotrunksTree.left = 0;
-  //   this.treeList.twotrunksTree.initialVelocitX = 40 * gameControl.speed;
-
-  //   //grass
-  //   this.grassList.initialGRASS_VELOCITX = -75 * gameControl.speed;
-  //   this.grassList.grass.width = game.mycanvas.width;
-  //   this.grassList.grass.height = 52;
-  //   this.grassList.grass.top = game.mycanvas.height - spriteList.grassList.grass.height;
-
-  //   //people
-  //   var size = 2;
-  //   this.peopleSprite.velocityX = 50;
-  //   //this.peopleSprite.velocityY = 50;
-  //   this.peopleSprite.width = 35 * size;
-  //   this.peopleSprite.height = 64 * size;
-  //   this.peopleSprite.top = game.mycanvas.height - this.peopleSprite.height;
-  //   this.peopleSprite.left = game.mycanvas.width / 2 - this.peopleSprite.width / 2;
-  //   // this.peopleSprite.behaviors = [behaviorList.jump];
-  //   behaviorList.jump.initialTop = this.peopleSprite.top;
-  //   spriteList.peopleSprite.behaviors = [behaviorList.runInPlace];
-  // }
 };
 exports.spriteList = spriteList;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2281,21 +2352,21 @@ exports.BG = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(2);
 
-var _gameSource = __webpack_require__(3);
+var _gameSource = __webpack_require__(1);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _SceneSprite2 = __webpack_require__(34);
+var _SceneSprite2 = __webpack_require__(29);
 
 var _SceneSprite3 = _interopRequireDefault(_SceneSprite2);
 
-var _SceneImagePainter = __webpack_require__(35);
+var _SceneImagePainter = __webpack_require__(31);
 
 var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
 
-var _behaviorList = __webpack_require__(38);
+var _behaviorList = __webpack_require__(33);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
@@ -2330,9 +2401,6 @@ var BG = function (_SceneSprite) {
     _createClass(BG, [{
         key: 'draw',
         value: function draw(ctx, time, fpsNum) {
-            // if (!gameControl.gamePause) {
-
-            // }
             this.update(ctx, time, fpsNum);
             var left = this.left;
             if (this.velocityX > 0) {
@@ -2354,33 +2422,7 @@ var BG = function (_SceneSprite) {
 exports.BG = BG;
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var config = {
-    canvasWidth: 0,
-    canvasHeight: 0
-};
-exports.config = config;
-
-/***/ }),
-/* 34 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2392,7 +2434,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _sprite = __webpack_require__(36);
+var _sprite = __webpack_require__(30);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2424,55 +2466,7 @@ var SceneSprite = function (_Sprite) {
 exports.default = SceneSprite;
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _imagePainter = __webpack_require__(37);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SceneImagePainter = function (_ImagePainter) {
-    _inherits(SceneImagePainter, _ImagePainter);
-
-    function SceneImagePainter(imageUrl) {
-        _classCallCheck(this, SceneImagePainter);
-
-        return _possibleConstructorReturn(this, (SceneImagePainter.__proto__ || Object.getPrototypeOf(SceneImagePainter)).call(this, imageUrl));
-    }
-
-    _createClass(SceneImagePainter, [{
-        key: 'paint',
-        value: function paint(sprite, context) {
-            if (!!this.image) {
-                if (sprite.imgwidth) {
-                    context.drawImage(this.image, sprite.imgleft, sprite.imgtop, sprite.imgwidth, sprite.imgheight, sprite.left, sprite.top, sprite.width, sprite.height);
-                } else {
-                    context.drawImage(this.image, sprite.left, sprite.top, sprite.width, sprite.height);
-                }
-            }
-        }
-    }]);
-
-    return SceneImagePainter;
-}(_imagePainter.ImagePainter);
-
-exports.default = SceneImagePainter;
-
-/***/ }),
-/* 36 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2527,7 +2521,55 @@ var Sprite = exports.Sprite = function () {
 }();
 
 /***/ }),
-/* 37 */
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _imagePainter = __webpack_require__(32);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SceneImagePainter = function (_ImagePainter) {
+    _inherits(SceneImagePainter, _ImagePainter);
+
+    function SceneImagePainter(imageUrl) {
+        _classCallCheck(this, SceneImagePainter);
+
+        return _possibleConstructorReturn(this, (SceneImagePainter.__proto__ || Object.getPrototypeOf(SceneImagePainter)).call(this, imageUrl));
+    }
+
+    _createClass(SceneImagePainter, [{
+        key: 'paint',
+        value: function paint(sprite, context) {
+            if (!!this.image) {
+                if (sprite.imgwidth) {
+                    context.drawImage(this.image, sprite.imgleft, sprite.imgtop, sprite.imgwidth, sprite.imgheight, sprite.left, sprite.top, sprite.width, sprite.height);
+                } else {
+                    context.drawImage(this.image, sprite.left, sprite.top, sprite.width, sprite.height);
+                }
+            }
+        }
+    }]);
+
+    return SceneImagePainter;
+}(_imagePainter.ImagePainter);
+
+exports.default = SceneImagePainter;
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2567,7 +2609,7 @@ var ImagePainter = function () {
 exports.ImagePainter = ImagePainter;
 
 /***/ }),
-/* 38 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2601,38 +2643,26 @@ var behaviorList = {
             sprite.left += sprite.velocityX / this.fpsNum;
             this.lastMove = time;
         };
-    }
-    //其他物体的横向运动，都是根据sprite.positionmile与progressObj.createSpriteMileNum的相对位置计算出来的
-    // SpriteLeftToRight: function() {
-    //     this.behaviorName = 'moveLeftToRight';
-    //     this.lastMove = 0;
-    //     this.fpsNum = 60;
-    //     this.execute = function(sprite, context, time, fpsNum) {
-    //         let translateLeft = sprite.translateLeft || 0;
-    //        // console.log(translateLeft);
-    //         //  console.log('translateLeft'+progressObj.createSpriteMileNum);
-    //       sprite.left = sprite.positionmile - progressObj.createSpriteMileNum - translateLeft;
-    //     }
-    // },
+    },
 
     //小人跑动动画
-    // runInPlace: function(setting) {
-    //     let defaultSetting = {
-    //         lastAdvance: 0,
-    //         PAGEFLIP_INTERVAL: 30,
-    //         behaviorName: 'runInPlace',
-    //     };
-    //     lib.jQueryExtend(defaultSetting, setting);
-    //     this.lastAdvance = defaultSetting.lastAdvance;
-    //     this.PAGEFLIP_INTERVAL = defaultSetting.PAGEFLIP_INTERVAL;
-    //     this.behaviorName = defaultSetting.behaviorName;
-    //     this.execute = function(sprite, context, time) {
-    //         if (time - this.lastAdvance > this.PAGEFLIP_INTERVAL) {
-    //             sprite.painter.advance(sprite);
-    //             this.lastAdvance = time;
-    //         }
-    //     }
-    // },
+    runInPlace: function runInPlace(setting) {
+        var defaultSetting = {
+            lastAdvance: 0,
+            PAGEFLIP_INTERVAL: 30,
+            behaviorName: 'runInPlace'
+        };
+        defaultSetting = Object.assign({}, defaultSetting, setting);
+        this.lastAdvance = defaultSetting.lastAdvance;
+        this.PAGEFLIP_INTERVAL = defaultSetting.PAGEFLIP_INTERVAL;
+        this.behaviorName = defaultSetting.behaviorName;
+        this.execute = function (sprite, context, time) {
+            if (time - this.lastAdvance > this.PAGEFLIP_INTERVAL) {
+                sprite.painter.advance(sprite);
+                this.lastAdvance = time;
+            }
+        };
+    }
     //坏花
     // upInPlace: function(setting) {
     //     let defaultSetting = {
@@ -2691,34 +2721,619 @@ var behaviorList = {
 exports.default = behaviorList;
 
 /***/ }),
-/* 39 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-       value: true
+  value: true
 });
 exports.cutscenes = undefined;
 
-var _lib = __webpack_require__(1);
+var _lib = __webpack_require__(0);
 
 //过场动画
 var cutscenes = {
-       ready: function ready() {
-              var barSelector = _lib.lib.$('.progress-box');
-              barSelector.style.display = 'none';
-              var barSelector = _lib.lib.$('.start-screen');
-              barSelector.style.display = 'block';
-       },
-       start: function start() {
-              var barSelector = _lib.lib.$('.start-screen');
-              barSelector.style.display = 'none';
-       },
-       stop: function stop() {}
+  ready: function ready() {
+    var barSelector = _lib.lib.$('.progress-box');
+    barSelector.style.display = 'none';
+    var barSelector = _lib.lib.$('.start-screen');
+    barSelector.style.display = 'block';
+  },
+  start: function start() {
+    var barSelector = _lib.lib.$('.start-screen');
+    barSelector.style.display = 'none';
+  },
+  stop: function stop() {}
 }; //加载公共函数
 exports.cutscenes = cutscenes;
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Pipeline = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _config = __webpack_require__(2);
+
+var _gameSource = __webpack_require__(1);
+
+var _gameSource2 = _interopRequireDefault(_gameSource);
+
+var _SceneSprite2 = __webpack_require__(29);
+
+var _SceneSprite3 = _interopRequireDefault(_SceneSprite2);
+
+var _SceneImagePainter = __webpack_require__(31);
+
+var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
+
+var _behaviorList = __webpack_require__(33);
+
+var _behaviorList2 = _interopRequireDefault(_behaviorList);
+
+var _sourceConfig = __webpack_require__(41);
+
+var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//预加载图片
+
+
+var Pipeline = function (_SceneSprite) {
+    _inherits(Pipeline, _SceneSprite);
+
+    function Pipeline(setting) {
+        _classCallCheck(this, Pipeline);
+
+        if (setting.isDown) {
+            var _this = _possibleConstructorReturn(this, (Pipeline.__proto__ || Object.getPrototypeOf(Pipeline)).call(this, setting.name, new _SceneImagePainter2.default(_gameSource2.default.imageList.pipdown), [new _behaviorList2.default.moveLeftToRight()]));
+
+            _this.top = 0;
+            _this.imgtop = _sourceConfig2.default.pipConfig.height - setting.height;
+        } else {
+            var _this = _possibleConstructorReturn(this, (Pipeline.__proto__ || Object.getPrototypeOf(Pipeline)).call(this, setting.name, new _SceneImagePainter2.default(_gameSource2.default.imageList.pipup), [new _behaviorList2.default.moveLeftToRight()]));
+
+            _this.top = _config.config.canvasHeight - setting.height - _config.config.groundHeight;
+            _this.imgtop = 0;
+        }
+        _this.width = _sourceConfig2.default.pipConfig.width;
+        _this.height = setting.height;
+        _this.left = setting.left || 0;
+        _this.velocityX = -100;
+        _this.imgwidth = _this.width;
+        _this.imgheight = setting.height;
+        _this.imgleft = 0;
+        return _possibleConstructorReturn(_this);
+    }
+
+    _createClass(Pipeline, [{
+        key: 'draw',
+        value: function draw(ctx, time, fpsNum) {
+            this.update(ctx, time, fpsNum);
+            this.paint(ctx);
+        }
+    }]);
+
+    return Pipeline;
+}(_SceneSprite3.default);
+
+exports.Pipeline = Pipeline;
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+// 图片大小参数
+var sourceConfig = {
+	pipConfig: {
+		width: 52,
+		height: 420
+	},
+	ground: {
+		width: 336,
+		height: 112
+	},
+	birdConfig: {
+		width: 40,
+		height: 30,
+		hconfig: {
+			totalCount: 2,
+			sprite_0: {
+				width: 40,
+				height: 26,
+				left: 0,
+				top: 121
+			},
+
+			sprite_1: {
+				width: 40,
+				height: 26,
+				left: 0,
+				top: 156
+			}
+		},
+		uconfig: {
+			totalCount: 2,
+			sprite_0: {
+				width: 40,
+				height: 29,
+				left: 0,
+				top: 41
+			},
+
+			sprite_1: {
+				width: 40,
+				height: 29,
+				left: 0,
+				top: 80
+			}
+		},
+		dconfig: {
+			totalCount: 2,
+			sprite_0: {
+				width: 40,
+				height: 30,
+				left: 0,
+				top: 191
+			},
+			sprite_1: {
+				width: 40,
+				height: 30,
+				left: 0,
+				top: 0
+			}
+		}
+
+	}
+
+};
+exports.default = sourceConfig;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _grade;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var grade = (_grade = {
+	grade1: {
+		height: [100, 150],
+		interval: [20, 50]
+	},
+	grade2: {
+		height: [100, 140],
+		interval: [30, 60]
+	}
+}, _defineProperty(_grade, "grade2", []), _defineProperty(_grade, "grade3", []), _defineProperty(_grade, "grade4", []), _defineProperty(_grade, "grade5", []), _grade);
+exports.default = grade;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/allbird.png";
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _config = __webpack_require__(2);
+
+var _gameSource = __webpack_require__(1);
+
+var _gameSource2 = _interopRequireDefault(_gameSource);
+
+var _SceneSprite = __webpack_require__(29);
+
+var _SceneSprite2 = _interopRequireDefault(_SceneSprite);
+
+var _SceneImagePainter = __webpack_require__(31);
+
+var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
+
+var _behaviorList = __webpack_require__(33);
+
+var _behaviorList2 = _interopRequireDefault(_behaviorList);
+
+var _CharacterRunSpriteSheetPainter = __webpack_require__(45);
+
+var _CharacterRunSpriteSheetPainter2 = _interopRequireDefault(_CharacterRunSpriteSheetPainter);
+
+var _sourceConfig = __webpack_require__(41);
+
+var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
+
+var _sprite = __webpack_require__(30);
+
+var _CharacterSpriteAnimator = __webpack_require__(47);
+
+var _CharacterSpriteAnimator2 = _interopRequireDefault(_CharacterSpriteAnimator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//预加载图片
+
+
+var Bird = function (_Sprite) {
+    _inherits(Bird, _Sprite);
+
+    function Bird(setting) {
+        _classCallCheck(this, Bird);
+
+        var _this = _possibleConstructorReturn(this, (Bird.__proto__ || Object.getPrototypeOf(Bird)).call(this, setting.name));
+
+        _this.painters = {
+            run: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.hconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.hconfig.totalCount),
+            up: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.uconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.uconfig.totalCount),
+            down: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.dconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.dconfig.totalCount)
+        };
+        _this.isDie = false;
+        _this.name = 'bird';
+        _this.translateLeft = 0;
+        _this.width = setting.width || _sourceConfig2.default.birdConfig.width;
+        _this.height = setting.height || _sourceConfig2.default.birdConfig.height;
+        _this.top = 200;
+        _this.left = 10;
+        _this.velocityY = -150;
+        _this.GRAVITY_FORCE = _config.config.GRAVITY_FORCE; //重力             
+        _this.upColliding = null; //下面的墙或管道等 
+        _this.initialTop = _config.config.canvasHeight - _this.height - _config.config.groundHeight;
+        _this.behaviorStatus = {
+            runInPlace: new _behaviorList2.default.runInPlace({
+                PAGEFLIP_INTERVAL: 100
+            })
+        };
+        _this.behaviors = [_this.behaviorStatus.runInPlace];
+        _this.painter = _this.painters.down;
+        _this.monsterSpriteAnimatorJump = new _CharacterSpriteAnimator2.default(function die() {
+            console.log('die');
+        }, _this);
+        _this.monsterSpriteAnimatorJump.start();
+        return _this;
+    }
+
+    _createClass(Bird, [{
+        key: 'draw',
+        value: function draw(ctx, time, fpsNum) {
+            this.fpsNum = fpsNum; //给monsterSpriteAnimator传递fpsnumbehaviors
+            // if (!gameControl.gamePause) {
+            //     this.monsterSpriteAnimatorMove.execute();
+            //     this.monsterSpriteAnimatorJump.execute();
+            //     this.update(ctx, time, fpsNum);
+            // }
+            this.monsterSpriteAnimatorJump.execute();
+            this.update(ctx, time, fpsNum);
+            this.paint(ctx);
+        }
+    }]);
+
+    return Bird;
+}(_sprite.Sprite);
+
+exports.default = Bird;
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _spriteSheetPainter = __webpack_require__(46);
+
+var _config = __webpack_require__(2);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CharacterRunSpriteSheetPainter = function (_SpriteSheetPainter) {
+    _inherits(CharacterRunSpriteSheetPainter, _SpriteSheetPainter);
+
+    function CharacterRunSpriteSheetPainter(cells, spritesheeturl, imgcount) {
+        _classCallCheck(this, CharacterRunSpriteSheetPainter);
+
+        var _this = _possibleConstructorReturn(this, (CharacterRunSpriteSheetPainter.__proto__ || Object.getPrototypeOf(CharacterRunSpriteSheetPainter)).call(this, cells, spritesheeturl));
+
+        _this.imgcount = imgcount;
+        return _this;
+    }
+
+    _createClass(CharacterRunSpriteSheetPainter, [{
+        key: 'paint',
+        value: function paint(sprite, context) {
+            var cell = this.cells['sprite_' + this.cellIndex];
+            context.drawImage(this.spritesheet, cell.left, cell.top, cell.width, cell.height, sprite.left, sprite.top, sprite.width, sprite.height);
+
+            // if (sprite.isReverse) {
+            //     context.drawImage(this.spritesheet, cell.left, cell.top, cell.width, cell.height, sprite.left, sprite.top, sprite.width, sprite.height);
+            // } else {
+            //     context.translate(config.canvasWidth, 0);
+            //     context.scale(-1, 1)
+            //     context.drawImage(this.spritesheet, cell.left, cell.top, cell.width, cell.height, config.canvasWidth - sprite.width - sprite.left, sprite.top, sprite.width, sprite.height);
+            //     context.translate(config.canvasWidth, 0);
+            //     context.scale(-1, 1);
+            // }
+        }
+    }, {
+        key: 'advance',
+        value: function advance(sprite, context) {
+            this.cellIndex++;
+            if (this.cellIndex == this.imgcount) {
+                this.cellIndex = 0;
+            }
+        }
+    }]);
+
+    return CharacterRunSpriteSheetPainter;
+}(_spriteSheetPainter.SpriteSheetPainter);
+
+exports.default = CharacterRunSpriteSheetPainter;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//雪碧图的对象
+var SpriteSheetPainter = function () {
+    function SpriteSheetPainter() {
+        var cells = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+        var spritesheeturl = arguments[1];
+
+        _classCallCheck(this, SpriteSheetPainter);
+
+        this.cells = cells;
+        this.spritesheet = new Image();
+        this.spritesheet.src = spritesheeturl;
+        this.cellIndex = 0;
+        // this.mycanvas = mycanvas;
+    }
+    //雪碧图的轮播
+
+
+    _createClass(SpriteSheetPainter, [{
+        key: "advance",
+        value: function advance() {
+            if (this.cellIndex == this.cells.length - 1) {
+                this.cellIndex = 0;
+            } else {
+                this.cellIndex++;
+            }
+        }
+        //雪碧图的绘制
+
+    }, {
+        key: "paint",
+        value: function paint(sprite, context) {
+            var cell = this.cells[this.cellIndex];
+            context.drawImage(this.spritesheet.cell.left, cell.top, cell.width, cell.heightsprite.left, sprite.top, cell.width, cell.height);
+        }
+    }]);
+
+    return SpriteSheetPainter;
+}();
+
+exports.SpriteSheetPainter = SpriteSheetPainter;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _spriteAnimator = __webpack_require__(48);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CharacterSpriteAnimator = function (_SpriteAnimator) {
+    _inherits(CharacterSpriteAnimator, _SpriteAnimator);
+
+    function CharacterSpriteAnimator(elapsedCallback, sprite) {
+        _classCallCheck(this, CharacterSpriteAnimator);
+
+        var _this = _possibleConstructorReturn(this, (CharacterSpriteAnimator.__proto__ || Object.getPrototypeOf(CharacterSpriteAnimator)).call(this, undefined, elapsedCallback));
+
+        if (elapsedCallback) {
+            _this.elapsedCallback = elapsedCallback;
+        }
+        _this.sprite = sprite;
+        _this.isRunning = false;
+        return _this;
+    }
+
+    _createClass(CharacterSpriteAnimator, [{
+        key: 'end',
+        value: function end(sprite) {
+            sprite.animating = false;
+            if (this.elapsedCallback) {
+                this.elapsedCallback(sprite);
+            }
+        }
+    }, {
+        key: 'start',
+        value: function start() {
+            this.isRunning = true;
+        }
+    }, {
+        key: 'execute',
+        value: function execute() {
+            var animator = this;
+            if (animator.isRunning) {
+                this.sprite.velocityY = this.sprite.velocityY + this.sprite.GRAVITY_FORCE / this.sprite.fpsNum;
+                this.sprite.top += this.sprite.velocityY / this.sprite.fpsNum;
+                if (this.sprite.top < this.sprite.initialTop) {
+                    this.sprite.isJump = true;
+                } else {
+                    this.sprite.top = this.sprite.initialTop;
+                    this.sprite.isJump = false;
+                    animator.isRunning = false;
+                    animator.end(this.sprite); //一定要放到isRunning = false;下面
+                }
+            }
+        }
+    }]);
+
+    return CharacterSpriteAnimator;
+}(_spriteAnimator.SpriteAnimator);
+
+exports.default = CharacterSpriteAnimator;
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//这是过程动画，在本游戏中没有用到
+var SpriteAnimator = function () {
+    function SpriteAnimator() {
+        var painters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+        var elapsedCallback = arguments[1];
+
+        _classCallCheck(this, SpriteAnimator);
+
+        this.painters = painters;
+        if (elapsedCallback) {
+            this.elapsedCallback = elapsedCallback;
+        }
+        // this.painters = [];
+        this.duration = 1000;
+        this.startTime = 0;
+        this.index = 0;
+        this.elapsedCallback = undefined;
+    }
+
+    _createClass(SpriteAnimator, [{
+        key: "end",
+        value: function end(sprite, originalPainter) {
+            sprite.animating = false;
+            if (this.elapsedCallback) {
+                this.elapsedCallback(sprite);
+            } else {
+                sprite.painter = originalPainter;
+            }
+        }
+    }, {
+        key: "start",
+        value: function start(sprite, duration) {
+            var endTime = +new Date() + duration;
+            var periond = duration / this.painters.length;
+            var interval = undefined;
+            var animator = this;
+            var originalPainter = sprite.painters;
+            this.index = 0;
+            sprite.animating = true;
+            sprite.painter = this.painters[this.index];
+            interval = setInterval(function () {
+                if (+new Date() < endTime) {
+                    sprite.painter = animator.painters[++animator.index];
+                } else {
+                    animator.end(sprite, originalPainter);
+                    clearInterval(interval);
+                }
+            }, period);
+        }
+    }]);
+
+    return SpriteAnimator;
+}();
+
+exports.SpriteAnimator = SpriteAnimator;
 
 /***/ })
 /******/ ]);
