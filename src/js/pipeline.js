@@ -21,7 +21,7 @@ class Pipeline extends SceneSprite {
         this.width = sourceConfig.pipConfig.width;
         this.height = setting.height;
         this.left = setting.left || 0;
-        this.velocityX = -100;
+        this.velocityX = -config.velocityX;
         this.imgwidth = this.width;
         this.imgheight = setting.height;
         this.imgleft = 0;

@@ -28,7 +28,7 @@ class Bird extends Sprite {
         this.height = setting.height || sourceConfig.birdConfig.height;
         this.top = 200;
         this.left = 50;
-        this.velocityY = -150;
+        this.velocityY = -config.velocityY;
         this.GRAVITY_FORCE = config.GRAVITY_FORCE; //重力             
         this.upColliding = null; //下面的墙或管道等 
         this.initialTop = config.canvasHeight - this.height - config.groundHeight;
@@ -39,8 +39,9 @@ class Bird extends Sprite {
         };
         this.behaviors = [this.behaviorStatus.runInPlace];
         this.painter = this.painters.up;
+        var self=this;
         this.monsterSpriteAnimatorJump = new CharacterSpriteAnimator(function die() {
-            this.isDie = true;
+            self.isDie = true;
             console.log('die');
         }, this);
         this.monsterSpriteAnimatorJump.start();

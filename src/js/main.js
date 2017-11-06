@@ -27,9 +27,9 @@ import {
 import {
 	cutscenes
 } from './cutscenes.js';
-import {
-	updateScore
-} from './updateScore.js';
+// import {
+// 	updateScore
+// } from './updateScore.js';
 
 var gameControl = new Game('flappybird', 'mycanvas');
 
@@ -64,7 +64,7 @@ var option = {
 			spriteList.pop();
 		});
 		gameControl.startAnimate = function(time) {
-			spriteList.draw(gameControl.context, time, gameControl.fps.num, updateScore.changeScore);
+			spriteList.draw(gameControl.context, time, gameControl.fps.num);
 		};
 	},
 };
