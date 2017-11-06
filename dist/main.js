@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,110 +70,30 @@
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-var lib = {
-	$: function $(selector) {
-		return document.querySelector(selector);
-	},
-	getRandom: function getRandom(num1, num2) {
-		return num1 + Math.random() * (num2 - num1);
-	}
-};
-exports.lib = lib;
+var _lib = __webpack_require__(28);
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+var _adaptation = __webpack_require__(1);
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//var BG = require(require('.../images/background2.png');
-
-
-//所有游戏需要加载的外部资源
-var gameSourceUrl = {
-    imageList: {
-        //背景
-        // flappybird: require('../Images/ico/flappybird.ico'),
-        BG: __webpack_require__(5),
-        birds: __webpack_require__(6),
-        allbird: __webpack_require__(43),
-        btns: __webpack_require__(7),
-        gameWords: __webpack_require__(8),
-        ground: __webpack_require__(9),
-        pipdown: __webpack_require__(10),
-        pipup: __webpack_require__(11),
-        scordbord: __webpack_require__(12),
-        score: __webpack_require__(13),
-        scorenum: __webpack_require__(14)
-
-    },
-    audioList: {
-        die: __webpack_require__(15),
-        hit: __webpack_require__(16),
-        point: __webpack_require__(17),
-        swooshing: __webpack_require__(18),
-        wing: __webpack_require__(19) //
-
-    }
-};
-exports.default = gameSourceUrl;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-var config = {
-	canvasWidth: 0,
-	canvasHeight: 0,
-	groundHeight: 0,
-	grade: 1,
-	GRAVITY_FORCE: 90 * 6
-
-};
-exports.config = config;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _lib = __webpack_require__(0);
-
-var _adaptation = __webpack_require__(4);
-
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _preload = __webpack_require__(20);
+var _preload = __webpack_require__(18);
 
-var _gameEngine = __webpack_require__(25);
+var _gameEngine = __webpack_require__(30);
 
-var _config = __webpack_require__(2);
+var _config = __webpack_require__(29);
 
-var _spriteList = __webpack_require__(27);
+var _spriteList = __webpack_require__(32);
 
-var _cutscenes = __webpack_require__(34);
+var _cutscenes = __webpack_require__(39);
+
+var _updateScore = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //html样式
-__webpack_require__(35);
+__webpack_require__(23);
 //加载公共函数
 
 //加载适配方案
@@ -186,15 +106,6 @@ __webpack_require__(35);
 
 
 var gameControl = new _gameEngine.Game('flappybird', 'mycanvas');
-var animateList = {
-	ctx: gameControl.context,
-	drawGround: function drawGround(time) {
-		_spriteList.spriteList.ground.draw();
-	},
-	drawBird: function drawBird(time) {
-		_spriteList.spriteList.bird.draw();
-	}
-};
 
 var option = {
 	gameSourceUrl: _gameSource2.default,
@@ -205,7 +116,6 @@ var option = {
 	},
 	progressOverCallback: function progressOverCallback() {
 		var groundHeight = window.getComputedStyle(_lib.lib.$('.scroll-ground1'), null).height;
-
 		_cutscenes.cutscenes.ready();
 		var canvasWidth = document.body.clientWidth;
 		var clientHeight = document.body.clientHeight;
@@ -223,8 +133,11 @@ var option = {
 			_cutscenes.cutscenes.start();
 			gameControl.start();
 		});
+		_lib.lib.$('#mycanvas').addEventListener('touchstart', function () {
+			_spriteList.spriteList.pop();
+		});
 		gameControl.startAnimate = function (time) {
-			_spriteList.spriteList.draw(gameControl.context, time, gameControl.fps.num);
+			_spriteList.spriteList.draw(gameControl.context, time, gameControl.fps.num, _updateScore.updateScore.changeScore);
 		};
 	}
 };
@@ -234,7 +147,7 @@ _adaptation.adaptation.init(function () {
 });
 
 /***/ }),
-/* 4 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -270,97 +183,7 @@ var adaptation = function () {
 exports.adaptation = adaptation;
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/background.png";
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/birds.png";
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/btns.png";
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/gameWords.png";
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/ground.png";
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/pipdown.png";
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/pipup.png";
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/scordbord.png";
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/score.png";
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/img/scorenum.png";
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/Die.mp3";
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/hit.mp3";
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/point.mp3";
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/swooshing.mp3";
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
-
-/***/ }),
-/* 20 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -369,7 +192,144 @@ module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var Promise = __webpack_require__(21).Promise;
+//var BG = require(require('.../images/background2.png');
+
+
+//所有游戏需要加载的外部资源
+var gameSourceUrl = {
+    imageList: {
+        //背景
+        // flappybird: require('../Images/ico/flappybird.ico'),
+        BG: __webpack_require__(3),
+        birds: __webpack_require__(4),
+        allbird: __webpack_require__(43),
+        btns: __webpack_require__(5),
+        gameWords: __webpack_require__(6),
+        ground: __webpack_require__(7),
+        pipdown: __webpack_require__(8),
+        pipup: __webpack_require__(9),
+        scordbord: __webpack_require__(10),
+        score: __webpack_require__(11),
+        // scorenum: require('../Images/scorenum.png'),
+        score0: __webpack_require__(50),
+        score1: __webpack_require__(53),
+        score2: __webpack_require__(51),
+        score3: __webpack_require__(52),
+        score4: __webpack_require__(54),
+        score5: __webpack_require__(55),
+        score6: __webpack_require__(56),
+        score7: __webpack_require__(57),
+        score8: __webpack_require__(58),
+        score9: __webpack_require__(59)
+
+    },
+    audioList: {
+        die: __webpack_require__(13),
+        hit: __webpack_require__(14),
+        point: __webpack_require__(15),
+        swooshing: __webpack_require__(16),
+        wing: __webpack_require__(17) //
+
+    }
+};
+exports.default = gameSourceUrl;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/background.png";
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/birds.png";
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/btns.png";
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/gameWords.png";
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/ground.png";
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/pipdown.png";
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/pipup.png";
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/scordbord.png";
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/score.png";
+
+/***/ }),
+/* 12 */,
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/Die.mp3";
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = "data:audio/mpeg;base64,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"
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/point.mp3";
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/swooshing.mp3";
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = "data:audio/mpeg;base64,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"
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var Promise = __webpack_require__(19).Promise;
 
 var preLoadObj = {
     //Object.prototype.toString.call(o)能直接返回对象的类属性，形如"[object class]"的字符串，我们通过截取class，并能知道传入的对象是什么类型
@@ -526,7 +486,7 @@ exports.preLoadObj = preLoadObj;
 //preLoadObj.init(option);
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;/*!
@@ -666,7 +626,7 @@ function flush() {
 function attemptVertx() {
   try {
     var r = require;
-    var vertx = __webpack_require__(24);
+    var vertx = __webpack_require__(22);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch (e) {
@@ -1687,10 +1647,10 @@ return Promise$2;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22), __webpack_require__(23)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20), __webpack_require__(21)))
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1880,7 +1840,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1907,13 +1867,63 @@ module.exports = g;
 
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 25 */
+/* 23 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var lib = {
+	$: function $(selector) {
+		return document.querySelector(selector);
+	},
+	getRandom: function getRandom(num1, num2) {
+		return num1 + Math.random() * (num2 - num1);
+	}
+};
+exports.lib = lib;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var config = {
+	canvasWidth: 0,
+	canvasHeight: 0,
+	groundHeight: 0,
+	grade: 1,
+	GRAVITY_FORCE: 90 * 6
+
+};
+exports.config = config;
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1924,7 +1934,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Game = undefined;
 
-__webpack_require__(26);
+__webpack_require__(31);
 
 var getTimeNow = function getTimeNow() {
 	return +new Date();
@@ -2084,7 +2094,7 @@ Game.prototype = {
 exports.Game = Game;
 
 /***/ }),
-/* 26 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2217,7 +2227,7 @@ window.requestNextAnimationFrame = function () {
 }();
 
 /***/ }),
-/* 27 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2228,13 +2238,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.spriteList = undefined;
 
-var _ground = __webpack_require__(28);
+var _ground = __webpack_require__(33);
 
-var _lib = __webpack_require__(0);
+var _lib = __webpack_require__(28);
 
 var _Pipeline = __webpack_require__(40);
 
-var _config = __webpack_require__(2);
+var _config = __webpack_require__(29);
 
 var _sourceConfig = __webpack_require__(41);
 
@@ -2263,6 +2273,8 @@ var spriteList = {
     mid: 150,
     height: 90
   }],
+  totalScore: 0,
+  flag: false,
   init: function init() {
     this.background = new _ground.BG({
       name: "BG",
@@ -2274,7 +2286,7 @@ var spriteList = {
       width: _sourceConfig2.default.birdConfig.width,
       height: _sourceConfig2.default.birdConfig.height
     });
-    var startleft = 30;
+    var startleft = 130;
     var interval = _config.config.canvasWidth / 2;
     var self = this;
     this.intervalArr.forEach(function (item, index) {
@@ -2312,11 +2324,11 @@ var spriteList = {
         currentIntervalObj.mid = mid;
         currentIntervalObj.height = intervalObjHeight;
         var num = _config.config.canvasHeight - _config.config.groundHeight;
-        if (currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height) {
-          currentIntervalObj.mid = _sourceConfig2.default.pipConfig.height - currentIntervalObj.height / 3;
+        if (currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height * 3 / 4) {
+          currentIntervalObj.mid = _sourceConfig2.default.pipConfig.height * 3 / 4 + currentIntervalObj.height / 2;
         }
-        if (num - currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height) {
-          currentIntervalObj.mid = num + currentIntervalObj.height - _sourceConfig2.default.pipConfig.height;
+        if (num - currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height * 3 / 4) {
+          currentIntervalObj.mid = num - currentIntervalObj.height / 2 - _sourceConfig2.default.pipConfig.height * 3 / 4;
         }
         item.height = currentIntervalObj.mid - currentIntervalObj.height / 2;
         item.imgtop = _sourceConfig2.default.pipConfig.height - item.height;
@@ -2327,19 +2339,43 @@ var spriteList = {
       }
     }
   },
-  draw: function draw(ctx, time, fpsNum) {
+  updateScore: function updateScore(callback) {
+    var length = this.pipelineList.length;
+    for (var i = 0; i < length; i = i + 2) {
+      var item = this.pipelineList[i];
+      var left1 = item.left;
+      var left2 = item.left + item.width;
+      if (left1 < this.bird.left + this.bird.width && left2 > this.bird.left) {
+        this.flag = true;
+      }
+      if (this.flag == true && left2 <= this.bird.left) {
+        this.flag = false;
+        this.totalScore++;
+        callback(this.totalScore);
+        // console.log(this.totalScore);
+      }
+    }
+  },
+
+  draw: function draw(ctx, time, fpsNum, callback) {
     this.pipelineList.forEach(function (item) {
       item.draw(ctx, time, fpsNum);
     });
     this.bird.draw(ctx, time, fpsNum);
     this.background.draw(ctx, time, fpsNum);
     this.update();
+    this.updateScore(callback);
+  },
+  pop: function pop() {
+    if (!this.bird.idDie) {
+      this.bird.velocityY = -150;
+    }
   }
 };
 exports.spriteList = spriteList;
 
 /***/ }),
-/* 28 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2352,21 +2388,21 @@ exports.BG = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(2);
+var _config = __webpack_require__(29);
 
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _SceneSprite2 = __webpack_require__(29);
+var _SceneSprite2 = __webpack_require__(34);
 
 var _SceneSprite3 = _interopRequireDefault(_SceneSprite2);
 
-var _SceneImagePainter = __webpack_require__(31);
+var _SceneImagePainter = __webpack_require__(36);
 
 var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
 
-var _behaviorList = __webpack_require__(33);
+var _behaviorList = __webpack_require__(38);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
@@ -2422,7 +2458,7 @@ var BG = function (_SceneSprite) {
 exports.BG = BG;
 
 /***/ }),
-/* 29 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2434,7 +2470,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _sprite = __webpack_require__(30);
+var _sprite = __webpack_require__(35);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2466,7 +2502,7 @@ var SceneSprite = function (_Sprite) {
 exports.default = SceneSprite;
 
 /***/ }),
-/* 30 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2521,7 +2557,7 @@ var Sprite = exports.Sprite = function () {
 }();
 
 /***/ }),
-/* 31 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2533,7 +2569,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _imagePainter = __webpack_require__(32);
+var _imagePainter = __webpack_require__(37);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2569,7 +2605,7 @@ var SceneImagePainter = function (_ImagePainter) {
 exports.default = SceneImagePainter;
 
 /***/ }),
-/* 32 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2609,7 +2645,7 @@ var ImagePainter = function () {
 exports.ImagePainter = ImagePainter;
 
 /***/ }),
-/* 33 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2721,7 +2757,7 @@ var behaviorList = {
 exports.default = behaviorList;
 
 /***/ }),
-/* 34 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2732,7 +2768,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.cutscenes = undefined;
 
-var _lib = __webpack_require__(0);
+var _lib = __webpack_require__(28);
 
 //过场动画
 var cutscenes = {
@@ -2751,16 +2787,6 @@ var cutscenes = {
 exports.cutscenes = cutscenes;
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2774,21 +2800,21 @@ exports.Pipeline = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(2);
+var _config = __webpack_require__(29);
 
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _SceneSprite2 = __webpack_require__(29);
+var _SceneSprite2 = __webpack_require__(34);
 
 var _SceneSprite3 = _interopRequireDefault(_SceneSprite2);
 
-var _SceneImagePainter = __webpack_require__(31);
+var _SceneImagePainter = __webpack_require__(36);
 
 var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
 
-var _behaviorList = __webpack_require__(33);
+var _behaviorList = __webpack_require__(38);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
@@ -2968,21 +2994,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(2);
+var _config = __webpack_require__(29);
 
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _SceneSprite = __webpack_require__(29);
+var _SceneSprite = __webpack_require__(34);
 
 var _SceneSprite2 = _interopRequireDefault(_SceneSprite);
 
-var _SceneImagePainter = __webpack_require__(31);
+var _SceneImagePainter = __webpack_require__(36);
 
 var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
 
-var _behaviorList = __webpack_require__(33);
+var _behaviorList = __webpack_require__(38);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
@@ -2994,7 +3020,7 @@ var _sourceConfig = __webpack_require__(41);
 
 var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
 
-var _sprite = __webpack_require__(30);
+var _sprite = __webpack_require__(35);
 
 var _CharacterSpriteAnimator = __webpack_require__(47);
 
@@ -3029,7 +3055,7 @@ var Bird = function (_Sprite) {
         _this.width = setting.width || _sourceConfig2.default.birdConfig.width;
         _this.height = setting.height || _sourceConfig2.default.birdConfig.height;
         _this.top = 200;
-        _this.left = 10;
+        _this.left = 50;
         _this.velocityY = -150;
         _this.GRAVITY_FORCE = _config.config.GRAVITY_FORCE; //重力             
         _this.upColliding = null; //下面的墙或管道等 
@@ -3040,8 +3066,9 @@ var Bird = function (_Sprite) {
             })
         };
         _this.behaviors = [_this.behaviorStatus.runInPlace];
-        _this.painter = _this.painters.down;
+        _this.painter = _this.painters.up;
         _this.monsterSpriteAnimatorJump = new _CharacterSpriteAnimator2.default(function die() {
+            this.isDie = true;
             console.log('die');
         }, _this);
         _this.monsterSpriteAnimatorJump.start();
@@ -3051,15 +3078,15 @@ var Bird = function (_Sprite) {
     _createClass(Bird, [{
         key: 'draw',
         value: function draw(ctx, time, fpsNum) {
-            this.fpsNum = fpsNum; //给monsterSpriteAnimator传递fpsnumbehaviors
-            // if (!gameControl.gamePause) {
-            //     this.monsterSpriteAnimatorMove.execute();
-            //     this.monsterSpriteAnimatorJump.execute();
-            //     this.update(ctx, time, fpsNum);
-            // }
+            this.fpsNum = fpsNum; //给monsterSpriteAnimator传递fpsnumbehaviors     
             this.monsterSpriteAnimatorJump.execute();
             this.update(ctx, time, fpsNum);
             this.paint(ctx);
+            if (this.velocityY <= 0) {
+                this.painter = this.painters.up;
+            } else {
+                this.painter = this.painters.down;
+            }
         }
     }]);
 
@@ -3083,7 +3110,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _spriteSheetPainter = __webpack_require__(46);
 
-var _config = __webpack_require__(2);
+var _config = __webpack_require__(29);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3334,6 +3361,113 @@ var SpriteAnimator = function () {
 }();
 
 exports.SpriteAnimator = SpriteAnimator;
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.updateScore = undefined;
+
+var _lib = __webpack_require__(28);
+
+var _gameSource = __webpack_require__(2);
+
+var _gameSource2 = _interopRequireDefault(_gameSource);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//加载公共函数
+var updateScore = {
+	changeScore: function changeScore(num) {
+		var str = new String(num);
+		var arr = str.split('');
+		var length = arr.length;
+		var overNume = length > 4 ? 4 : length;
+		for (var i = 1; i <= overNume; i++) {
+			switch (i) {
+				case 1:
+					_lib.lib.$('.count').style.backgroundImage = "url(" + _gameSource2.default.imageList['score' + arr[length - i]] + ")";
+					break;
+				case 2:
+					_lib.lib.$('.ten').style.backgroundImage = "url(" + _gameSource2.default.imageList['score' + arr[length - i]] + ")";
+					break;
+				case 3:
+					_lib.lib.$('.h').style.backgroundImage = "url(" + _gameSource2.default.imageList['score' + arr[length - i]] + ")";
+					break;
+				case 4:
+					_lib.lib.$('.th').style.backgroundImage = "url(" + _gameSource2.default.imageList['score' + arr[length - i]] + ")";
+					break;
+			}
+		}
+	}
+};
+exports.updateScore = updateScore;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/0.jpg";
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/2.jpg";
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/3.jpg";
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/1.jpg";
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/4.jpg";
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/5.jpg";
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/6.jpg";
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/7.jpg";
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/8.jpg";
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/img/9.jpg";
 
 /***/ })
 /******/ ]);

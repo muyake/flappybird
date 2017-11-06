@@ -27,17 +27,12 @@ import {
 import {
 	cutscenes
 } from './cutscenes.js';
+import {
+	updateScore
+} from './updateScore.js';
 
 var gameControl = new Game('flappybird', 'mycanvas');
-var animateList = {
-	ctx: gameControl.context,
-	drawGround: function(time) {
-		spriteList.ground.draw();
-	},
-	drawBird: function(time) {
-		spriteList.bird.draw();
-	}
-}
+
 
 var option = {
 	gameSourceUrl: gameSourceUrl,
@@ -48,7 +43,6 @@ var option = {
 	},
 	progressOverCallback: function() {
 		var groundHeight = window.getComputedStyle(lib.$('.scroll-ground1'), null).height;
-
 		cutscenes.ready();
 		var canvasWidth = document.body.clientWidth;
 		var clientHeight = document.body.clientHeight;
@@ -65,10 +59,12 @@ var option = {
 		lib.$('.start-btn').addEventListener('click', function() {
 			cutscenes.start();
 			gameControl.start();
-		})
+		});
+		lib.$('#mycanvas').addEventListener('touchstart', function() {
+			spriteList.pop();
+		});
 		gameControl.startAnimate = function(time) {
-			spriteList.draw(gameControl.context, time, gameControl.fps.num);
-
+			spriteList.draw(gameControl.context, time, gameControl.fps.num, updateScore.changeScore);
 		};
 	},
 };

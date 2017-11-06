@@ -26,6 +26,8 @@ var spriteList = {
     mid: 150,
     height: 90
   }],
+  totalScore: 0,
+  flag: false,
   init: function() {
     this.background = new BG({
       name: "BG",
@@ -37,7 +39,7 @@ var spriteList = {
       width: sourceConfig.birdConfig.width,
       height: sourceConfig.birdConfig.height,
     });
-    var startleft = 30;
+    var startleft = 130;
     var interval = config.canvasWidth / 2;
     var self = this;
     this.intervalArr.forEach(function(item, index) {
@@ -61,7 +63,7 @@ var spriteList = {
     var length = this.pipelineList.length;
     for (var i = 0; i < length; i = i + 2) {
       var item = this.pipelineList[i];
-      var downitem = this.pipelineList[i + 1]
+      var downitem = this.pipelineList[i + 1];
       if (item.left < -item.width) {
         item.left += config.canvasWidth * 3 / 2;
         downitem.left += config.canvasWidth * 3 / 2;
@@ -75,11 +77,11 @@ var spriteList = {
         currentIntervalObj.mid = mid;
         currentIntervalObj.height = intervalObjHeight;
         var num = config.canvasHeight - config.groundHeight;
-        if (currentIntervalObj.mid - currentIntervalObj.height / 2 > sourceConfig.pipConfig.height) {
-          currentIntervalObj.mid = sourceConfig.pipConfig.height - currentIntervalObj.height / 3;
+        if (currentIntervalObj.mid - currentIntervalObj.height / 2 > sourceConfig.pipConfig.height * 3 / 4) {
+          currentIntervalObj.mid = sourceConfig.pipConfig.height * 3 / 4 + currentIntervalObj.height / 2;
         }
-        if ((num - currentIntervalObj.mid - currentIntervalObj.height / 2) > sourceConfig.pipConfig.height) {
-          currentIntervalObj.mid = num + currentIntervalObj.height - sourceConfig.pipConfig.height;
+        if ((num - currentIntervalObj.mid - currentIntervalObj.height / 2) > sourceConfig.pipConfig.height * 3 / 4) {
+          currentIntervalObj.mid = num - currentIntervalObj.height / 2 - sourceConfig.pipConfig.height * 3 / 4;
         }
         item.height = currentIntervalObj.mid - currentIntervalObj.height / 2;
         item.imgtop = sourceConfig.pipConfig.height - item.height;
@@ -90,13 +92,39 @@ var spriteList = {
       }
     }
   },
-  draw: function(ctx, time, fpsNum) {
+  updateScore: function(callback) {
+    var length = this.pipelineList.length;
+    for (var i = 0; i < length; i = i + 2) {
+      var item = this.pipelineList[i];
+      var left1 = item.left;
+      var left2 = item.left + item.width;
+      if ((left1 < (this.bird.left + this.bird.width)) && left2 > this.bird.left) {
+        this.flag = true;
+      }
+      if (this.flag == true && left2 <= this.bird.left) {
+        this.flag = false;
+        this.totalScore++;
+        callback(this.totalScore);
+        // console.log(this.totalScore);
+      }
+    }
+
+  },
+
+  draw: function(ctx, time, fpsNum, callback) {
     this.pipelineList.forEach(function(item) {
       item.draw(ctx, time, fpsNum);
     });
     this.bird.draw(ctx, time, fpsNum);
     this.background.draw(ctx, time, fpsNum);
     this.update();
+    this.updateScore(callback);
+  },
+  pop: function() {
+    if (!this.bird.idDie) {
+      this.bird.velocityY = -150;
+    }
+
   }
 };
 export {

@@ -175,3 +175,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
 
 }
     /*-----------------------开视屏样式-----------------------*/
+    /*-----------------------分数样式-----------------------*/
+    .score{
+      position: absolute;
+      top:0;
+      right: 0.2rem;
+      width: 2.2rem;      
+      height: 1rem;      
+      font-size: 0;
+     
+    }
+  .h,.ten,.count,.th{
+    display: inline-block;
+    width: 0.5rem;
+    height: 1rem;
+    margin-left: 0.05rem;
+ background:  no-repeat center/contain;
+    box-sizing: border-box;
+  }
+/*  .h{
+    background: url('../Images/0.jpg') no-repeat center/contain;
+  }
+   .ten{
+    background: url('../Images/2.jpg') no-repeat center/contain;
+  }
+  
+  .th{
+     background: url('../Images/3.jpg') no-repeat center/contain;
+  }*/
+  .count{
+    background: url('../Images/0.jpg') no-repeat center/contain;
+  }
+    /*-----------------------分数样式-----------------------*/
+    

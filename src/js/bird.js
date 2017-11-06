@@ -27,7 +27,7 @@ class Bird extends Sprite {
         this.width = setting.width || sourceConfig.birdConfig.width;
         this.height = setting.height || sourceConfig.birdConfig.height;
         this.top = 200;
-        this.left = 10;
+        this.left = 50;
         this.velocityY = -150;
         this.GRAVITY_FORCE = config.GRAVITY_FORCE; //重力             
         this.upColliding = null; //下面的墙或管道等 
@@ -38,22 +38,23 @@ class Bird extends Sprite {
             }),
         };
         this.behaviors = [this.behaviorStatus.runInPlace];
-        this.painter = this.painters.down;
+        this.painter = this.painters.up;
         this.monsterSpriteAnimatorJump = new CharacterSpriteAnimator(function die() {
+            this.isDie = true;
             console.log('die');
         }, this);
         this.monsterSpriteAnimatorJump.start();
     }
     draw(ctx, time, fpsNum) {
-        this.fpsNum = fpsNum; //给monsterSpriteAnimator传递fpsnumbehaviors
-        // if (!gameControl.gamePause) {
-        //     this.monsterSpriteAnimatorMove.execute();
-        //     this.monsterSpriteAnimatorJump.execute();
-        //     this.update(ctx, time, fpsNum);
-        // }
+        this.fpsNum = fpsNum; //给monsterSpriteAnimator传递fpsnumbehaviors     
         this.monsterSpriteAnimatorJump.execute();
         this.update(ctx, time, fpsNum);
         this.paint(ctx);
+        if (this.velocityY <= 0) {
+            this.painter = this.painters.up;
+        } else {
+            this.painter = this.painters.down;
+        }
     }
 }
 

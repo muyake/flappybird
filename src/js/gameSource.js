@@ -16,7 +16,17 @@ const gameSourceUrl = {
         pipup: require('../Images/pipup.png'),
         scordbord: require('../Images/scordbord.png'),
         score: require('../Images/score.png'),
-        scorenum: require('../Images/scorenum.png'),
+        // scorenum: require('../Images/scorenum.png'),
+        score0: require('../Images/0.jpg'),
+        score1: require('../Images/1.jpg'),
+        score2: require('../Images/2.jpg'),
+        score3: require('../Images/3.jpg'),
+        score4: require('../Images/4.jpg'),
+        score5: require('../Images/5.jpg'),
+        score6: require('../Images/6.jpg'),
+        score7: require('../Images/7.jpg'),
+        score8: require('../Images/8.jpg'),
+        score9: require('../Images/9.jpg'),
 
     },
     audioList: {
