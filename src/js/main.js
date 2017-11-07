@@ -27,6 +27,11 @@ import {
 import {
 	cutscenes
 } from './cutscenes.js';
+import {
+	audioControl
+}
+from './audioControl';
+
 // import {
 // 	updateScore
 // } from './updateScore.js';
@@ -54,11 +59,16 @@ var option = {
 		lib.$('#mycanvas').setAttribute('width', canvasWidth);
 		lib.$('#mycanvas').setAttribute('height', clientHeight);
 		spriteList.init();
-		cutscenes.start();
-		gameControl.start();
+		// cutscenes.start();
+		// gameControl.start();
 		lib.$('.start-btn').addEventListener('click', function() {
+
 			cutscenes.start();
 			gameControl.start();
+			audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
+		});
+		lib.$('.restart-btn').addEventListener('click', function() {
+			spriteList.reset();
 		});
 		lib.$('#mycanvas').addEventListener('touchstart', function() {
 			spriteList.pop();
@@ -69,6 +79,6 @@ var option = {
 	},
 };
 adaptation.init(function() {
-	var gameSourceObj = preLoadObj.init(option);
-	console.log(gameSourceObj);
+	config.gameSourceObj = preLoadObj.init(option);
+	console.log(config.gameSourceObj);
 })

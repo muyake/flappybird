@@ -15,16 +15,12 @@ class BG extends SceneSprite {
         this.top = config.canvasHeight - config.groundHeight;
         console.log(this.top);
         this.left = setting.left || 0;
-        this.velocityX = -config.velocityX;
+        // this.velocityX = -config.velocityX;
     }
     draw(ctx, time, fpsNum) {
         this.update(ctx, time, fpsNum);
         let left = this.left;
-        if (this.velocityX > 0) {
-            left = left < config.canvasWidth ? left : 0;
-        } else {
-            left = left > -config.canvasWidth ? left : 0;
-        }
+        left = left > -config.canvasWidth ? left : 0;
         this.left = left;
         this.paint(ctx);
         this.left = left + this.width;

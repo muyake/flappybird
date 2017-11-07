@@ -60,11 +60,88 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var config = {
+	canvasWidth: 0,
+	canvasHeight: 0,
+	groundHeight: 0,
+	grade: 1,
+
+	GRAVITY_FORCE: 90 * 6 * 1.5,
+	velocityX: 100,
+	//velocityX: 500,
+	velocityY: 150 * 1.5,
+	initVelocityX: 100 * 1.5
+};
+exports.config = config;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//var BG = require(require('.../images/background2.png');
+
+
+//所有游戏需要加载的外部资源
+var gameSourceUrl = {
+    imageList: {
+        //背景
+        // flappybird: require('../Images/ico/flappybird.ico'),
+        BG: __webpack_require__(10),
+        birds: __webpack_require__(11),
+        allbird: __webpack_require__(12),
+        btns: __webpack_require__(13),
+        gameWords: __webpack_require__(14),
+        ground: __webpack_require__(15),
+        pipdown: __webpack_require__(16),
+        pipup: __webpack_require__(17),
+        scordbord: __webpack_require__(18),
+        score: __webpack_require__(19)
+        // scorenum: require('../Images/scorenum.png'),
+        // score0: require('../Images/0.jpg'),
+        // score1: require('../Images/1.jpg'),
+        // score2: require('../Images/2.jpg'),
+        // score3: require('../Images/3.jpg'),
+        // score4: require('../Images/4.jpg'),
+        // score5: require('../Images/5.jpg'),
+        // score6: require('../Images/6.jpg'),
+        // score7: require('../Images/7.jpg'),
+        // score8: require('../Images/8.jpg'),
+        // score9: require('../Images/9.jpg'),
+
+    },
+    audioList: {
+        hitdie: __webpack_require__(50),
+        //  die: require("../Sounds/mp3/Die.mp3"),
+        hit: __webpack_require__(52),
+        point: __webpack_require__(53),
+        swooshing: __webpack_require__(54),
+        wing: __webpack_require__(55) //
+
+    }
+};
+exports.default = gameSourceUrl;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84,34 +161,370 @@ var lib = {
 exports.lib = lib;
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _lib = __webpack_require__(0);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var _adaptation = __webpack_require__(2);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _gameSource = __webpack_require__(3);
+var _sprite = __webpack_require__(7);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SceneSprite = function (_Sprite) {
+    _inherits(SceneSprite, _Sprite);
+
+    function SceneSprite(name, painter, behaviors) {
+        _classCallCheck(this, SceneSprite);
+
+        return _possibleConstructorReturn(this, (SceneSprite.__proto__ || Object.getPrototypeOf(SceneSprite)).call(this, name, painter, behaviors));
+    }
+
+    _createClass(SceneSprite, [{
+        key: 'update',
+        value: function update(context, time, fpsNum) {
+            for (var i = this.behaviors.length; i > 0; --i) {
+                this.behaviors[i - 1].execute(this, context, time, fpsNum);
+            }
+        }
+    }]);
+
+    return SceneSprite;
+}(_sprite.Sprite);
+
+exports.default = SceneSprite;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _imagePainter = __webpack_require__(34);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SceneImagePainter = function (_ImagePainter) {
+    _inherits(SceneImagePainter, _ImagePainter);
+
+    function SceneImagePainter(imageUrl) {
+        _classCallCheck(this, SceneImagePainter);
+
+        return _possibleConstructorReturn(this, (SceneImagePainter.__proto__ || Object.getPrototypeOf(SceneImagePainter)).call(this, imageUrl));
+    }
+
+    _createClass(SceneImagePainter, [{
+        key: 'paint',
+        value: function paint(sprite, context) {
+            if (!!this.image) {
+                if (sprite.imgwidth) {
+                    context.drawImage(this.image, sprite.imgleft, sprite.imgtop, sprite.imgwidth, sprite.imgheight, sprite.left, sprite.top, sprite.width, sprite.height);
+                } else {
+                    context.drawImage(this.image, sprite.left, sprite.top, sprite.width, sprite.height);
+                }
+            }
+        }
+    }]);
+
+    return SceneImagePainter;
+}(_imagePainter.ImagePainter);
+
+exports.default = SceneImagePainter;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _config = __webpack_require__(0);
+
+//所有行为
+var behaviorList = {
+    //背景图片用的这个行为
+    moveLeftToRight: function moveLeftToRight() {
+        this.behaviorName = 'moveLeftToRight';
+        this.lastMove = 0;
+        this.fpsNum = 60;
+        this.execute = function (sprite, context, time, fpsNum) {
+            this.fpsNum = fpsNum == 0 ? 0 : fpsNum || this.fpsNum;
+            sprite.left -= _config.config.velocityX / this.fpsNum;
+            this.lastMove = time;
+        };
+    },
+
+    //小人跑动动画
+    runInPlace: function runInPlace(setting) {
+        var defaultSetting = {
+            lastAdvance: 0,
+            PAGEFLIP_INTERVAL: 30,
+            behaviorName: 'runInPlace'
+        };
+        defaultSetting = Object.assign({}, defaultSetting, setting);
+        this.lastAdvance = defaultSetting.lastAdvance;
+        this.PAGEFLIP_INTERVAL = defaultSetting.PAGEFLIP_INTERVAL;
+        this.behaviorName = defaultSetting.behaviorName;
+        this.execute = function (sprite, context, time) {
+            if (time - this.lastAdvance > this.PAGEFLIP_INTERVAL) {
+                sprite.painter.advance(sprite);
+                this.lastAdvance = time;
+            }
+        };
+    }
+    //坏花
+    // upInPlace: function(setting) {
+    //     let defaultSetting = {
+    //         lastAdvance: 0,
+    //         PAGEFLIP_INTERVAL: 30,
+    //         behaviorName: 'runInPlace',
+    //     };
+    //     lib.jQueryExtend(defaultSetting, setting);
+    //     this.lastAdvance = defaultSetting.lastAdvance;
+    //     this.PAGEFLIP_INTERVAL = defaultSetting.PAGEFLIP_INTERVAL;
+    //     this.behaviorName = defaultSetting.behaviorName;
+    //     this.execute = function(sprite, context, time) {
+    //         if (time - this.lastAdvance > this.PAGEFLIP_INTERVAL) {
+
+    //             sprite.painter.advance(sprite);
+    //             this.lastAdvance = time;
+    //         }
+    //     }
+    // },
+    //小人跳动
+    // jump: function(setting) {
+    //     let defaultSetting = {
+    //         lastAdvance: 0,
+    //         isJump: false,
+    //         behaviorName: 'jump',
+    //         jumpOverCallback: function() {},
+    //         status: 0, //0是不跳，1是小跳，2是大跳。
+    //     };
+    //     lib.jQueryExtend(defaultSetting, setting);
+    //     this.lastAdvance = defaultSetting.lastAdvance;
+    //     this.behaviorName = defaultSetting.behaviorName;
+    //     this.fpsNum = 60;
+    //     this.status = defaultSetting.status;
+    //     this.jumpOverCallback = defaultSetting.jumpOverCallback;
+    //     this.execute = function(sprite, context, time, fpsNum) {
+    //         if (this.lastAdvance !== 0) {
+    //             if (sprite.velocityY < sprite.startVelocityY) {
+    //                 this.fpsNum = (fpsNum == 0) ? 0 : (fpsNum || this.fpsNum);
+    //                 sprite.velocityY = sprite.velocityY + sprite.GRAVITY_FORCE / this.fpsNum;
+    //                 sprite.top += sprite.velocityY / this.fpsNum;
+    //                 if (sprite.top < sprite.initialTop) {
+    //                     sprite.isJump = true;
+    //                 } else {
+    //                     sprite.top = sprite.initialTop;
+    //                     sprite.isJump = false;
+    //                     this.jumpOverCallback();
+    //                 }
+    //             } else {
+    //                 sprite.isJump = false;
+    //             }
+    //         }
+    //         this.lastAdvance = time;
+    //     }
+    // },
+}; //游戏所有元素的动作对象
+exports.default = behaviorList;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+// 图片大小参数
+var sourceConfig = {
+	pipConfig: {
+		width: 52,
+		height: 420
+	},
+	ground: {
+		width: 336,
+		height: 112
+	},
+	birdConfig: {
+		width: 40,
+		height: 30,
+		hconfig: {
+			totalCount: 2,
+			sprite_0: {
+				width: 40,
+				height: 26,
+				left: 0,
+				top: 121
+			},
+
+			sprite_1: {
+				width: 40,
+				height: 26,
+				left: 0,
+				top: 156
+			}
+		},
+		uconfig: {
+			totalCount: 2,
+			sprite_0: {
+				width: 40,
+				height: 29,
+				left: 0,
+				top: 41
+			},
+
+			sprite_1: {
+				width: 40,
+				height: 29,
+				left: 0,
+				top: 80
+			}
+		},
+		dconfig: {
+			totalCount: 2,
+			sprite_0: {
+				width: 40,
+				height: 30,
+				left: 0,
+				top: 191
+			},
+			sprite_1: {
+				width: 40,
+				height: 30,
+				left: 0,
+				top: 0
+			}
+		},
+		dieconfig: {
+			totalCount: 1,
+			sprite_0: {
+				width: 40,
+				height: 30,
+				left: 0,
+				top: 191
+			}
+		}
+
+	}
+
+};
+exports.default = sourceConfig;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Sprite = exports.Sprite = function () {
+    function Sprite() {
+        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var painter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+        var behaviors = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+        _classCallCheck(this, Sprite);
+
+        this.name = name;
+        this.painter = painter;
+        this.behaviors = behaviors;
+        this.left = 0;
+        this.top = 0;
+        this.width = 10;
+        this.height = 10;
+        this.visible = true;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.initialVelocity = 0;
+    }
+
+    _createClass(Sprite, [{
+        key: 'paint',
+        value: function paint(context) {
+            if (this.painter !== undefined && this.visible) {
+                this.painter.paint(this, context);
+            }
+        }
+    }, {
+        key: 'update',
+        value: function update(context, time) {
+            for (var i = this.behaviors.length; i > 0; --i) {
+                this.behaviors[i - 1].execute(this, context, time);
+            }
+        }
+    }]);
+
+    return Sprite;
+}();
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _lib = __webpack_require__(2);
+
+var _adaptation = __webpack_require__(9);
+
+var _gameSource = __webpack_require__(1);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _preload = __webpack_require__(19);
+var _preload = __webpack_require__(25);
 
-var _gameEngine = __webpack_require__(24);
+var _gameEngine = __webpack_require__(30);
 
-var _config = __webpack_require__(26);
+var _config = __webpack_require__(0);
 
-var _spriteList = __webpack_require__(27);
+var _spriteList = __webpack_require__(32);
 
-var _cutscenes = __webpack_require__(28);
+var _cutscenes = __webpack_require__(42);
+
+var _audioControl = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //html样式
-__webpack_require__(29);
+__webpack_require__(43);
 //加载公共函数
 
 //加载适配方案
@@ -121,6 +534,7 @@ __webpack_require__(29);
 //预加载图片
 
 //预加载图片
+
 
 // import {
 // 	updateScore
@@ -148,11 +562,16 @@ var option = {
 		_lib.lib.$('#mycanvas').setAttribute('width', canvasWidth);
 		_lib.lib.$('#mycanvas').setAttribute('height', clientHeight);
 		_spriteList.spriteList.init();
-		_cutscenes.cutscenes.start();
-		gameControl.start();
+		// cutscenes.start();
+		// gameControl.start();
 		_lib.lib.$('.start-btn').addEventListener('click', function () {
+
 			_cutscenes.cutscenes.start();
 			gameControl.start();
+			_audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.swooshing);
+		});
+		_lib.lib.$('.restart-btn').addEventListener('click', function () {
+			_spriteList.spriteList.reset();
 		});
 		_lib.lib.$('#mycanvas').addEventListener('touchstart', function () {
 			_spriteList.spriteList.pop();
@@ -163,12 +582,12 @@ var option = {
 	}
 };
 _adaptation.adaptation.init(function () {
-	var gameSourceObj = _preload.preLoadObj.init(option);
-	console.log(gameSourceObj);
+	_config.config.gameSourceObj = _preload.preLoadObj.init(option);
+	console.log(_config.config.gameSourceObj);
 });
 
 /***/ }),
-/* 2 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -204,149 +623,72 @@ var adaptation = function () {
 exports.adaptation = adaptation;
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//var BG = require(require('.../images/background2.png');
-
-
-//所有游戏需要加载的外部资源
-var gameSourceUrl = {
-    imageList: {
-        //背景
-        // flappybird: require('../Images/ico/flappybird.ico'),
-        BG: __webpack_require__(4),
-        birds: __webpack_require__(5),
-        allbird: __webpack_require__(6),
-        btns: __webpack_require__(7),
-        gameWords: __webpack_require__(8),
-        ground: __webpack_require__(9),
-        pipdown: __webpack_require__(10),
-        pipup: __webpack_require__(11),
-        scordbord: __webpack_require__(12),
-        score: __webpack_require__(13)
-        // scorenum: require('../Images/scorenum.png'),
-        // score0: require('../Images/0.jpg'),
-        // score1: require('../Images/1.jpg'),
-        // score2: require('../Images/2.jpg'),
-        // score3: require('../Images/3.jpg'),
-        // score4: require('../Images/4.jpg'),
-        // score5: require('../Images/5.jpg'),
-        // score6: require('../Images/6.jpg'),
-        // score7: require('../Images/7.jpg'),
-        // score8: require('../Images/8.jpg'),
-        // score9: require('../Images/9.jpg'),
-
-    },
-    audioList: {
-        die: __webpack_require__(14),
-        hit: __webpack_require__(15),
-        point: __webpack_require__(16),
-        swooshing: __webpack_require__(17),
-        wing: __webpack_require__(18) //
-
-    }
-};
-exports.default = gameSourceUrl;
-
-/***/ }),
-/* 4 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/background.png";
 
 /***/ }),
-/* 5 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/birds.png";
 
 /***/ }),
-/* 6 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/allbird.png";
 
 /***/ }),
-/* 7 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/btns.png";
 
 /***/ }),
-/* 8 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/gameWords.png";
 
 /***/ }),
-/* 9 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/ground.png";
 
 /***/ }),
-/* 10 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/pipdown.png";
 
 /***/ }),
-/* 11 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/pipup.png";
 
 /***/ }),
-/* 12 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/scordbord.png";
 
 /***/ }),
-/* 13 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./static/img/score.png";
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/Die.mp3";
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/hit.mp3";
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/point.mp3";
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/swooshing.mp3";
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
-
-/***/ }),
-/* 19 */
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -355,7 +697,7 @@ module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var Promise = __webpack_require__(20).Promise;
+var Promise = __webpack_require__(26).Promise;
 
 var preLoadObj = {
     //Object.prototype.toString.call(o)能直接返回对象的类属性，形如"[object class]"的字符串，我们通过截取class，并能知道传入的对象是什么类型
@@ -512,7 +854,7 @@ exports.preLoadObj = preLoadObj;
 //preLoadObj.init(option);
 
 /***/ }),
-/* 20 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;/*!
@@ -652,7 +994,7 @@ function flush() {
 function attemptVertx() {
   try {
     var r = require;
-    var vertx = __webpack_require__(23);
+    var vertx = __webpack_require__(29);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch (e) {
@@ -1673,10 +2015,10 @@ return Promise$2;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21), __webpack_require__(22)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27), __webpack_require__(28)))
 
 /***/ }),
-/* 21 */
+/* 27 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1866,7 +2208,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 22 */
+/* 28 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1893,13 +2235,13 @@ module.exports = g;
 
 
 /***/ }),
-/* 23 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 24 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1910,7 +2252,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Game = undefined;
 
-__webpack_require__(25);
+__webpack_require__(31);
 
 var getTimeNow = function getTimeNow() {
 	return +new Date();
@@ -1939,6 +2281,7 @@ var Game = function Game(gameName, canvasId) {
 	this.STARTING_FPS = 60;
 
 	this.paused = false;
+	this.isStart = false;
 	this.startedPauseAt = 0;
 	this.PAUSE_TIMEOUT = 100;
 
@@ -1957,6 +2300,7 @@ Game.prototype = {
 	start: function start() {
 		var self = this;
 		this.startTime = getTimeNow();
+		this.isStart = true;
 		window.requestNextAnimationFrame(function (time) {
 			self.animate.call(self, time);
 		});
@@ -2030,23 +2374,32 @@ Game.prototype = {
 		var key = undefined;
 		switch (e.keyCode) {
 			case 32:
-				key = 'space';break;
+				key = 'space';
+				break;
 			case 68:
-				key = 'd';break;
+				key = 'd';
+				break;
 			case 75:
-				key = 'k';break;
+				key = 'k';
+				break;
 			case 83:
-				key = 's';break;
+				key = 's';
+				break;
 			case 80:
-				key = 'p';break;
+				key = 'p';
+				break;
 			case 37:
-				key = 'left arrow';break;
+				key = 'left arrow';
+				break;
 			case 39:
-				key = 'right arrow';break;
+				key = 'right arrow';
+				break;
 			case 38:
-				key = 'up arrow';break;
+				key = 'up arrow';
+				break;
 			case 40:
-				key = 'down arrow';break;
+				key = 'down arrow';
+				break;
 		}
 		listener = this.findKeyListener(key);
 		if (listener) {
@@ -2070,7 +2423,7 @@ Game.prototype = {
 exports.Game = Game;
 
 /***/ }),
-/* 25 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2203,29 +2556,7 @@ window.requestNextAnimationFrame = function () {
 }();
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-var config = {
-	canvasWidth: 0,
-	canvasHeight: 0,
-	groundHeight: 0,
-	grade: 1,
-	itemgrade: 10,
-	GRAVITY_FORCE: 90 * 6,
-	velocityX: 100,
-	velocityY: 150
-};
-exports.config = config;
-
-/***/ }),
-/* 27 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2236,25 +2567,29 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.spriteList = undefined;
 
-var _ground = __webpack_require__(40);
+var _ground = __webpack_require__(33);
 
-var _lib = __webpack_require__(0);
+var _lib = __webpack_require__(2);
 
-var _Pipeline = __webpack_require__(42);
+var _Pipeline = __webpack_require__(35);
 
-var _config = __webpack_require__(26);
+var _config = __webpack_require__(0);
 
-var _sourceConfig = __webpack_require__(38);
+var _sourceConfig = __webpack_require__(6);
 
 var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
 
-var _grade = __webpack_require__(43);
+var _grade = __webpack_require__(36);
 
 var _grade2 = _interopRequireDefault(_grade);
 
-var _bird = __webpack_require__(44);
+var _bird = __webpack_require__(37);
 
 var _bird2 = _interopRequireDefault(_bird);
+
+var _audioControl = __webpack_require__(49);
+
+var _cutscenes = __webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2265,10 +2600,10 @@ var spriteList = {
         mid: 210,
         height: 100
     }, {
-        mid: 100,
+        mid: 150,
         height: 80
     }, {
-        mid: 150,
+        mid: 180,
         height: 90
     }],
     totalScore: 0,
@@ -2282,9 +2617,26 @@ var spriteList = {
         this.bird = new _bird2.default({
             name: 'bird',
             width: _sourceConfig2.default.birdConfig.width,
-            height: _sourceConfig2.default.birdConfig.height
+            height: _sourceConfig2.default.birdConfig.height,
+            dieCallback: function dieCallback() {
+                _config.config.velocityX = 0;
+                _lib.lib.$('.scoreNum').innerHTML = spriteList.totalScore;
+                var maxNum;
+                var local = localStorage.getItem('maxNum');
+                if (local) {
+                    maxNum = parseInt(local);
+                } else {
+                    maxNum = 0;
+                }
+                if (spriteList.totalScore > maxNum) {
+                    maxNum = spriteList.totalScore;
+                    localStorage.setItem('maxNum', spriteList.totalScore);
+                }
+                _lib.lib.$('.maxscoreNum').innerHTML = maxNum;
+                _cutscenes.cutscenes.stop();
+            }
         });
-        var startleft = 130;
+        var startleft = _config.config.canvasWidth - _sourceConfig2.default.pipConfig.width;
         var interval = _config.config.canvasWidth / 2;
         var self = this;
         this.intervalArr.forEach(function (item, index) {
@@ -2347,11 +2699,19 @@ var spriteList = {
             if (item.left < self.bird.left + self.bird.width && item.left + item.width > self.bird.left) {
                 if (self.bird.top < item.mid - item.height / 2 - 17) {
                     self.bird.isDie = true;
+
+                    //audioControl.audioPlay(config.gameSourceObj.audioList.hit);
+                    _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.hitdie);
                     console.log('碰到上边');
+
+                    // self.bird.painter = self.bird.painters.die;
                 }
                 if (self.bird.top + self.bird.height > item.mid + item.height / 2) {
                     self.bird.isDie = true;
+                    // audioControl.audioPlay(config.gameSourceObj.audioList.hit);
+                    _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.hitdie);
                     console.log('碰到下边');
+                    // self.bird.painter = self.bird.painters.die;
                 }
             }
         });
@@ -2375,13 +2735,18 @@ var spriteList = {
                 if (this.flag == true && left2 <= this.bird.left) {
                     this.flag = false;
                     this.totalScore++;
+                    _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.point, 0.15);
                 }
             }
+            _config.config.grade = parseInt(this.totalScore / _grade2.default.itemgrade);
+            _grade2.default.height[0] = _grade2.default.initheight[0] - _config.config.grade * _grade2.default.heightChangeNum;
+            _grade2.default.height[1] = _grade2.default.initheight[1] - _config.config.grade * _grade2.default.heightChangeNum;
+            _grade2.default.initinterval[0] = _grade2.default.initinterval[0] + _config.config.grade * _grade2.default.intervalChangeNum;
+            _grade2.default.initinterval[1] = _grade2.default.initinterval[1] + _config.config.grade * _grade2.default.intervalChangeNum;
+            _config.config.velocityX = _config.config.initVelocityX + _config.config.grade * _grade2.default.velocityXChangeNum;
         }
         this.drawScore(ctx);
-        _config.config.grade = parseInt(this.totalScore / _config.config.itemgrade);
     },
-
     draw: function draw(ctx, time, fpsNum) {
         if (!this.bird.isDie) {
             this.CD();
@@ -2397,389 +2762,32 @@ var spriteList = {
     pop: function pop() {
         if (!this.bird.isDie) {
             this.bird.velocityY = -_config.config.velocityY;
+            _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.wing);
         }
+    },
+    reset: function reset() {
+        _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.swooshing);
+        this.totalScore = 0;
+        this.pipelineList = [];
+        this.intervalArr = [{
+            mid: 210,
+            height: 100
+        }, {
+            mid: 150,
+            height: 80
+        }, {
+            mid: 180,
+            height: 90
+        }];
+        this.init();
+        _cutscenes.cutscenes.restart();
     }
+
 };
 exports.spriteList = spriteList;
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-       value: true
-});
-exports.cutscenes = undefined;
-
-var _lib = __webpack_require__(0);
-
-//过场动画
-var cutscenes = {
-       ready: function ready() {
-              var barSelector = _lib.lib.$('.progress-box');
-              barSelector.style.display = 'none';
-              var barSelector = _lib.lib.$('.start-screen');
-              barSelector.style.display = 'block';
-       },
-       start: function start() {
-              var barSelector = _lib.lib.$('.start-screen');
-              barSelector.style.display = 'none';
-       },
-       stop: function stop() {}
-}; //加载公共函数
-exports.cutscenes = cutscenes;
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _sprite = __webpack_require__(39);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SceneSprite = function (_Sprite) {
-    _inherits(SceneSprite, _Sprite);
-
-    function SceneSprite(name, painter, behaviors) {
-        _classCallCheck(this, SceneSprite);
-
-        return _possibleConstructorReturn(this, (SceneSprite.__proto__ || Object.getPrototypeOf(SceneSprite)).call(this, name, painter, behaviors));
-    }
-
-    _createClass(SceneSprite, [{
-        key: 'update',
-        value: function update(context, time, fpsNum) {
-            for (var i = this.behaviors.length; i > 0; --i) {
-                this.behaviors[i - 1].execute(this, context, time, fpsNum);
-            }
-        }
-    }]);
-
-    return SceneSprite;
-}(_sprite.Sprite);
-
-exports.default = SceneSprite;
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _imagePainter = __webpack_require__(41);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SceneImagePainter = function (_ImagePainter) {
-    _inherits(SceneImagePainter, _ImagePainter);
-
-    function SceneImagePainter(imageUrl) {
-        _classCallCheck(this, SceneImagePainter);
-
-        return _possibleConstructorReturn(this, (SceneImagePainter.__proto__ || Object.getPrototypeOf(SceneImagePainter)).call(this, imageUrl));
-    }
-
-    _createClass(SceneImagePainter, [{
-        key: 'paint',
-        value: function paint(sprite, context) {
-            if (!!this.image) {
-                if (sprite.imgwidth) {
-                    context.drawImage(this.image, sprite.imgleft, sprite.imgtop, sprite.imgwidth, sprite.imgheight, sprite.left, sprite.top, sprite.width, sprite.height);
-                } else {
-                    context.drawImage(this.image, sprite.left, sprite.top, sprite.width, sprite.height);
-                }
-            }
-        }
-    }]);
-
-    return SceneImagePainter;
-}(_imagePainter.ImagePainter);
-
-exports.default = SceneImagePainter;
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//游戏所有元素的动作对象
-
-// import {
-//     lib
-// } from './public.js';
-
-// import {
-//     progressObj,
-//     PJNum,
-//     totalProgressSprite,
-//     createFactory
-// }
-// from './gameProgress';
-//所有行为
-var behaviorList = {
-    //背景图片用的这个行为
-    moveLeftToRight: function moveLeftToRight() {
-        this.behaviorName = 'moveLeftToRight';
-        this.lastMove = 0;
-        this.fpsNum = 60;
-        this.execute = function (sprite, context, time, fpsNum) {
-            this.fpsNum = fpsNum == 0 ? 0 : fpsNum || this.fpsNum;
-            sprite.left += sprite.velocityX / this.fpsNum;
-            this.lastMove = time;
-        };
-    },
-
-    //小人跑动动画
-    runInPlace: function runInPlace(setting) {
-        var defaultSetting = {
-            lastAdvance: 0,
-            PAGEFLIP_INTERVAL: 30,
-            behaviorName: 'runInPlace'
-        };
-        defaultSetting = Object.assign({}, defaultSetting, setting);
-        this.lastAdvance = defaultSetting.lastAdvance;
-        this.PAGEFLIP_INTERVAL = defaultSetting.PAGEFLIP_INTERVAL;
-        this.behaviorName = defaultSetting.behaviorName;
-        this.execute = function (sprite, context, time) {
-            if (time - this.lastAdvance > this.PAGEFLIP_INTERVAL) {
-                sprite.painter.advance(sprite);
-                this.lastAdvance = time;
-            }
-        };
-    }
-    //坏花
-    // upInPlace: function(setting) {
-    //     let defaultSetting = {
-    //         lastAdvance: 0,
-    //         PAGEFLIP_INTERVAL: 30,
-    //         behaviorName: 'runInPlace',
-    //     };
-    //     lib.jQueryExtend(defaultSetting, setting);
-    //     this.lastAdvance = defaultSetting.lastAdvance;
-    //     this.PAGEFLIP_INTERVAL = defaultSetting.PAGEFLIP_INTERVAL;
-    //     this.behaviorName = defaultSetting.behaviorName;
-    //     this.execute = function(sprite, context, time) {
-    //         if (time - this.lastAdvance > this.PAGEFLIP_INTERVAL) {
-
-    //             sprite.painter.advance(sprite);
-    //             this.lastAdvance = time;
-    //         }
-    //     }
-    // },
-    //小人跳动
-    // jump: function(setting) {
-    //     let defaultSetting = {
-    //         lastAdvance: 0,
-    //         isJump: false,
-    //         behaviorName: 'jump',
-    //         jumpOverCallback: function() {},
-    //         status: 0, //0是不跳，1是小跳，2是大跳。
-    //     };
-    //     lib.jQueryExtend(defaultSetting, setting);
-    //     this.lastAdvance = defaultSetting.lastAdvance;
-    //     this.behaviorName = defaultSetting.behaviorName;
-    //     this.fpsNum = 60;
-    //     this.status = defaultSetting.status;
-    //     this.jumpOverCallback = defaultSetting.jumpOverCallback;
-    //     this.execute = function(sprite, context, time, fpsNum) {
-    //         if (this.lastAdvance !== 0) {
-    //             if (sprite.velocityY < sprite.startVelocityY) {
-    //                 this.fpsNum = (fpsNum == 0) ? 0 : (fpsNum || this.fpsNum);
-    //                 sprite.velocityY = sprite.velocityY + sprite.GRAVITY_FORCE / this.fpsNum;
-    //                 sprite.top += sprite.velocityY / this.fpsNum;
-    //                 if (sprite.top < sprite.initialTop) {
-    //                     sprite.isJump = true;
-    //                 } else {
-    //                     sprite.top = sprite.initialTop;
-    //                     sprite.isJump = false;
-    //                     this.jumpOverCallback();
-    //                 }
-    //             } else {
-    //                 sprite.isJump = false;
-    //             }
-    //         }
-    //         this.lastAdvance = time;
-    //     }
-    // },
-};
-exports.default = behaviorList;
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-// 图片大小参数
-var sourceConfig = {
-	pipConfig: {
-		width: 52,
-		height: 420
-	},
-	ground: {
-		width: 336,
-		height: 112
-	},
-	birdConfig: {
-		width: 40,
-		height: 30,
-		hconfig: {
-			totalCount: 2,
-			sprite_0: {
-				width: 40,
-				height: 26,
-				left: 0,
-				top: 121
-			},
-
-			sprite_1: {
-				width: 40,
-				height: 26,
-				left: 0,
-				top: 156
-			}
-		},
-		uconfig: {
-			totalCount: 2,
-			sprite_0: {
-				width: 40,
-				height: 29,
-				left: 0,
-				top: 41
-			},
-
-			sprite_1: {
-				width: 40,
-				height: 29,
-				left: 0,
-				top: 80
-			}
-		},
-		dconfig: {
-			totalCount: 2,
-			sprite_0: {
-				width: 40,
-				height: 30,
-				left: 0,
-				top: 191
-			},
-			sprite_1: {
-				width: 40,
-				height: 30,
-				left: 0,
-				top: 0
-			}
-		}
-
-	}
-
-};
-exports.default = sourceConfig;
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Sprite = exports.Sprite = function () {
-    function Sprite() {
-        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-        var painter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-        var behaviors = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
-        _classCallCheck(this, Sprite);
-
-        this.name = name;
-        this.painter = painter;
-        this.behaviors = behaviors;
-        this.left = 0;
-        this.top = 0;
-        this.width = 10;
-        this.height = 10;
-        this.visible = true;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.initialVelocity = 0;
-    }
-
-    _createClass(Sprite, [{
-        key: 'paint',
-        value: function paint(context) {
-            if (this.painter !== undefined && this.visible) {
-                this.painter.paint(this, context);
-            }
-        }
-    }, {
-        key: 'update',
-        value: function update(context, time) {
-            for (var i = this.behaviors.length; i > 0; --i) {
-                this.behaviors[i - 1].execute(this, context, time);
-            }
-        }
-    }]);
-
-    return Sprite;
-}();
-
-/***/ }),
-/* 40 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2792,21 +2800,21 @@ exports.BG = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(26);
+var _config = __webpack_require__(0);
 
-var _gameSource = __webpack_require__(3);
+var _gameSource = __webpack_require__(1);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _SceneSprite2 = __webpack_require__(35);
+var _SceneSprite2 = __webpack_require__(3);
 
 var _SceneSprite3 = _interopRequireDefault(_SceneSprite2);
 
-var _SceneImagePainter = __webpack_require__(36);
+var _SceneImagePainter = __webpack_require__(4);
 
 var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
 
-var _behaviorList = __webpack_require__(37);
+var _behaviorList = __webpack_require__(5);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
@@ -2834,7 +2842,7 @@ var BG = function (_SceneSprite) {
         _this.top = _config.config.canvasHeight - _config.config.groundHeight;
         console.log(_this.top);
         _this.left = setting.left || 0;
-        _this.velocityX = -_config.config.velocityX;
+        // this.velocityX = -config.velocityX;
         return _this;
     }
 
@@ -2843,11 +2851,7 @@ var BG = function (_SceneSprite) {
         value: function draw(ctx, time, fpsNum) {
             this.update(ctx, time, fpsNum);
             var left = this.left;
-            if (this.velocityX > 0) {
-                left = left < _config.config.canvasWidth ? left : 0;
-            } else {
-                left = left > -_config.config.canvasWidth ? left : 0;
-            }
+            left = left > -_config.config.canvasWidth ? left : 0;
             this.left = left;
             this.paint(ctx);
             this.left = left + this.width;
@@ -2862,7 +2866,7 @@ var BG = function (_SceneSprite) {
 exports.BG = BG;
 
 /***/ }),
-/* 41 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2902,7 +2906,7 @@ var ImagePainter = function () {
 exports.ImagePainter = ImagePainter;
 
 /***/ }),
-/* 42 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2915,25 +2919,25 @@ exports.Pipeline = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(26);
+var _config = __webpack_require__(0);
 
-var _gameSource = __webpack_require__(3);
+var _gameSource = __webpack_require__(1);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _SceneSprite2 = __webpack_require__(35);
+var _SceneSprite2 = __webpack_require__(3);
 
 var _SceneSprite3 = _interopRequireDefault(_SceneSprite2);
 
-var _SceneImagePainter = __webpack_require__(36);
+var _SceneImagePainter = __webpack_require__(4);
 
 var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
 
-var _behaviorList = __webpack_require__(37);
+var _behaviorList = __webpack_require__(5);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
-var _sourceConfig = __webpack_require__(38);
+var _sourceConfig = __webpack_require__(6);
 
 var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
 
@@ -2988,34 +2992,35 @@ var Pipeline = function (_SceneSprite) {
 exports.Pipeline = Pipeline;
 
 /***/ }),
-/* 43 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-		value: true
+	value: true
 });
 var grade = {
-		//间隙高度变换范围
-		height: [80, 150],
-		//间隙变换浮动范围
-		interval: [50, 100]
-
-		// grade2: {
-		// 	height: [100, 140],
-		// 	interval: [30, 60],
-		// },
-		// grade3: [],
-		// grade3: [],
-		// grade4: [],
-		// grade5: [],
+	initheight: [80, 120],
+	//间隙高度变换范围
+	height: [80, 120],
+	//等级高度减小数额
+	heightChangeNum: 5,
+	initinterval: [50, 100],
+	//间隙变换浮动范围
+	interval: [50, 100],
+	//等级差距增大数额
+	intervalChangeNum: 5,
+	//速度增加数值
+	velocityXChangeNum: 10,
+	//没得20分，难度增加一级
+	itemgrade: 20
 };
 exports.default = grade;
 
 /***/ }),
-/* 44 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3027,37 +3032,39 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(26);
+var _config = __webpack_require__(0);
 
-var _gameSource = __webpack_require__(3);
+var _gameSource = __webpack_require__(1);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _SceneSprite = __webpack_require__(35);
+var _SceneSprite = __webpack_require__(3);
 
 var _SceneSprite2 = _interopRequireDefault(_SceneSprite);
 
-var _SceneImagePainter = __webpack_require__(36);
+var _SceneImagePainter = __webpack_require__(4);
 
 var _SceneImagePainter2 = _interopRequireDefault(_SceneImagePainter);
 
-var _behaviorList = __webpack_require__(37);
+var _behaviorList = __webpack_require__(5);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
-var _CharacterRunSpriteSheetPainter = __webpack_require__(45);
+var _CharacterRunSpriteSheetPainter = __webpack_require__(38);
 
 var _CharacterRunSpriteSheetPainter2 = _interopRequireDefault(_CharacterRunSpriteSheetPainter);
 
-var _sourceConfig = __webpack_require__(38);
+var _sourceConfig = __webpack_require__(6);
 
 var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
 
-var _sprite = __webpack_require__(39);
+var _sprite = __webpack_require__(7);
 
-var _CharacterSpriteAnimator = __webpack_require__(47);
+var _CharacterSpriteAnimator = __webpack_require__(40);
 
 var _CharacterSpriteAnimator2 = _interopRequireDefault(_CharacterSpriteAnimator);
+
+var _audioControl = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3080,7 +3087,9 @@ var Bird = function (_Sprite) {
         _this.painters = {
             run: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.hconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.hconfig.totalCount),
             up: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.uconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.uconfig.totalCount),
-            down: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.dconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.dconfig.totalCount)
+            down: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.dconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.dconfig.totalCount),
+            die: new _CharacterRunSpriteSheetPainter2.default(_sourceConfig2.default.birdConfig.dieconfig, _gameSource2.default.imageList.allbird, _sourceConfig2.default.birdConfig.dieconfig.totalCount)
+
         };
         _this.isDie = false;
         _this.name = 'bird';
@@ -3102,8 +3111,14 @@ var Bird = function (_Sprite) {
         _this.painter = _this.painters.up;
         var self = _this;
         _this.monsterSpriteAnimatorJump = new _CharacterSpriteAnimator2.default(function die() {
+            if (!self.isDie) {
+                _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.hit);
+            }
             self.isDie = true;
             console.log('die');
+            self.painter = self.painters.die;
+
+            setting.dieCallback();
         }, _this);
         _this.monsterSpriteAnimatorJump.start();
         return _this;
@@ -3116,10 +3131,12 @@ var Bird = function (_Sprite) {
             this.monsterSpriteAnimatorJump.execute();
             this.update(ctx, time, fpsNum);
             this.paint(ctx);
-            if (this.velocityY <= 0) {
-                this.painter = this.painters.up;
-            } else {
-                this.painter = this.painters.down;
+            if (!this.isDie) {
+                if (this.velocityY <= 0) {
+                    this.painter = this.painters.up;
+                } else {
+                    this.painter = this.painters.down;
+                }
             }
         }
     }]);
@@ -3130,7 +3147,7 @@ var Bird = function (_Sprite) {
 exports.default = Bird;
 
 /***/ }),
-/* 45 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3142,9 +3159,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _spriteSheetPainter = __webpack_require__(46);
+var _spriteSheetPainter = __webpack_require__(39);
 
-var _config = __webpack_require__(26);
+var _config = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3196,7 +3213,7 @@ var CharacterRunSpriteSheetPainter = function (_SpriteSheetPainter) {
 exports.default = CharacterRunSpriteSheetPainter;
 
 /***/ }),
-/* 46 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3252,7 +3269,7 @@ var SpriteSheetPainter = function () {
 exports.SpriteSheetPainter = SpriteSheetPainter;
 
 /***/ }),
-/* 47 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3264,7 +3281,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _spriteAnimator = __webpack_require__(48);
+var _spriteAnimator = __webpack_require__(41);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3326,7 +3343,7 @@ var CharacterSpriteAnimator = function (_SpriteAnimator) {
 exports.default = CharacterSpriteAnimator;
 
 /***/ }),
-/* 48 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3395,6 +3412,149 @@ var SpriteAnimator = function () {
 }();
 
 exports.SpriteAnimator = SpriteAnimator;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.cutscenes = undefined;
+
+var _lib = __webpack_require__(2);
+
+//过场动画
+var cutscenes = {
+    ready: function ready() {
+        var barSelector = _lib.lib.$('.progress-box');
+        barSelector.style.display = 'none';
+        var barSelector = _lib.lib.$('.start-screen');
+        barSelector.style.display = 'block';
+    },
+    start: function start() {
+        var barSelector = _lib.lib.$('.start-screen');
+        barSelector.style.display = 'none';
+    },
+    restart: function restart() {
+        _lib.lib.$('.over-screen').style.display = 'none';
+        // lib.$('.over-screen').style.opacity = 0;
+        _lib.lib.$('.over-screen').className = 'over-screen';
+        // lib.$('.get-over').style.opacity = 0;
+        _lib.lib.$('.get-over').className = 'get-over';
+        //lib.$('.score-board').style.opacity = 0;
+        _lib.lib.$('.score-board').className = 'score-board';
+        //lib.$('.restart-btn').style.opacity = 0;
+        _lib.lib.$('.restart-btn').className = 'restart-btn';
+    },
+    stop: function stop() {
+        _lib.lib.$('.over-screen').style.display = 'block';
+        setTimeout(function () {
+            //lib.$('.over-screen').style.opacity = 1;
+            _lib.lib.$('.over-screen').className = 'over-screen fadeIn animated';
+            console.log('.over-screen');
+        }, 0);
+        setTimeout(function () {
+            //lib.$('.get-over').style.opacity = 1;
+            _lib.lib.$('.get-over').className = 'get-over animated bounce';
+            console.log('.get-over');
+        }, 0);
+        setTimeout(function () {
+            //lib.$('.score-board').style.opacity = 1;
+            _lib.lib.$('.score-board').className = 'score-board animated bounceInUp';
+            console.log('.score-board');
+        }, 0);
+        setTimeout(function () {
+            // lib.$('.restart-btn').style.opacity = 1;
+            _lib.lib.$('.restart-btn').className = 'restart-btn zoomIn animated';
+            console.log('.restart-btn');
+        }, 0);
+    }
+}; //加载公共函数
+exports.cutscenes = cutscenes;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//audioControl
+var audioControl = {
+    //如果isplay不传，则总是播放，如果传了则只播放一次，例如人物死亡
+    audioPlay: function audioPlay(audioObj) {
+        var startTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+        audioObj.currentTime = startTime;
+        audioObj.play();
+    },
+    BGMPlay: function BGMPlay(audioObj) {
+        audioObj.loop = true;
+        audioObj.volume = 0.2;
+        audioObj.play();
+    },
+    BGMPause: function BGMPause(audioObj) {
+        audioObj.pause();
+    },
+
+    timeupdateAddEventListener: function timeupdateAddEventListener(audioObj) {
+        audioObj.addEventListener('timeupdate', function () {
+            if (this.currentTime > this.endTime) {
+                this.pause();
+            }
+        }, false);
+    }
+};
+exports.audioControl = audioControl;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/hitdie.mp3";
+
+/***/ }),
+/* 51 */,
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/hit.mp3";
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/point.mp3";
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/swooshing.mp3";
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
 
 /***/ })
 /******/ ]);

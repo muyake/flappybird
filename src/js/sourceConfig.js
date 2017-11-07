@@ -58,6 +58,15 @@ var sourceConfig = {
 				top: 0,
 			}
 		},
+		dieconfig: {
+			totalCount: 1,
+			sprite_0: {
+				width: 40,
+				height: 30,
+				left: 0,
+				top: 191,
+			},
+		}
 
 	}
 

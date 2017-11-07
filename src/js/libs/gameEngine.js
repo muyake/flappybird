@@ -5,7 +5,7 @@ var getTimeNow = function() {
 var Game = function(gameName, canvasId) {
 	var canvas = document.getElementById(canvasId),
 		self = this; // Used by key event handlers below
-		this.speed=1;
+	this.speed = 1;
 	// General
 
 	this.context = canvas.getContext('2d');
@@ -27,18 +27,19 @@ var Game = function(gameName, canvasId) {
 	this.STARTING_FPS = 60;
 
 	this.paused = false;
+	this.isStart = false;
 	this.startedPauseAt = 0;
 	this.PAUSE_TIMEOUT = 100;
 
 
-	window.onkeypress=function(e){
-		self.activeEvent(e,1)
+	window.onkeypress = function(e) {
+		self.activeEvent(e, 1)
 	};
-	window.onkeydown=function(e){
-		self.activeEvent(e,1)
+	window.onkeydown = function(e) {
+		self.activeEvent(e, 1)
 	};
-	window.onkeyup=function(e){ 
-		self.activeEvent(e,0)
+	window.onkeyup = function(e) {
+		self.activeEvent(e, 0)
 	};
 	return this;
 }
@@ -46,6 +47,7 @@ Game.prototype = {
 	start: function() {
 		var self = this;
 		this.startTime = getTimeNow();
+		this.isStart = true;
 		window.requestNextAnimationFrame(function(time) {
 			self.animate.call(self, time);
 		});
@@ -84,7 +86,7 @@ Game.prototype = {
 		} else {
 			if ((time - this.fps.lastTime) > this.fps.interval) {
 				//this.fps.num = 1000 / (time - this.lastTime);
-				this.fps.num =60;
+				this.fps.num = 60;
 				this.fps.lastTime = time;;
 			}
 		}
@@ -94,47 +96,65 @@ Game.prototype = {
 	},
 
 	//监听事件
-	addKeyListener:function(keyAndListener){
+	addKeyListener: function(keyAndListener) {
 		this.keyListeners.push(keyAndListener);
 	},
-	findKeyListener:function(key){
-		var listener=undefined;
-		for(var i=0;i<this.keyListeners.length;i++){
-			var keyAndListener=this.keyListeners[i];
-			var currentKey=keyAndListener.key;
-			if(currentKey===key){
-				listener=keyAndListener.listener;
-			}			
+	findKeyListener: function(key) {
+		var listener = undefined;
+		for (var i = 0; i < this.keyListeners.length; i++) {
+			var keyAndListener = this.keyListeners[i];
+			var currentKey = keyAndListener.key;
+			if (currentKey === key) {
+				listener = keyAndListener.listener;
+			}
 		}
 		return listener;
 	},
 	mapKey: {
 		// 38: false,
 		// 40: false,
-		37: false,	//left
-		39: false,//right
-		32: false 
+		37: false, //left
+		39: false, //right
+		32: false
 	},
-	activeEventCallback:function(mapKeyArr){
-		
+	activeEventCallback: function(mapKeyArr) {
+
 	},
 
-	activeEvent:function(e,status){
-		var listener=undefined;
-		var key=undefined;
-		switch(e.keyCode){
-			case 32:key='space';break;
-			case 68:key='d';break;
-			case 75:key='k';break;
-			case 83:key='s';break;
-			case 80:key='p';break;
-			case 37:key='left arrow';break;
-			case 39:key='right arrow';break;
-			case 38:key='up arrow';break;
-			case 40:key='down arrow';break;
+	activeEvent: function(e, status) {
+		var listener = undefined;
+		var key = undefined;
+		switch (e.keyCode) {
+			case 32:
+				key = 'space';
+				break;
+			case 68:
+				key = 'd';
+				break;
+			case 75:
+				key = 'k';
+				break;
+			case 83:
+				key = 's';
+				break;
+			case 80:
+				key = 'p';
+				break;
+			case 37:
+				key = 'left arrow';
+				break;
+			case 39:
+				key = 'right arrow';
+				break;
+			case 38:
+				key = 'up arrow';
+				break;
+			case 40:
+				key = 'down arrow';
+				break;
 		}
-		listener=this.findKeyListener(key);
-		if(listener){
+		listener = this.findKeyListener(key);
+		if (listener) {
 			listener(status);
 		}
 		//this.activeEventCallback(this.mapKey,status);
@@ -152,6 +172,6 @@ Game.prototype = {
 	},
 	startAnimate: function(time) {},
 }
-export{
+export {
 	Game
 }

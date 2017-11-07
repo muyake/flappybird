@@ -14,16 +14,23 @@ import {
 import sourceConfig from './sourceConfig.js';
 import grade from './grade.js';
 import Bird from './bird.js';
+import {
+    audioControl
+}
+from './audioControl';
+import {
+    cutscenes
+} from './cutscenes.js';
 var spriteList = {
     pipelineList: [],
     intervalArr: [{
         mid: 210,
-        height: 100,       
-    }, {
-        mid: 100,
-        height: 80
+        height: 100,
     }, {
         mid: 150,
+        height: 80
+    }, {
+        mid: 180,
         height: 90
     }],
     totalScore: 0,
@@ -38,15 +45,32 @@ var spriteList = {
             name: 'bird',
             width: sourceConfig.birdConfig.width,
             height: sourceConfig.birdConfig.height,
+            dieCallback: function() {
+                config.velocityX = 0;
+                lib.$('.scoreNum').innerHTML = spriteList.totalScore;
+                var maxNum;
+                var local = localStorage.getItem('maxNum');
+                if (local) {
+                    maxNum = parseInt(local);
+                } else {
+                    maxNum = 0;
+                }
+                if (spriteList.totalScore > maxNum) {
+                    maxNum = spriteList.totalScore;
+                    localStorage.setItem('maxNum', spriteList.totalScore);
+                }
+                lib.$('.maxscoreNum').innerHTML = maxNum;
+                cutscenes.stop();
+            }
         });
-        var startleft = 130;
+        var startleft = config.canvasWidth - sourceConfig.pipConfig.width;
         var interval = config.canvasWidth / 2;
         var self = this;
         this.intervalArr.forEach(function(item, index) {
             var num = config.canvasHeight - config.groundHeight;
             var intervalH = lib.getRandom(num * 0.2, num * 0.25);
-            item.left=startleft + interval * index;
-            item.width=sourceConfig.pipConfig.width;
+            item.left = startleft + interval * index;
+            item.width = sourceConfig.pipConfig.width;
             self.pipelineList.push(new Pipeline({
                 isDown: true,
                 name: "pipeline",
@@ -67,11 +91,11 @@ var spriteList = {
             var item = this.pipelineList[i];
             var downitem = this.pipelineList[i + 1];
             var intervalObjIndex = i / 2;
-                var currentIntervalObj = this.intervalArr[intervalObjIndex];
-             currentIntervalObj.left=item.left;
+            var currentIntervalObj = this.intervalArr[intervalObjIndex];
+            currentIntervalObj.left = item.left;
             if (item.left < -item.width) {
                 item.left += config.canvasWidth * 3 / 2;
-                downitem.left += config.canvasWidth * 3 / 2;                
+                downitem.left += config.canvasWidth * 3 / 2;
                 var preIndex = (intervalObjIndex - 1) < 0 ? this.intervalArr.length - 1 : intervalObjIndex - 1;
                 var mid = this.intervalArr[preIndex].mid;
                 var sign = Math.random() > 0.5 ? 1 : -1;
@@ -95,19 +119,27 @@ var spriteList = {
             }
         }
     },
-    CD:function(){
-        var flag=true;
-        var self=this;
-        this.intervalArr.forEach(function(item){
-            if(item.left<(self.bird.left+self.bird.width)&&(item.left+item.width)>self.bird.left){
-               if(self.bird.top<(item.mid-item.height/2)-17){
-                    self.bird.isDie=true;
+    CD: function() {
+        var flag = true;
+        var self = this;
+        this.intervalArr.forEach(function(item) {
+            if (item.left < (self.bird.left + self.bird.width) && (item.left + item.width) > self.bird.left) {
+                if (self.bird.top < (item.mid - item.height / 2) - 17) {
+                    self.bird.isDie = true;
+
+                    //audioControl.audioPlay(config.gameSourceObj.audioList.hit);
+                    audioControl.audioPlay(config.gameSourceObj.audioList.hitdie);
                     console.log('碰到上边');
-               }
-               if((self.bird.top+self.bird.height)>(item.mid+item.height/2)){
-                    self.bird.isDie=true;
+
+                    // self.bird.painter = self.bird.painters.die;
+                }
+                if ((self.bird.top + self.bird.height) > (item.mid + item.height / 2)) {
+                    self.bird.isDie = true;
+                    // audioControl.audioPlay(config.gameSourceObj.audioList.hit);
+                    audioControl.audioPlay(config.gameSourceObj.audioList.hitdie);
                     console.log('碰到下边');
-               }
+                    // self.bird.painter = self.bird.painters.die;
+                }
             }
         });
     },
@@ -130,19 +162,22 @@ var spriteList = {
                 if (this.flag == true && left2 <= this.bird.left) {
                     this.flag = false;
                     this.totalScore++;
+                    audioControl.audioPlay(config.gameSourceObj.audioList.point, 0.15);
                 }
             }
+            config.grade = parseInt(this.totalScore / grade.itemgrade);
+            grade.height[0] = grade.initheight[0] - config.grade * grade.heightChangeNum;
+            grade.height[1] = grade.initheight[1] - config.grade * grade.heightChangeNum;
+            grade.initinterval[0] = grade.initinterval[0] + config.grade * grade.intervalChangeNum;
+            grade.initinterval[1] = grade.initinterval[1] + config.grade * grade.intervalChangeNum;
+            config.velocityX = config.initVelocityX + config.grade * grade.velocityXChangeNum;
         }
         this.drawScore(ctx);
-        config.grade=parseInt(this.totalScore/config.itemgrade);
-       
     },
-
-
     draw: function(ctx, time, fpsNum) {
-        if(!this.bird.isDie){
-             this.CD();
-         }       
+        if (!this.bird.isDie) {
+            this.CD();
+        }
         this.pipelineList.forEach(function(item) {
             item.draw(ctx, time, fpsNum);
         });
@@ -154,8 +189,27 @@ var spriteList = {
     pop: function() {
         if (!this.bird.isDie) {
             this.bird.velocityY = -config.velocityY;
+            audioControl.audioPlay(config.gameSourceObj.audioList.wing);
         }
+    },
+    reset: function() {
+        audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
+        this.totalScore = 0;
+        this.pipelineList = [];
+        this.intervalArr = [{
+            mid: 210,
+            height: 100,
+        }, {
+            mid: 150,
+            height: 80
+        }, {
+            mid: 180,
+            height: 90
+        }];
+        this.init();
+        cutscenes.restart();
     }
+
 };
 export {
     spriteList

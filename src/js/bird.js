@@ -12,7 +12,10 @@ import {
     Sprite
 } from './libs/sprite.js'
 import CharacterSpriteAnimator from './CharacterSpriteAnimator.js';
-
+import {
+    audioControl
+}
+from './audioControl';
 class Bird extends Sprite {
     constructor(setting) {
         super(setting.name);
@@ -20,6 +23,8 @@ class Bird extends Sprite {
             run: new CharacterRunSpriteSheetPainter(sourceConfig.birdConfig.hconfig, gameSourceUrl.imageList.allbird, sourceConfig.birdConfig.hconfig.totalCount),
             up: new CharacterRunSpriteSheetPainter(sourceConfig.birdConfig.uconfig, gameSourceUrl.imageList.allbird, sourceConfig.birdConfig.uconfig.totalCount),
             down: new CharacterRunSpriteSheetPainter(sourceConfig.birdConfig.dconfig, gameSourceUrl.imageList.allbird, sourceConfig.birdConfig.dconfig.totalCount),
+            die: new CharacterRunSpriteSheetPainter(sourceConfig.birdConfig.dieconfig, gameSourceUrl.imageList.allbird, sourceConfig.birdConfig.dieconfig.totalCount),
+
         };
         this.isDie = false;
         this.name = 'bird';
@@ -39,10 +44,16 @@ class Bird extends Sprite {
         };
         this.behaviors = [this.behaviorStatus.runInPlace];
         this.painter = this.painters.up;
-        var self=this;
+        var self = this;
         this.monsterSpriteAnimatorJump = new CharacterSpriteAnimator(function die() {
+            if (!self.isDie) {
+                audioControl.audioPlay(config.gameSourceObj.audioList.hit);
+            }
             self.isDie = true;
             console.log('die');
+            self.painter = self.painters.die;
+
+            setting.dieCallback();
         }, this);
         this.monsterSpriteAnimatorJump.start();
     }
@@ -51,11 +62,14 @@ class Bird extends Sprite {
         this.monsterSpriteAnimatorJump.execute();
         this.update(ctx, time, fpsNum);
         this.paint(ctx);
-        if (this.velocityY <= 0) {
-            this.painter = this.painters.up;
-        } else {
-            this.painter = this.painters.down;
+        if (!this.isDie) {
+            if (this.velocityY <= 0) {
+                this.painter = this.painters.up;
+            } else {
+                this.painter = this.painters.down;
+            }
         }
+
     }
 }
 

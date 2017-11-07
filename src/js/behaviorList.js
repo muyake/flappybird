@@ -1,16 +1,7 @@
 //游戏所有元素的动作对象
-
-// import {
-//     lib
-// } from './public.js';
-
-// import {
-//     progressObj,
-//     PJNum,
-//     totalProgressSprite,
-//     createFactory
-// }
-// from './gameProgress';
+import {
+    config
+} from './config.js';
 //所有行为
 let behaviorList = {
     //背景图片用的这个行为
@@ -20,7 +11,7 @@ let behaviorList = {
         this.fpsNum = 60;
         this.execute = function(sprite, context, time, fpsNum) {
             this.fpsNum = (fpsNum == 0) ? 0 : (fpsNum || this.fpsNum);
-            sprite.left += sprite.velocityX / this.fpsNum;
+            sprite.left -= config.velocityX / this.fpsNum;
             this.lastMove = time;
         }
     },

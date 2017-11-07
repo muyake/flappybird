@@ -30,11 +30,12 @@ const gameSourceUrl = {
 
     },
     audioList: {
-        die: require("../Sounds/Die.mp3"),
-        hit: require("../Sounds/hit.mp3"),
-        point: require("../Sounds/point.mp3"),
-        swooshing: require("../Sounds/swooshing.mp3"),
-        wing: require("../Sounds/wing.mp3"), //
+        hitdie: require("../Sounds/mp3/hitdie.mp3"),
+        //  die: require("../Sounds/mp3/Die.mp3"),
+        hit: require("../Sounds/mp3/hit.mp3"),
+        point: require("../Sounds/mp3/point.mp3"),
+        swooshing: require("../Sounds/mp3/swooshing.mp3"),
+        wing: require("../Sounds/mp3/wing.mp3"), //
 
     }
 }
