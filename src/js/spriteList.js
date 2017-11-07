@@ -126,10 +126,12 @@ var spriteList = {
             if (item.left < (self.bird.left + self.bird.width) && (item.left + item.width) > self.bird.left) {
                 if (self.bird.top < (item.mid - item.height / 2) - 17) {
                     self.bird.isDie = true;
+                    self.bird.velocityY = 0;
 
                     //audioControl.audioPlay(config.gameSourceObj.audioList.hit);
                     audioControl.audioPlay(config.gameSourceObj.audioList.hitdie, 0.2);
                     console.log('碰到上边');
+                    config.velocityX = 0;
 
                     // self.bird.painter = self.bird.painters.die;
                 }
@@ -138,8 +140,10 @@ var spriteList = {
                     // audioControl.audioPlay(config.gameSourceObj.audioList.hit);
                     audioControl.audioPlay(config.gameSourceObj.audioList.hitdie, 0.2);
                     console.log('碰到下边');
+                    config.velocityX = 0;
                     // self.bird.painter = self.bird.painters.die;
                 }
+
             }
         });
     },
@@ -206,6 +210,7 @@ var spriteList = {
             mid: 180,
             height: 90
         }];
+        config.velocityX = 100;
         this.init();
         cutscenes.restart();
     }
