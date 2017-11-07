@@ -124,7 +124,7 @@ var spriteList = {
         var self = this;
         this.intervalArr.forEach(function(item) {
             if (item.left < (self.bird.left + self.bird.width) && (item.left + item.width) > self.bird.left) {
-                if (self.bird.top < (item.mid - item.height / 2) - 17) {
+                if (self.bird.top < (item.mid - item.height / 2) - 5) {
                     self.bird.isDie = true;
                     self.bird.velocityY = 0;
 
