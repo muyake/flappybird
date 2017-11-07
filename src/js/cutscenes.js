@@ -27,26 +27,10 @@ var cutscenes = {
     },
     stop: function() {
         lib.$('.over-screen').style.display = 'block';
-        setTimeout(function() {
-            //lib.$('.over-screen').style.opacity = 1;
-            lib.$('.over-screen').className = 'over-screen fadeIn animated';
-            console.log('.over-screen');
-        }, 0);
-        setTimeout(function() {
-            //lib.$('.get-over').style.opacity = 1;
-            lib.$('.get-over').className = 'get-over animated bounce';
-            console.log('.get-over');
-        }, 0);
-        setTimeout(function() {
-            //lib.$('.score-board').style.opacity = 1;
-            lib.$('.score-board').className = 'score-board animated bounceInUp';
-            console.log('.score-board');
-        }, 0);
-        setTimeout(function() {
-            // lib.$('.restart-btn').style.opacity = 1;
-            lib.$('.restart-btn').className = 'restart-btn zoomIn animated';
-            console.log('.restart-btn');
-        }, 0);
+        lib.$('.over-screen').className = 'over-screen fadeIn animated';
+        lib.$('.get-over').className = 'get-over animated bounce';
+        lib.$('.score-board').className = 'score-board animated bounceInUp';
+        lib.$('.restart-btn').className = 'restart-btn zoomIn animated';
     }
 }
 export {

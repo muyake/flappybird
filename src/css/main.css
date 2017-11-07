@@ -64,7 +64,15 @@ body {
     left: 0;
     overflow: hidden;
 }
-
+.clickback{
+    width: 3.6rem;
+    height: 1.75rem;
+    position: absolute;
+    background: url(../Images/gameWords.png) no-repeat top/cover;
+    background-position: 0 -2.1rem;
+        top: 35%;
+    left: 28.1%;
+}
 .over-screen {
     opacity: 0;
 }
@@ -76,7 +84,7 @@ body {
     height: 0.95rem;
     position: absolute;
     left: 50%;
-    top: 30%;
+    top: 20%;
     margin-left: -1.8rem;
     margin-top: -0.475rem;
     background: url(../Images/gameWords.png) no-repeat top/cover;
@@ -118,8 +126,8 @@ body {
     width: 0.81rem;
     height: 0.7rem;
     position: absolute;
-    left: 50%;
-    top: 40%;
+    left: 85%;
+    top: 20%;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
@@ -133,25 +141,25 @@ body {
 
 @keyframes float {
     0% {
-        top: 40%;
+        top: 20%;
     }
     50% {
-        top: 38%;
+        top: 18%;
     }
     100% {
-        top: 40%;
+        top: 20%;
     }
 }
 
 @-webkit-keyframes float {
-    0% {
-        top: 40%;
+      0% {
+        top: 20%;
     }
     50% {
-        top: 38%;
+        top: 18%;
     }
     100% {
-        top: 40%;
+        top: 20%;
     }
 }
 
@@ -397,9 +405,7 @@ body {
      background: url('../Images/3.jpg') no-repeat center/contain;
   }*/
 
-.count {
-    background: url('../Images/0.jpg') no-repeat center/contain;
-}
+
 
 
 /*-----------------------分数样式-----------------------*/
