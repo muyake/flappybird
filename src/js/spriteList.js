@@ -128,7 +128,7 @@ var spriteList = {
                     self.bird.isDie = true;
 
                     //audioControl.audioPlay(config.gameSourceObj.audioList.hit);
-                    audioControl.audioPlay(config.gameSourceObj.audioList.hitdie);
+                    audioControl.audioPlay(config.gameSourceObj.audioList.hitdie, 0.2);
                     console.log('碰到上边');
 
                     // self.bird.painter = self.bird.painters.die;
@@ -136,7 +136,7 @@ var spriteList = {
                 if ((self.bird.top + self.bird.height) > (item.mid + item.height / 2)) {
                     self.bird.isDie = true;
                     // audioControl.audioPlay(config.gameSourceObj.audioList.hit);
-                    audioControl.audioPlay(config.gameSourceObj.audioList.hitdie);
+                    audioControl.audioPlay(config.gameSourceObj.audioList.hitdie, 0.2);
                     console.log('碰到下边');
                     // self.bird.painter = self.bird.painters.die;
                 }
