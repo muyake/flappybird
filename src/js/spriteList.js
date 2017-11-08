@@ -68,14 +68,13 @@ var spriteList = {
         var self = this;
         this.intervalArr.forEach(function(item, index) {
             var num = config.canvasHeight - config.groundHeight;
-            var intervalH = lib.getRandom(num * 0.2, num * 0.25);
             item.left = startleft + interval * index;
             item.width = sourceConfig.pipConfig.width;
             self.pipelineList.push(new Pipeline({
                 isDown: true,
                 name: "pipeline",
                 left: startleft + interval * index,
-                height: item.mid - intervalH / 2,
+                height: item.mid - item.height / 2,
             }));
             self.pipelineList.push(new Pipeline({
                 isDown: false,
@@ -124,22 +123,22 @@ var spriteList = {
         var self = this;
         this.intervalArr.forEach(function(item) {
             if (item.left < (self.bird.left + self.bird.width) && (item.left + item.width) > self.bird.left) {
-                if (self.bird.top < (item.mid - item.height / 2) - 5) {
+                if (self.bird.top + 2 <= (item.mid - item.height / 2)) {
                     self.bird.isDie = true;
                     self.bird.velocityY = 0;
 
                     //audioControl.audioPlay(config.gameSourceObj.audioList.hit);
                     audioControl.audioPlay(config.gameSourceObj.audioList.hitdie, 0.2);
-                    console.log('碰到上边');
+                    // console.log('碰到上边');
                     config.velocityX = 0;
 
                     // self.bird.painter = self.bird.painters.die;
                 }
-                if ((self.bird.top + self.bird.height) > (item.mid + item.height / 2)) {
+                if ((self.bird.top + self.bird.height) - 2 >= (item.mid + item.height / 2)) {
                     self.bird.isDie = true;
                     // audioControl.audioPlay(config.gameSourceObj.audioList.hit);
                     audioControl.audioPlay(config.gameSourceObj.audioList.hitdie, 0.2);
-                    console.log('碰到下边');
+                    //console.log('碰到下边');
                     config.velocityX = 0;
                     // self.bird.painter = self.bird.painters.die;
                 }
@@ -179,15 +178,15 @@ var spriteList = {
         this.drawScore(ctx);
     },
     draw: function(ctx, time, fpsNum) {
-        if (!this.bird.isDie) {
-            this.CD();
-        }
+        this.update();
         this.pipelineList.forEach(function(item) {
             item.draw(ctx, time, fpsNum);
         });
+        if (!this.bird.isDie) {
+            this.CD();
+        }
         this.bird.draw(ctx, time, fpsNum);
         this.background.draw(ctx, time, fpsNum);
-        this.update();
         this.updateScore(ctx);
     },
     pop: function() {

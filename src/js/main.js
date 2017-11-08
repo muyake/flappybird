@@ -59,8 +59,6 @@ var option = {
 		lib.$('#mycanvas').setAttribute('width', canvasWidth);
 		lib.$('#mycanvas').setAttribute('height', clientHeight);
 		spriteList.init();
-		// cutscenes.start();
-		// gameControl.start();
 		lib.$('.start-btn').addEventListener('click', function() {
 
 			cutscenes.start();

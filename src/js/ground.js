@@ -11,9 +11,9 @@ class BG extends SceneSprite {
         super(setting.name, new SceneImagePainter(gameSourceUrl.imageList.ground), [new behaviorList.moveLeftToRight()]);
         this.width = config.canvasWidth;
         this.height = config.groundHeight;
-        console.log(config.clientHeight);
+        // console.log(config.clientHeight);
         this.top = config.canvasHeight - config.groundHeight;
-        console.log(this.top);
+        // console.log(this.top);
         this.left = setting.left || 0;
         // this.velocityX = -config.velocityX;
     }

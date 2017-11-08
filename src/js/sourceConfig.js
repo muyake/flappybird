@@ -17,14 +17,14 @@ var sourceConfig = {
 				width: 40,
 				height: 26,
 				left: 0,
-				top: 121,
+				top: 88,
 			},
 
 			sprite_1: {
 				width: 40,
 				height: 26,
 				left: 0,
-				top: 156,
+				top: 114,
 			}
 		},
 		uconfig: {
@@ -33,14 +33,14 @@ var sourceConfig = {
 				width: 40,
 				height: 29,
 				left: 0,
-				top: 41,
+				top: 30,
 			},
 
 			sprite_1: {
 				width: 40,
 				height: 29,
 				left: 0,
-				top: 80,
+				top: 59,
 			}
 		},
 		dconfig: {
@@ -49,7 +49,7 @@ var sourceConfig = {
 				width: 40,
 				height: 30,
 				left: 0,
-				top: 191,
+				top: 140,
 			},
 			sprite_1: {
 				width: 40,
@@ -64,7 +64,7 @@ var sourceConfig = {
 				width: 40,
 				height: 30,
 				left: 0,
-				top: 191,
+				top: 0,
 			},
 		}
 
