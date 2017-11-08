@@ -27,8 +27,8 @@ var spriteList = {
         mid: 210,
         height: 100,
     }, {
-        mid: 150,
-        height: 80
+        mid: 160,
+        height: 95
     }, {
         mid: 180,
         height: 90
@@ -36,6 +36,7 @@ var spriteList = {
     totalScore: 0,
     flag: false,
     init: function() {
+        console.log('init');
         this.background = new BG({
             name: "BG",
             top: 20,
@@ -203,8 +204,8 @@ var spriteList = {
             mid: 210,
             height: 100,
         }, {
-            mid: 150,
-            height: 80
+            mid: 160,
+            height: 95
         }, {
             mid: 180,
             height: 90

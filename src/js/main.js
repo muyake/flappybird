@@ -76,7 +76,13 @@ var option = {
 		};
 	},
 };
+
 adaptation.init(function() {
-	config.gameSourceObj = preLoadObj.init(option);
-	console.log(config.gameSourceObj);
+	//适配时会执行多次，这样就执行一次。
+	if (!config.adaptation) {
+		config.adaptation = true;
+		config.gameSourceObj = preLoadObj.init(option);
+		console.log(config.gameSourceObj);
+	}
+
 })

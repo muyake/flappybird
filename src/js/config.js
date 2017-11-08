@@ -7,6 +7,7 @@ var config = {
 	velocityX: 100,
 	velocityY: 150 * 1.2,
 	initVelocityX: 100 * 1.2,
+	adaptation: false,
 }
 export {
 	config
