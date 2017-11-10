@@ -21,7 +21,7 @@ body {
     height: 100%;
     overflow: hidden;
     position: relative;
-    background: url(./static/img/background.png) no-repeat center/cover;
+    background: url(./static/img/e8172b6d9ada506ca86fbc1fa0771df8.png) no-repeat center/cover;
 }
 
 .main {
@@ -77,7 +77,7 @@ body {
     width: 3.6rem;
     height: 1.75rem;
     position: absolute;
-    background: url(./static/img/gameWords.png) no-repeat top/cover;
+    background: url(./static/img/df6039f174683da04f3fbd1e0354e952.png) no-repeat top/cover;
     background-position: 0 -2.1rem;
         top: 35%;
     left: 28.1%;
@@ -96,7 +96,7 @@ body {
     top: 20%;
     margin-left: -1.8rem;
     margin-top: -0.475rem;
-    background: url(./static/img/gameWords.png) no-repeat top/cover;
+    background: url(./static/img/df6039f174683da04f3fbd1e0354e952.png) no-repeat top/cover;
 }
 
 .animated {
@@ -111,7 +111,7 @@ body {
 .get-over {
     top: 15%;
     /*opacity: 0;*/
-    background: url(./static/img/gameWords.png) no-repeat top/cover;
+    background: url(./static/img/df6039f174683da04f3fbd1e0354e952.png) no-repeat top/cover;
     background-position: 0 -1.07rem;
 }
 
@@ -128,7 +128,7 @@ body {
         -ms-transform: translate(-50%,-50%);
         -o-transform: translate(-50%,-50%);
         transform: translate(-50%,-50%);*/
-    background: url(./static/img/score.png) no-repeat top/cover;
+    background: url(./static/img/f929fedec0b6fb68d77db8d5f10f3a23.png) no-repeat top/cover;
 }
 
 .bird-animation {
@@ -141,7 +141,7 @@ body {
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    background: url(./static/img/birds.png) no-repeat;
+    background: url(./static/img/056dddf19d3a9a9bd7da2e71024217a8.png) no-repeat;
     background-position: 0% 0%;
     background-size: cover;
     animation: csssprite .5s infinite steps(1), float 2s infinite linear;
@@ -354,7 +354,7 @@ body {
     top: 70%;
     margin-top:-0.475rem;
     margin-left: -0.95rem;
-    background: url(./static/img/btns.png) no-repeat top left;
+    background: url(./static/img/a8b648ee180a9b16b0f3bff452db5152.png) no-repeat top left;
     background-size: 3.9rem 3.2rem;
 }
 .scroll-ground1 {
@@ -363,7 +363,7 @@ body {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    background: url(./static/img/ground.png) no-repeat top center/ cover;
+    background: url(./static/img/1f1febf75c45b9192e6b69816cc1da92.png) no-repeat top center/ cover;
     animation: moveleft1 3s infinite linear;
     -webkit-animation: moveleft1 3s infinite linear;
 }
@@ -374,7 +374,7 @@ body {
     position: absolute;
     bottom: 0px;
     left: 6.4rem;
-    background: url(./static/img/ground.png) no-repeat top center/ cover;
+    background: url(./static/img/1f1febf75c45b9192e6b69816cc1da92.png) no-repeat top center/ cover;
     animation: moveleft2 3s infinite linear;
     -webkit-animation: moveleft2 3s infinite linear;
 }
