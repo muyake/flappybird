@@ -13,6 +13,9 @@ var cutscenes = {
     start: function() {
         var barSelector = lib.$('.start-screen');
         barSelector.style.display = 'none';
+
+        var main = lib.$('.main');
+        main.style.display = 'block';
     },
     restart: function() {
         lib.$('.over-screen').style.display = 'none';

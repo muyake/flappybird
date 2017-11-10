@@ -1,7 +1,7 @@
 //加载公共函数
 import {
     lib
-} from './libs/lib.js';
+} from './lib.js';
 var Promise = require('es6-promise').Promise;
 
 var preLoadObj = {

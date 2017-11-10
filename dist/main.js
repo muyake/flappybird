@@ -94,6 +94,32 @@ exports.config = config;
 
 
 Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var lib = {
+	$: function $(selector) {
+		return document.querySelector(selector);
+	},
+	getRandom: function getRandom(num1, num2) {
+		return num1 + Math.random() * (num2 - num1);
+	},
+	is_weixin: function is_weixin() {
+		if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+			return true;
+		}
+		return false;
+	}
+};
+exports.lib = lib;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 //var BG = require(require('.../images/background2.png');
@@ -127,32 +153,6 @@ var gameSourceUrl = {
     }
 };
 exports.default = gameSourceUrl;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-var lib = {
-	$: function $(selector) {
-		return document.querySelector(selector);
-	},
-	getRandom: function getRandom(num1, num2) {
-		return num1 + Math.random() * (num2 - num1);
-	},
-	is_weixin: function is_weixin() {
-		if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
-			return true;
-		}
-		return false;
-	}
-};
-exports.lib = lib;
 
 /***/ }),
 /* 3 */
@@ -538,7 +538,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.cutscenes = undefined;
 
-var _lib = __webpack_require__(2);
+var _lib = __webpack_require__(1);
 
 //过场动画
 var cutscenes = {
@@ -551,6 +551,9 @@ var cutscenes = {
     start: function start() {
         var barSelector = _lib.lib.$('.start-screen');
         barSelector.style.display = 'none';
+
+        var main = _lib.lib.$('.main');
+        main.style.display = 'block';
     },
     restart: function restart() {
         _lib.lib.$('.over-screen').style.display = 'none';
@@ -580,11 +583,11 @@ exports.cutscenes = cutscenes;
 "use strict";
 
 
-var _lib = __webpack_require__(2);
+var _lib = __webpack_require__(1);
 
 var _adaptation = __webpack_require__(11);
 
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
@@ -666,9 +669,9 @@ _adaptation.adaptation.init(function () {
 		_config.config.gameSourceObj = _preload.preLoadObj.init(option);
 		console.log(_config.config.gameSourceObj);
 	}
-	document.querySelector('#btn1').addEventListener('click', function () {
-		alert(1);
-	});
+	// document.querySelector('#btn1').addEventListener('click', function() {
+	// 	alert(1);
+	// })
 });
 
 /***/ }),
@@ -803,7 +806,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.preLoadObj = undefined;
 
-var _lib = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./libs/lib.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var _lib = __webpack_require__(1);
 
 var Promise = __webpack_require__(27).Promise; //加载公共函数
 
@@ -2693,7 +2696,7 @@ exports.spriteList = undefined;
 
 var _ground = __webpack_require__(34);
 
-var _lib = __webpack_require__(2);
+var _lib = __webpack_require__(1);
 
 var _Pipeline = __webpack_require__(36);
 
@@ -2930,7 +2933,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _config = __webpack_require__(0);
 
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
@@ -3049,7 +3052,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _config = __webpack_require__(0);
 
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
@@ -3162,7 +3165,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _config = __webpack_require__(0);
 
-var _gameSource = __webpack_require__(1);
+var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
