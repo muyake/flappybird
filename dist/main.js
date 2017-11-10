@@ -839,6 +839,7 @@ var preLoadObj = {
             result[key].onload = function () {
                 self.currentNum++;
                 self.addProgress();
+                console.log(key);
                 resolve();
             };
             result[key].onerror = function () {
@@ -856,6 +857,7 @@ var preLoadObj = {
             result[key].onloadedmetadata = function () {
                 self.currentNum++;
                 self.addProgress();
+                console.log(key);
                 resolve();
             };
             result[key].onerror = function () {

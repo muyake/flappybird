@@ -44,6 +44,7 @@ var preLoadObj = {
             result[key].onload = () => {
                 self.currentNum++;
                 self.addProgress();
+                console.log(key);
                 resolve();
             };
             result[key].onerror = () => {
@@ -61,6 +62,7 @@ var preLoadObj = {
             result[key].onloadedmetadata = () => {
                 self.currentNum++;
                 self.addProgress();
+                console.log(key);
                 resolve();
             };
             result[key].onerror = () => {
