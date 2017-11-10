@@ -657,6 +657,11 @@ var option = {
 			alert(1);
 			_spriteList.spriteList.pop();
 		});
+		_lib.lib.$('#d1').addEventListener('click', function () {
+			alert(1);
+			_spriteList.spriteList.pop();
+		});
+
 		gameControl.startAnimate = function (time) {
 			_spriteList.spriteList.draw(gameControl.context, time, gameControl.fps.num);
 		};
