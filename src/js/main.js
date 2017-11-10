@@ -79,10 +79,13 @@ var option = {
 
 adaptation.init(function() {
 	//适配时会执行多次，这样就执行一次。
-	if (!config.adaptation) {
-		config.adaptation = true;
-		config.gameSourceObj = preLoadObj.init(option);
-		console.log(config.gameSourceObj);
-	}
+
+	document.querySelector('#btn1').addEventListener('click', function() {
+		if (!config.adaptation) {
+			config.adaptation = true;
+			config.gameSourceObj = preLoadObj.init(option);
+			console.log(config.gameSourceObj);
+		}
+	})
 
 })

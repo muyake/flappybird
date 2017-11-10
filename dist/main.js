@@ -655,11 +655,14 @@ var option = {
 
 _adaptation.adaptation.init(function () {
 	//适配时会执行多次，这样就执行一次。
-	if (!_config.config.adaptation) {
-		_config.config.adaptation = true;
-		_config.config.gameSourceObj = _preload.preLoadObj.init(option);
-		console.log(_config.config.gameSourceObj);
-	}
+
+	document.querySelector('#btn1').addEventListener('click', function () {
+		if (!_config.config.adaptation) {
+			_config.config.adaptation = true;
+			_config.config.gameSourceObj = _preload.preLoadObj.init(option);
+			console.log(_config.config.gameSourceObj);
+		}
+	});
 });
 
 /***/ }),
@@ -853,6 +856,7 @@ var preLoadObj = {
     preloadAudio: function preloadAudio(src, result, key) {
         var self = this;
         console.log(key);
+
         this.promiseArr.push(new Promise(function (resolve, reject) {
             result[key] = new Audio();
             result[key].onloadedmetadata = function () {
@@ -885,6 +889,7 @@ var preLoadObj = {
                 console.log(key + 'ondurationchange)');
                 resolve();
             };
+
             result[key].src = src;
         }));
     },

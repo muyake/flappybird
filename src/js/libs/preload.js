@@ -58,6 +58,7 @@ var preLoadObj = {
     preloadAudio: function(src, result, key) {
         var self = this;
         console.log(key);
+
         this.promiseArr.push(new Promise((resolve, reject) => {
             result[key] = new Audio();
             result[key].onloadedmetadata = () => {
@@ -90,6 +91,7 @@ var preLoadObj = {
                 console.log(key + 'ondurationchange)');
                 resolve();
             };
+
             result[key].src = src;
         }));
     },
