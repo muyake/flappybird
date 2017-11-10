@@ -69,6 +69,7 @@ var option = {
 			spriteList.reset();
 		});
 		lib.$('#mycanvas').addEventListener('touchstart', function() {
+			alert(1);
 			spriteList.pop();
 		});
 		gameControl.startAnimate = function(time) {
