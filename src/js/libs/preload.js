@@ -61,11 +61,12 @@ var preLoadObj = {
     },
     preloadAudio: function(src, result, key) {
         var self = this;
-        console.log(key);
 
         this.promiseArr.push(new Promise((resolve, reject) => {
             result[key] = new Audio();
-            if (lib.is_weixin) {
+            var WIFI = navigator.userAgent.toLowerCase().indexOf('wifi');
+            //在微信中且不连接wifi
+            if (lib.is_weixin && WIFI < 0) {
                 self.currentNum++;
                 self.addProgress();
                 console.log(key + '微信中打开)');

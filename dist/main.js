@@ -669,9 +669,6 @@ _adaptation.adaptation.init(function () {
 		_config.config.gameSourceObj = _preload.preLoadObj.init(option);
 		console.log(_config.config.gameSourceObj);
 	}
-	// document.querySelector('#btn1').addEventListener('click', function() {
-	// 	alert(1);
-	// })
 });
 
 /***/ }),
@@ -869,11 +866,12 @@ var preLoadObj = {
     },
     preloadAudio: function preloadAudio(src, result, key) {
         var self = this;
-        console.log(key);
 
         this.promiseArr.push(new Promise(function (resolve, reject) {
             result[key] = new Audio();
-            if (_lib.lib.is_weixin) {
+            var WIFI = navigator.userAgent.toLowerCase().indexOf('wifi');
+            //在微信中且不连接wifi
+            if (_lib.lib.is_weixin && WIFI < 0) {
                 self.currentNum++;
                 self.addProgress();
                 console.log(key + '微信中打开)');
@@ -2806,9 +2804,11 @@ var spriteList = {
                 var num = _config.config.canvasHeight - _config.config.groundHeight;
                 if (currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height * 3 / 4) {
                     currentIntervalObj.mid = _sourceConfig2.default.pipConfig.height * 3 / 4 + currentIntervalObj.height / 2;
+                    // console.log('上部');
                 }
                 if (num - currentIntervalObj.mid - currentIntervalObj.height / 2 > _sourceConfig2.default.pipConfig.height * 3 / 4) {
                     currentIntervalObj.mid = num - currentIntervalObj.height / 2 - _sourceConfig2.default.pipConfig.height * 3 / 4;
+                    // console.log('下部');
                 }
                 item.height = currentIntervalObj.mid - currentIntervalObj.height / 2;
                 item.imgtop = _sourceConfig2.default.pipConfig.height - item.height;

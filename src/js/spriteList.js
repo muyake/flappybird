@@ -106,9 +106,11 @@ var spriteList = {
                 var num = config.canvasHeight - config.groundHeight;
                 if (currentIntervalObj.mid - currentIntervalObj.height / 2 > sourceConfig.pipConfig.height * 3 / 4) {
                     currentIntervalObj.mid = sourceConfig.pipConfig.height * 3 / 4 + currentIntervalObj.height / 2;
+                    // console.log('上部');
                 }
                 if ((num - currentIntervalObj.mid - currentIntervalObj.height / 2) > sourceConfig.pipConfig.height * 3 / 4) {
                     currentIntervalObj.mid = num - currentIntervalObj.height / 2 - sourceConfig.pipConfig.height * 3 / 4;
+                    // console.log('下部');
                 }
                 item.height = currentIntervalObj.mid - currentIntervalObj.height / 2;
                 item.imgtop = sourceConfig.pipConfig.height - item.height;

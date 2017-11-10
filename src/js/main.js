@@ -84,8 +84,5 @@ adaptation.init(function() {
 		config.gameSourceObj = preLoadObj.init(option);
 		console.log(config.gameSourceObj);
 	}
-	// document.querySelector('#btn1').addEventListener('click', function() {
-	// 	alert(1);
-	// })
 
 })
