@@ -1,3 +1,7 @@
+//加载公共函数
+import {
+    lib
+} from './libs/lib.js';
 var Promise = require('es6-promise').Promise;
 
 var preLoadObj = {
@@ -61,38 +65,28 @@ var preLoadObj = {
 
         this.promiseArr.push(new Promise((resolve, reject) => {
             result[key] = new Audio();
-            result[key].onloadedmetadata = () => {
+            if (lib.is_weixin) {
                 self.currentNum++;
                 self.addProgress();
-                console.log(key + '成功');
+                console.log(key + '微信中打开)');
                 resolve();
-            };
-            result[key].onerror = () => {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + '失败');
-                resolve();
-            };
-            result[key].oncanplaythrough = () => {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + '：oncanplaythrough');
-                resolve();
-            };
-            result[key].oncanplay = () => {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + 'oncanplay)');
-                resolve();
-            };
-            result[key].ondurationchange = () => {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + 'ondurationchange)');
-                resolve();
-            };
+                result[key].src = src;
+            } else {
+                result[key].onloadedmetadata = () => {
+                    self.currentNum++;
+                    self.addProgress();
+                    console.log(key + '成功');
+                    resolve();
+                };
+                result[key].onerror = () => {
+                    self.currentNum++;
+                    self.addProgress();
+                    console.log(key + '失败');
+                    resolve();
+                };
+                result[key].src = src;
+            }
 
-            result[key].src = src;
         }));
     },
     preLoad: function(src, result, key) {

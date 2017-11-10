@@ -144,6 +144,12 @@ var lib = {
 	},
 	getRandom: function getRandom(num1, num2) {
 		return num1 + Math.random() * (num2 - num1);
+	},
+	is_weixin: function is_weixin() {
+		if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+			return true;
+		}
+		return false;
 	}
 };
 exports.lib = lib;
@@ -655,13 +661,13 @@ var option = {
 
 _adaptation.adaptation.init(function () {
 	//适配时会执行多次，这样就执行一次。
-
+	if (!_config.config.adaptation) {
+		_config.config.adaptation = true;
+		_config.config.gameSourceObj = _preload.preLoadObj.init(option);
+		console.log(_config.config.gameSourceObj);
+	}
 	document.querySelector('#btn1').addEventListener('click', function () {
-		if (!_config.config.adaptation) {
-			_config.config.adaptation = true;
-			_config.config.gameSourceObj = _preload.preLoadObj.init(option);
-			console.log(_config.config.gameSourceObj);
-		}
+		alert(1);
 	});
 });
 
@@ -795,7 +801,12 @@ module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var Promise = __webpack_require__(27).Promise;
+exports.preLoadObj = undefined;
+
+var _lib = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./libs/lib.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var Promise = __webpack_require__(27).Promise; //加载公共函数
+
 
 var preLoadObj = {
     //Object.prototype.toString.call(o)能直接返回对象的类属性，形如"[object class]"的字符串，我们通过截取class，并能知道传入的对象是什么类型
@@ -859,38 +870,27 @@ var preLoadObj = {
 
         this.promiseArr.push(new Promise(function (resolve, reject) {
             result[key] = new Audio();
-            result[key].onloadedmetadata = function () {
+            if (_lib.lib.is_weixin) {
                 self.currentNum++;
                 self.addProgress();
-                console.log(key + '成功');
+                console.log(key + '微信中打开)');
                 resolve();
-            };
-            result[key].onerror = function () {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + '失败');
-                resolve();
-            };
-            result[key].oncanplaythrough = function () {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + '：oncanplaythrough');
-                resolve();
-            };
-            result[key].oncanplay = function () {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + 'oncanplay)');
-                resolve();
-            };
-            result[key].ondurationchange = function () {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + 'ondurationchange)');
-                resolve();
-            };
-
-            result[key].src = src;
+                result[key].src = src;
+            } else {
+                result[key].onloadedmetadata = function () {
+                    self.currentNum++;
+                    self.addProgress();
+                    console.log(key + '成功');
+                    resolve();
+                };
+                result[key].onerror = function () {
+                    self.currentNum++;
+                    self.addProgress();
+                    console.log(key + '失败');
+                    resolve();
+                };
+                result[key].src = src;
+            }
         }));
     },
     preLoad: function preLoad(src, result, key) {
