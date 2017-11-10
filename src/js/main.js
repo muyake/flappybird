@@ -74,7 +74,9 @@ var option = {
 		});
 		lib.$('#d1').addEventListener('click', function() {
 			alert(1);
-			spriteList.pop();
+			cutscenes.start();
+			gameControl.start();
+			audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
 		});
 
 		gameControl.startAnimate = function(time) {

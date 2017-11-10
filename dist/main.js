@@ -659,7 +659,9 @@ var option = {
 		});
 		_lib.lib.$('#d1').addEventListener('click', function () {
 			alert(1);
-			_spriteList.spriteList.pop();
+			_cutscenes.cutscenes.start();
+			gameControl.start();
+			_audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.swooshing);
 		});
 
 		gameControl.startAnimate = function (time) {
