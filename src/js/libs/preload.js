@@ -73,7 +73,25 @@ var preLoadObj = {
                 console.log(key + '失败');
                 resolve();
             };
-            result[key].src = src;
+            result[key].oncanplaythrough = () => {
+                self.currentNum++;
+                self.addProgress();
+                console.log(key + '：oncanplaythrough');
+                resolve();
+            };
+            result[key].oncanplay = () => {
+                self.currentNum++;
+                self.addProgress();
+                console.log(key + 'oncanplay)');
+                resolve();
+            };
+            result[key].ondurationchange = () => {
+                self.currentNum++;
+                self.addProgress();
+                console.log(key + 'ondurationchange)');
+                resolve();
+            };
+
         }));
     },
     preLoad: function(src, result, key) {
