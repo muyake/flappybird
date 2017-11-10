@@ -69,6 +69,7 @@ var preLoadObj = {
             result[key].onerror = () => {
                 self.currentNum++;
                 self.addProgress();
+                console.log(key + '失败');
                 resolve();
             };
         }));
