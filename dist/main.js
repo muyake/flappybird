@@ -918,7 +918,8 @@ var preLoadObj = {
         var self = this;
         Promise.all(this.promiseArr).then(function (posts) {
             self.progressOverCallback();
-            // console.log(self.totalCount);
+            console.log('资源加载完成');
+            console.log(self.totalCount);
         }).catch(function (reason) {
             console.log(reason);
             console.log('图片加载错误');
