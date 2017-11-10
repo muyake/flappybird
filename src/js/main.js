@@ -68,7 +68,7 @@ var option = {
 		lib.$('.restart-btn').addEventListener('click', function() {
 			spriteList.reset();
 		});
-		lib.$('#mycanvas').addEventListener('touchstart', function() {
+		lib.$('#mycanvas').addEventListener('click', function() {
 			alert(1);
 			spriteList.pop();
 		});

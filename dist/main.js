@@ -653,7 +653,7 @@ var option = {
 		_lib.lib.$('.restart-btn').addEventListener('click', function () {
 			_spriteList.spriteList.reset();
 		});
-		_lib.lib.$('#mycanvas').addEventListener('touchstart', function () {
+		_lib.lib.$('#mycanvas').addEventListener('click', function () {
 			alert(1);
 			_spriteList.spriteList.pop();
 		});
