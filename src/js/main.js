@@ -1,3 +1,4 @@
+"use strict";
 //html样式
 require('../css/main.css');
 //加载公共函数
