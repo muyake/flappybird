@@ -59,7 +59,7 @@ var preLoadObj = {
         var self = this;
         console.log(key);
         this.promiseArr.push(new Promise((resolve, reject) => {
-            result[key] = new Audio(src);
+            result[key] = new Audio();
             result[key].onloadedmetadata = () => {
                 self.currentNum++;
                 self.addProgress();
@@ -72,6 +72,7 @@ var preLoadObj = {
                 console.log(key + '失败');
                 resolve();
             };
+            result[key].src = src;
         }));
     },
     preLoad: function(src, result, key) {
