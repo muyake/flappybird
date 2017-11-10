@@ -852,12 +852,13 @@ var preLoadObj = {
     },
     preloadAudio: function preloadAudio(src, result, key) {
         var self = this;
+        console.log(key);
         this.promiseArr.push(new Promise(function (resolve, reject) {
             result[key] = new Audio(src);
             result[key].onloadedmetadata = function () {
                 self.currentNum++;
                 self.addProgress();
-                console.log(key);
+                console.log(key + '成功');
                 resolve();
             };
             result[key].onerror = function () {
