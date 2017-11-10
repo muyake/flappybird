@@ -52,6 +52,7 @@ var preLoadObj = {
                 self.addProgress();
                 resolve(); //如果加载失败，可以设置游戏未开始。
             };
+            resolve();
             result[key].src = src;
         }));
     },
