@@ -31,7 +31,7 @@ module.exports = {
             test: /\.mp3(\?.*)?$/,
             loader: 'url-loader',
             options: {
-                limit: 50 * 1000,
+                limit: 5,
                 name: './static/mp3/[name].[ext]'
             }
         }]
