@@ -1,0 +1,420 @@
+html,
+body,
+div,
+canvas {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    opacity: 0;   
+}
+.container{
+     width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background: url(./static/img/background.png) no-repeat center/cover;
+}
+
+.main {
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;    
+}
+
+.progress-box {
+    height: 0.2rem;
+    width: 3rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 20%;
+    -webkit-transition: width 0.1s;
+    -o-transition: width 0.1s;
+    transition: width 0.1s;
+    background: rgba(147, 206, 222, 1);
+    background: -moz-linear-gradient(left, rgba(147, 206, 222, 1) 0%, rgba(117, 189, 209, 1) 41%, rgba(73, 165, 191, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(147, 206, 222, 1)), color-stop(41%, rgba(117, 189, 209, 1)), color-stop(100%, rgba(73, 165, 191, 1)));
+    background: -webkit-linear-gradient(left, rgba(147, 206, 222, 1) 0%, rgba(117, 189, 209, 1) 41%, rgba(73, 165, 191, 1) 100%);
+    background: -o-linear-gradient(left, rgba(147, 206, 222, 1) 0%, rgba(117, 189, 209, 1) 41%, rgba(73, 165, 191, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(147, 206, 222, 1) 0%, rgba(117, 189, 209, 1) 41%, rgba(73, 165, 191, 1) 100%);
+    background: linear-gradient(to right, rgba(147, 206, 222, 1) 0%, rgba(117, 189, 209, 1) 41%, rgba(73, 165, 191, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1);
+}
+
+
+/*-----------------------开视屏样式-----------------------*/
+
+.start-screen,
+.over-screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.start-screen{
+    display: block;
+}
+.clickback{
+    width: 3.6rem;
+    height: 1.75rem;
+    position: absolute;
+    background: url(./static/img/gameWords.png) no-repeat top/cover;
+    background-position: 0 -2.1rem;
+        top: 35%;
+    left: 28.1%;
+}
+.over-screen {
+    opacity: 0;
+}
+
+
+.get-ready,
+.get-over {
+    width: 3.6rem;
+    height: 0.95rem;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    margin-left: -1.8rem;
+    margin-top: -0.475rem;
+    background: url(./static/img/gameWords.png) no-repeat top/cover;
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.restart-btn {
+   /* opacity: 0;*/
+}
+
+.get-over {
+    top: 15%;
+    /*opacity: 0;*/
+    background: url(./static/img/gameWords.png) no-repeat top/cover;
+    background-position: 0 -1.07rem;
+}
+
+.score-board {
+    position: absolute;
+    width: 4.79rem;
+    height: 2.43rem;
+    /*opacity: 0;*/
+    left: 50%;
+    top: 40%;
+    margin-top: -1.215rem;
+    margin-left: -2.4rem;
+    /*  -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);*/
+    background: url(./static/img/score.png) no-repeat top/cover;
+}
+
+.bird-animation {
+    width: 0.81rem;
+    height: 0.7rem;
+    position: absolute;
+    left: 85%;
+    top: 20%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: url(./static/img/birds.png) no-repeat;
+    background-position: 0% 0%;
+    background-size: cover;
+    animation: csssprite .5s infinite steps(1), float 2s infinite linear;
+    -webkit-animation: csssprite .5s infinite steps(1), float 2s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        top: 20%;
+    }
+    50% {
+        top: 18%;
+    }
+    100% {
+        top: 20%;
+    }
+}
+
+@-webkit-keyframes float {
+      0% {
+        top: 20%;
+    }
+    50% {
+        top: 18%;
+    }
+    100% {
+        top: 20%;
+    }
+}
+
+@keyframes csssprite {
+    0% {
+        background-position: 0% 0%;
+    }
+    33% {
+        background-position: 50% 0%;
+    }
+    66% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 50% 0%;
+    }
+}
+
+@-webkit-keyframes csssprite {
+    0% {
+        background-position: 0% 0%;
+    }
+    33% {
+        background-position: 50% 0%;
+    }
+    66% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 50% 0%;
+    }
+}
+
+@keyframes moveleft1 {
+    0% {
+        left: 0rem;
+    }
+
+    100% {
+        left: -6.4rem;
+    }
+}
+
+@-webkit-keyframes moveleft1 {
+    0% {
+        left: 0rem;
+    }
+    100% {
+        left: -6.4rem;
+    }
+}
+
+@keyframes moveleft2 {
+    0% {
+        left: 6.4rem;
+    }
+    100% {
+        left: 0rem;
+    }
+}
+
+@-webkit-keyframes moveleft2 {
+    0% {
+        left: 6.4rem;
+    }
+    100% {
+        left: 0rem;
+    }
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@keyframes bounce {
+    from,
+    20%,
+    53%,
+    80%,
+    to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transform: translate3d(0, 0, 0);
+    }
+
+    40%,
+    43% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -0.30rem, 0);
+    }
+
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -0.15rem, 0);
+    }
+
+    90% {
+        transform: translate3d(0, -0.04rem, 0);
+    }
+}
+
+.bounce {
+    animation-name: bounce;
+    animation-delay:0s;
+    transform-origin: center bottom;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+
+@keyframes bounceInUp {
+    from,
+    60%,
+    75%,
+    90%,
+    to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20rem, 0);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate3d(0, -0.20rem, 0);
+    }
+
+    75% {
+        transform: translate3d(0, 0.10rem, 0);
+    }
+
+    90% {
+        transform: translate3d(0, -0.05rem, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.bounceInUp {
+    animation-name: bounceInUp;
+    animation-delay:0.5s;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.zoomIn {
+    animation-name: zoomIn;
+    animation-duration: 0.5s;
+    animation-delay:1s;
+}
+
+.start-btn,
+.restart-btn {
+    width: 1.9rem;
+    height: 0.95rem;
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    margin-top:-0.475rem;
+    margin-left: -0.95rem;
+    background: url(./static/img/btns.png) no-repeat top left;
+    background-size: 3.9rem 3.2rem;
+}
+.scroll-ground1 {
+    width: 6.4rem;
+    height: 1.92rem;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: url(./static/img/ground.png) no-repeat top center/ cover;
+    animation: moveleft1 3s infinite linear;
+    -webkit-animation: moveleft1 3s infinite linear;
+}
+
+.scroll-ground2 {
+    width: 6.4rem;
+    height: 1.92rem;
+    position: absolute;
+    bottom: 0px;
+    left: 6.4rem;
+    background: url(./static/img/ground.png) no-repeat top center/ cover;
+    animation: moveleft2 3s infinite linear;
+    -webkit-animation: moveleft2 3s infinite linear;
+}
+
+
+/*-----------------------开视屏样式-----------------------*/
+
+
+/*-----------------------分数样式-----------------------*/
+
+.scoreNum,
+.maxscoreNum {
+    font-size: 0.4rem;
+    text-align: center;
+    color: red;
+    margin-top: 0.65rem;
+}
+
+.maxscoreNum {
+    margin-top: 0.35rem;
+}
+
+
+/* .maxscoreNum{
+      font-size: 0.2rem;
+    }*/
+
+
+/*  .h{
+    background: url('../Images/0.jpg') no-repeat center/contain;
+  }
+   .ten{
+    background: url('../Images/2.jpg') no-repeat center/contain;
+  }
+  
+  .th{
+     background: url('../Images/3.jpg') no-repeat center/contain;
+  }*/
+
+
+
+
+/*-----------------------分数样式-----------------------*/
