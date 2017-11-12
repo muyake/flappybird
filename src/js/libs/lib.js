@@ -46,10 +46,12 @@ let lib = {
 		return num1 + Math.random() * (num2 - num1);
 	},
 	is_weixin: function() {
-		if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
-			return true;
-		}
-		return false;
+		 var ua = navigator.userAgent.toLowerCase();  
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {  
+        return true;  
+    } else {  
+        return false;  
+    }  
 	}
 }
 export {
