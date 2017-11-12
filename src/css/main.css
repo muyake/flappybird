@@ -41,7 +41,7 @@ body {
     width: 3rem;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 56%;
     transform: translate(-50%, -50%);
 }
 
@@ -354,14 +354,17 @@ body {
 .start-btn,
 .restart-btn {
     width: 1.9rem;
-    height: 0.95rem;
+    height: 1.05rem;
     position: absolute;
     left: 50%;
     top: 70%;
-    margin-top:-0.475rem;
+    margin-top: -0.475rem;
     margin-left: -0.95rem;
     background: url(../Images/btns.png) no-repeat top left;
-    background-size: 3.9rem 3.2rem;
+    background-size: 3.9rem 3.1rem;
+}
+.start-btn{
+    background-position: bottom left;
 }
 .scroll-ground1 {
     width: 6.4rem;

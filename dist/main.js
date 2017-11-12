@@ -688,6 +688,7 @@ var option = {
 		_lib.lib.$('#mycanvas').setAttribute('width', canvasWidth);
 		_lib.lib.$('#mycanvas').setAttribute('height', clientHeight);
 		_spriteList.spriteList.init();
+		_lib.lib.$('.start-btn').style.backgroundPosition = 'left top';
 		_lib.lib.$('.start-btn').addEventListener('click', function () {
 
 			_cutscenes.cutscenes.start();

@@ -60,6 +60,7 @@ var option = {
 		lib.$('#mycanvas').setAttribute('width', canvasWidth);
 		lib.$('#mycanvas').setAttribute('height', clientHeight);
 		spriteList.init();
+			lib.$('.start-btn').style.backgroundPosition='left top';
 		lib.$('.start-btn').addEventListener('click', function() {
 
 			cutscenes.start();
