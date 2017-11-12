@@ -909,7 +909,7 @@ var preLoadObj = {
         result[key] = new Audio();
         var WIFI = navigator.userAgent.toLowerCase().indexOf('wifi');
         //在微信中且不连接wifi
-        if (_lib.lib.is_weixin && WIFI < 0) {
+        if (_lib.lib.is_weixin() && WIFI < 0) {
             self.currentNum++;
             self.addProgress();
             console.log(key + '微信中打开)');
