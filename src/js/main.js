@@ -14,7 +14,7 @@ import gameSourceUrl from './gameSource.js';
 //预加载图片
 import {
 	preLoadObj
-} from './libs/preload.js';
+} from './libs/preload2.js';
 //预加载图片
 import {
 	Game
