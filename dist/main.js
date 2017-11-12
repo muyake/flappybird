@@ -211,7 +211,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _imagePainter = __webpack_require__(35);
+var _imagePainter = __webpack_require__(31);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -592,13 +592,13 @@ var _gameSource = __webpack_require__(2);
 
 var _gameSource2 = _interopRequireDefault(_gameSource);
 
-var _preload = __webpack_require__(48);
+var _preload = __webpack_require__(26);
 
-var _gameEngine = __webpack_require__(31);
+var _gameEngine = __webpack_require__(27);
 
 var _config = __webpack_require__(0);
 
-var _spriteList = __webpack_require__(33);
+var _spriteList = __webpack_require__(29);
 
 var _cutscenes = __webpack_require__(9);
 
@@ -606,7 +606,7 @@ var _audioControl = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(43);
+__webpack_require__(39);
 //加载公共函数
 
 //加载适配方案
@@ -793,12 +793,190 @@ module.exports = __webpack_require__.p + "./static/mp3/swooshing.mp3";
 module.exports = __webpack_require__.p + "./static/mp3/wing.mp3";
 
 /***/ }),
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.preLoadObj = undefined;
+
+var _lib = __webpack_require__(1);
+
+var preLoadObj = {
+    //Object.prototype.toString.call(o)能直接返回对象的类属性，形如"[object class]"的字符串，我们通过截取class，并能知道传入的对象是什么类型
+    isClass: function isClass(o) {
+        if (o === null) return "Null";
+        if (o === undefined) return "Undefined";
+        return Object.prototype.toString.call(o).slice(8, -1);
+    },
+    Regexs: {
+        img: /\.jpg$|\.jpeg$|\.png$|\.gif$/i, //图片格式  
+        audio: /\.mp3$|\.wmv$/i //图片格式              
+    },
+    chkFormat: function chkFormat(str, ftype) {
+        var nReg = this.Regexs[ftype];
+        if (str == null || str == "") return false; //输入为空，认为是验证不通过    
+        if (ftype == 'num') {
+            if (!nReg.test(str) && !this.chkChinese(str)) {
+                //10.23 tenfy 必须为数字且不能有中文    
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (!nReg.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    },
+    gameSourceUrl: null,
+    //这里可以改正map对象http://www.cnblogs.com/sker/p/5520392.html
+    imgObjList: {},
+    totalCount: 0,
+    currentNum: 0,
+    promiseArr: [],
+    //图片加载进行中
+    progressCallback: function progressCallback() {},
+    //图片加载完成
+    progressOverCallback: function progressOverCallback() {},
+    preloadImage: function preloadImage(src, result, key) {
+        var self = this;
+        result[key] = new Image();
+        result[key].onload = function () {
+            self.currentNum++;
+            self.addProgress();
+            console.log(key);
+            // resolve();
+        };
+        result[key].onerror = function () {
+            self.currentNum++;
+            self.addProgress();
+            // resolve(); //如果加载失败，可以设置游戏未开始。
+        };
+        result[key].src = src;
+    },
+    preloadAudio: function preloadAudio(src, result, key) {
+        var self = this;
+        result[key] = new Audio();
+        var WIFI = navigator.userAgent.toLowerCase().indexOf('wifi');
+        //在微信中且不连接wifi
+        if (_lib.lib.is_weixin && WIFI < 0) {
+            self.currentNum++;
+            self.addProgress();
+            console.log(key + '微信中打开)');
+            //  resolve();
+            result[key].src = src;
+        } else {
+            result[key].onloadedmetadata = function () {
+                self.currentNum++;
+                self.addProgress();
+                console.log(key + '成功');
+                // resolve();
+            };
+            result[key].onerror = function () {
+                self.currentNum++;
+                self.addProgress();
+                console.log(key + '失败');
+                // resolve();
+            };
+            result[key].src = src;
+        }
+    },
+    preLoad: function preLoad(src, result, key) {
+        if (this.chkFormat(src, 'img')) {
+            this.preloadImage(src, result, key);
+        } else if (this.chkFormat(src, 'audio')) {
+            this.preloadAudio(src, result, key);
+        } else {
+            result[key] = src;
+        }
+    },
+    getSouceCount: function getSouceCount(obj) {
+        var self = this;
+        for (var key in obj) {
+            var copy = obj[key];
+            if (this.isClass(copy) == "Object") {
+                self.getSouceCount(copy); //递归调用
+            } else if (this.isClass(copy) == "Array") {
+                self.getSouceCount(copy);
+            } else {
+                self.totalCount++;
+            }
+        }
+    },
+    //将图片或音频转为对象。
+    convertToObject: function convertToObject(obj) {
+        var self = this;
+        var result = void 0,
+            oClass = this.isClass(obj);
+        if (oClass === "Object") {
+            result = {};
+        } else if (oClass === "Array") {
+            result = [];
+        } else {
+            return obj;
+        }
+        for (var key in obj) {
+            var copy = obj[key];
+            if (this.isClass(copy) == "Object") {
+                result[key] = self.convertToObject(copy); //递归调用
+            } else if (this.isClass(copy) == "Array") {
+                result[key] = self.convertToObject(copy);
+            } else {
+                self.preLoad(copy, result, key);
+            }
+        }
+        return result;
+    },
+    //进度条
+    addProgress: function addProgress() {},
+    checkFullProgress: function checkFullProgress() {
+        var count = 0;
+        var self = this;
+        if (self.totalCount == self.currentNum) {
+            self.progressOverCallback();
+        }
+        // Promise.all(this.promiseArr).then(function(posts) {
+        //     self.progressOverCallback();
+        //     console.log('资源加载完成');
+        //     console.log(self.totalCount);
+        // }).catch(function(reason) {
+        //     console.log(reason);
+        //     console.log('图片加载错误');
+        // });
+    },
+    init: function init(option) {
+        var self = this;
+        if (typeof option.gameSourceUrl != 'undefined') {
+            this.imgUrlArr = option.gameSourceUrl;
+        }
+        if (typeof option.progressCallback != 'undefined') {
+            this.progressCallback = option.progressCallback;
+        }
+        if (typeof option.progressOverCallback != 'undefined') {
+            this.progressOverCallback = option.progressOverCallback;
+        }
+        self.getSouceCount(option.gameSourceUrl);
+        this.addProgress = function () {
+            var percent = self.currentNum / self.totalCount;
+            self.progressCallback(percent);
+            self.checkFullProgress();
+        };
+        var sourceObj = self.convertToObject(option.gameSourceUrl);
+
+        return sourceObj;
+    }
+}; //加载公共函数
+exports.preLoadObj = preLoadObj;
+//preLoadObj.init(option);
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -809,7 +987,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Game = undefined;
 
-__webpack_require__(32);
+__webpack_require__(28);
 
 var getTimeNow = function getTimeNow() {
 	return +new Date();
@@ -980,7 +1158,7 @@ Game.prototype = {
 exports.Game = Game;
 
 /***/ }),
-/* 32 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1113,7 +1291,7 @@ window.requestNextAnimationFrame = function () {
 }();
 
 /***/ }),
-/* 33 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1124,11 +1302,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.spriteList = undefined;
 
-var _ground = __webpack_require__(34);
+var _ground = __webpack_require__(30);
 
 var _lib = __webpack_require__(1);
 
-var _Pipeline = __webpack_require__(36);
+var _Pipeline = __webpack_require__(32);
 
 var _config = __webpack_require__(0);
 
@@ -1136,11 +1314,11 @@ var _sourceConfig = __webpack_require__(6);
 
 var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
 
-var _grade = __webpack_require__(37);
+var _grade = __webpack_require__(33);
 
 var _grade2 = _interopRequireDefault(_grade);
 
-var _bird = __webpack_require__(38);
+var _bird = __webpack_require__(34);
 
 var _bird2 = _interopRequireDefault(_bird);
 
@@ -1348,7 +1526,7 @@ var spriteList = {
 exports.spriteList = spriteList;
 
 /***/ }),
-/* 34 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1427,7 +1605,7 @@ var BG = function (_SceneSprite) {
 exports.BG = BG;
 
 /***/ }),
-/* 35 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1467,7 +1645,7 @@ var ImagePainter = function () {
 exports.ImagePainter = ImagePainter;
 
 /***/ }),
-/* 36 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1553,7 +1731,7 @@ var Pipeline = function (_SceneSprite) {
 exports.Pipeline = Pipeline;
 
 /***/ }),
-/* 37 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1581,7 +1759,7 @@ var grade = {
 exports.default = grade;
 
 /***/ }),
-/* 38 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1611,7 +1789,7 @@ var _behaviorList = __webpack_require__(5);
 
 var _behaviorList2 = _interopRequireDefault(_behaviorList);
 
-var _CharacterRunSpriteSheetPainter = __webpack_require__(39);
+var _CharacterRunSpriteSheetPainter = __webpack_require__(35);
 
 var _CharacterRunSpriteSheetPainter2 = _interopRequireDefault(_CharacterRunSpriteSheetPainter);
 
@@ -1621,7 +1799,7 @@ var _sourceConfig2 = _interopRequireDefault(_sourceConfig);
 
 var _sprite = __webpack_require__(8);
 
-var _CharacterSpriteAnimator = __webpack_require__(41);
+var _CharacterSpriteAnimator = __webpack_require__(37);
 
 var _CharacterSpriteAnimator2 = _interopRequireDefault(_CharacterSpriteAnimator);
 
@@ -1708,7 +1886,7 @@ var Bird = function (_Sprite) {
 exports.default = Bird;
 
 /***/ }),
-/* 39 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1720,7 +1898,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _spriteSheetPainter = __webpack_require__(40);
+var _spriteSheetPainter = __webpack_require__(36);
 
 var _config = __webpack_require__(0);
 
@@ -1774,7 +1952,7 @@ var CharacterRunSpriteSheetPainter = function (_SpriteSheetPainter) {
 exports.default = CharacterRunSpriteSheetPainter;
 
 /***/ }),
-/* 40 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1830,7 +2008,7 @@ var SpriteSheetPainter = function () {
 exports.SpriteSheetPainter = SpriteSheetPainter;
 
 /***/ }),
-/* 41 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1842,7 +2020,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _spriteAnimator = __webpack_require__(42);
+var _spriteAnimator = __webpack_require__(38);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1904,7 +2082,7 @@ var CharacterSpriteAnimator = function (_SpriteAnimator) {
 exports.default = CharacterSpriteAnimator;
 
 /***/ }),
-/* 42 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1975,197 +2153,10 @@ var SpriteAnimator = function () {
 exports.SpriteAnimator = SpriteAnimator;
 
 /***/ }),
-/* 43 */
+/* 39 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.preLoadObj = undefined;
-
-var _lib = __webpack_require__(1);
-
-var preLoadObj = {
-    //Object.prototype.toString.call(o)能直接返回对象的类属性，形如"[object class]"的字符串，我们通过截取class，并能知道传入的对象是什么类型
-    isClass: function isClass(o) {
-        if (o === null) return "Null";
-        if (o === undefined) return "Undefined";
-        return Object.prototype.toString.call(o).slice(8, -1);
-    },
-    Regexs: {
-        img: /\.jpg$|\.jpeg$|\.png$|\.gif$/i, //图片格式  
-        audio: /\.mp3$|\.wmv$/i //图片格式              
-    },
-    chkFormat: function chkFormat(str, ftype) {
-        var nReg = this.Regexs[ftype];
-        if (str == null || str == "") return false; //输入为空，认为是验证不通过    
-        if (ftype == 'num') {
-            if (!nReg.test(str) && !this.chkChinese(str)) {
-                //10.23 tenfy 必须为数字且不能有中文    
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (!nReg.test(str)) {
-            return false;
-        } else {
-            return true;
-        }
-    },
-    gameSourceUrl: null,
-    //这里可以改正map对象http://www.cnblogs.com/sker/p/5520392.html
-    imgObjList: {},
-    totalCount: 0,
-    currentNum: 0,
-    promiseArr: [],
-    //图片加载进行中
-    progressCallback: function progressCallback() {},
-    //图片加载完成
-    progressOverCallback: function progressOverCallback() {},
-    preloadImage: function preloadImage(src, result, key) {
-        var self = this;
-        result[key] = new Image();
-        result[key].onload = function () {
-            self.currentNum++;
-            self.addProgress();
-            console.log(key);
-            // resolve();
-        };
-        result[key].onerror = function () {
-            self.currentNum++;
-            self.addProgress();
-            // resolve(); //如果加载失败，可以设置游戏未开始。
-        };
-        result[key].src = src;
-    },
-    preloadAudio: function preloadAudio(src, result, key) {
-        var self = this;
-        result[key] = new Audio();
-        var WIFI = navigator.userAgent.toLowerCase().indexOf('wifi');
-        //在微信中且不连接wifi
-        if (_lib.lib.is_weixin && WIFI < 0) {
-            self.currentNum++;
-            self.addProgress();
-            console.log(key + '微信中打开)');
-            //  resolve();
-            result[key].src = src;
-        } else {
-            result[key].onloadedmetadata = function () {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + '成功');
-                // resolve();
-            };
-            result[key].onerror = function () {
-                self.currentNum++;
-                self.addProgress();
-                console.log(key + '失败');
-                // resolve();
-            };
-            result[key].src = src;
-        }
-    },
-    preLoad: function preLoad(src, result, key) {
-        if (this.chkFormat(src, 'img')) {
-            this.preloadImage(src, result, key);
-        } else if (this.chkFormat(src, 'audio')) {
-            this.preloadAudio(src, result, key);
-        } else {
-            result[key] = src;
-        }
-    },
-    getSouceCount: function getSouceCount(obj) {
-        var self = this;
-        for (var key in obj) {
-            var copy = obj[key];
-            if (this.isClass(copy) == "Object") {
-                self.getSouceCount(copy); //递归调用
-            } else if (this.isClass(copy) == "Array") {
-                self.getSouceCount(copy);
-            } else {
-                self.totalCount++;
-            }
-        }
-    },
-    //将图片或音频转为对象。
-    convertToObject: function convertToObject(obj) {
-        var self = this;
-        var result = void 0,
-            oClass = this.isClass(obj);
-        if (oClass === "Object") {
-            result = {};
-        } else if (oClass === "Array") {
-            result = [];
-        } else {
-            return obj;
-        }
-        for (var key in obj) {
-            var copy = obj[key];
-            if (this.isClass(copy) == "Object") {
-                result[key] = self.convertToObject(copy); //递归调用
-            } else if (this.isClass(copy) == "Array") {
-                result[key] = self.convertToObject(copy);
-            } else {
-                self.preLoad(copy, result, key);
-            }
-        }
-        return result;
-    },
-    //进度条
-    addProgress: function addProgress() {},
-    checkFullProgress: function checkFullProgress() {
-        var count = 0;
-        var self = this;
-        if (self.totalCount == self.currentNum) {
-            self.progressOverCallback();
-        }
-        // Promise.all(this.promiseArr).then(function(posts) {
-        //     self.progressOverCallback();
-        //     console.log('资源加载完成');
-        //     console.log(self.totalCount);
-        // }).catch(function(reason) {
-        //     console.log(reason);
-        //     console.log('图片加载错误');
-        // });
-    },
-    init: function init(option) {
-        var self = this;
-        if (typeof option.gameSourceUrl != 'undefined') {
-            this.imgUrlArr = option.gameSourceUrl;
-        }
-        if (typeof option.progressCallback != 'undefined') {
-            this.progressCallback = option.progressCallback;
-        }
-        if (typeof option.progressOverCallback != 'undefined') {
-            this.progressOverCallback = option.progressOverCallback;
-        }
-        self.getSouceCount(option.gameSourceUrl);
-        this.addProgress = function () {
-            var percent = self.currentNum / self.totalCount;
-            self.progressCallback(percent);
-            self.checkFullProgress();
-        };
-        var sourceObj = self.convertToObject(option.gameSourceUrl);
-
-        return sourceObj;
-    }
-}; //加载公共函数
-exports.preLoadObj = preLoadObj;
-//preLoadObj.init(option);
 
 /***/ })
 /******/ ]);

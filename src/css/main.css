@@ -5,7 +5,7 @@ canvas {
     margin: 0;
     padding: 0;
 }
-body > iframe{
+iframe{
     opacity:0;
     display:none;
 }
