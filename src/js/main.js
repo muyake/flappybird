@@ -69,16 +69,9 @@ var option = {
 		lib.$('.restart-btn').addEventListener('click', function() {
 			spriteList.reset();
 		});
-		lib.$('#mycanvas').addEventListener('click', function() {
-			alert(1);
+		lib.$('#mycanvas').addEventListener('click', function() {		
 			spriteList.pop();
-		});
-		lib.$('#d1').addEventListener('click', function() {
-			alert(1);
-			cutscenes.start();
-			gameControl.start();
-			audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
-		});
+		});	
 
 		gameControl.startAnimate = function(time) {
 			spriteList.draw(gameControl.context, time, gameControl.fps.num);

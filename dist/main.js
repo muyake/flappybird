@@ -654,14 +654,7 @@ var option = {
 			_spriteList.spriteList.reset();
 		});
 		_lib.lib.$('#mycanvas').addEventListener('click', function () {
-			alert(1);
 			_spriteList.spriteList.pop();
-		});
-		_lib.lib.$('#d1').addEventListener('click', function () {
-			alert(1);
-			_cutscenes.cutscenes.start();
-			gameControl.start();
-			_audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.swooshing);
 		});
 
 		gameControl.startAnimate = function (time) {
