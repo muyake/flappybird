@@ -75,7 +75,7 @@ var option = {
 			spriteList.pop();
 		});
 		lib.$('#btn').addEventListener('click', function() {
-			audioControl.audioPlay(config.gameSourceObj.audioList.wing);
+			audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
 		});
 
 		gameControl.startAnimate = function(time) {

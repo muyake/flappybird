@@ -703,7 +703,7 @@ var option = {
 			_spriteList.spriteList.pop();
 		});
 		_lib.lib.$('#btn').addEventListener('click', function () {
-			_audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.wing);
+			_audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.swooshing);
 		});
 
 		gameControl.startAnimate = function (time) {
