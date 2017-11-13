@@ -699,7 +699,7 @@ var option = {
 			_spriteList.spriteList.reset();
 		});
 
-		_lib.lib.$('#mycanvas').addEventListener('click', function () {
+		_lib.lib.$('#mycanvas').addEventListener('touchstart', function () {
 			_spriteList.spriteList.pop();
 		});
 

@@ -71,7 +71,7 @@ var option = {
 			spriteList.reset();
 		});
 
-		lib.$('#mycanvas').addEventListener('click', function() {
+		lib.$('#mycanvas').addEventListener('touchstart', function() {
 			spriteList.pop();
 		});
 
