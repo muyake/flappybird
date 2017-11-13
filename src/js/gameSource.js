@@ -5,7 +5,7 @@
 const gameSourceUrl = {
     imageList: {
         //背景
-        // flappybird: require('../Images/ico/flappybird.ico'),
+        flappybird: require('../Images/flappybird.ico'),
         BG: require('../Images/background.png'),
         birds: require('../Images/birds.png'),
         allbird: require('../Images/allbird2.png'),
@@ -16,6 +16,7 @@ const gameSourceUrl = {
         pipup: require('../Images/pipup.png'),
         //scordbord: require('../Images/scordbord.png'),
         score: require('../Images/score.png'),
+        flappybirdpub: require('../Images/flappybird.jpeg'),
 
     },
     audioList: {

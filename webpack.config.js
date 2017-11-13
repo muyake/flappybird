@@ -34,7 +34,7 @@ module.exports = {
                 }]
             })
         }, {
-            test: /\.(png|jpg|ico)$/,
+            test: /\.(png|jpg|jpeg|ico)$/,
             loader: "url-loader?limit=8&name=./static/img/[name].[ext]"
         }, {
             test: /\.js$/,
