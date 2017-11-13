@@ -74,9 +74,6 @@ var option = {
 		lib.$('#mycanvas').addEventListener('touchstart', function() {
 			spriteList.pop();
 		});
-		lib.$('#btn').addEventListener('click', function() {
-			audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
-		});
 
 		gameControl.startAnimate = function(time) {
 			spriteList.draw(gameControl.context, time, gameControl.fps.num);
