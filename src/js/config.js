@@ -5,7 +5,7 @@ var config = {
 	grade: 1,
 	GRAVITY_FORCE: 90 * 6 * 1,
 	velocityX: 100,
-	velocityY: 150 * 1.05,
+	velocityY: 150 * 1.1,
 	initVelocityX: 100 * 1,
 	adaptation: false,
 }
