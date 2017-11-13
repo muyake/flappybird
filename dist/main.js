@@ -702,6 +702,9 @@ var option = {
 		_lib.lib.$('#mycanvas').addEventListener('touchstart', function () {
 			_spriteList.spriteList.pop();
 		});
+		_lib.lib.$('#btn').addEventListener('click', function () {
+			_audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.wing);
+		});
 
 		gameControl.startAnimate = function (time) {
 			_spriteList.spriteList.draw(gameControl.context, time, gameControl.fps.num);
@@ -1558,7 +1561,7 @@ var spriteList = {
     pop: function pop() {
         if (!this.bird.isDie) {
             this.bird.velocityY = -_config.config.velocityY;
-            _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.swooshing);
+            _audioControl.audioControl.audioPlay(_config.config.gameSourceObj.audioList.wing);
         }
     },
     reset: function reset() {
