@@ -105,12 +105,22 @@ var spriteList = {
                 currentIntervalObj.height = intervalObjHeight;
                 var num = config.canvasHeight - config.groundHeight;
                 var min = Math.min(sourceConfig.pipConfig.height * 3 / 4, num * 4 / 5);
+                var max = Math.min(sourceConfig.pipConfig.height * 1 / 5, num * 1 / 5);
+                //上面太长
                 if (currentIntervalObj.mid - currentIntervalObj.height / 2 > min) {
                     currentIntervalObj.mid = min + currentIntervalObj.height / 2;
                 }
+                //上面太短
+                if (currentIntervalObj.mid - currentIntervalObj.height / 2 < max) {
+                    currentIntervalObj.mid = max + currentIntervalObj.height / 2;
+                }
+                //下面太长
                 if ((num - currentIntervalObj.mid - currentIntervalObj.height / 2) > min) {
                     currentIntervalObj.mid = num - currentIntervalObj.height / 2 - min;
-
+                }
+                //下面太短
+                if ((num - currentIntervalObj.mid - currentIntervalObj.height / 2) < max) {
+                    currentIntervalObj.mid = num - currentIntervalObj.height / 2 - max;
                 }
                 item.height = currentIntervalObj.mid - currentIntervalObj.height / 2;
                 item.imgtop = sourceConfig.pipConfig.height - item.height;
