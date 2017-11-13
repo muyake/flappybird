@@ -14,7 +14,7 @@ import gameSourceUrl from './gameSource.js';
 //预加载图片
 import {
 	preLoadObj
-} from './libs/preload.js';
+} from './libs/preload2.js';
 //预加载图片
 import {
 	Game
@@ -60,6 +60,7 @@ var option = {
 		lib.$('#mycanvas').setAttribute('width', canvasWidth);
 		lib.$('#mycanvas').setAttribute('height', clientHeight);
 		spriteList.init();
+		lib.$('.start-btn').style.backgroundPosition = 'left top';
 		lib.$('.start-btn').addEventListener('click', function() {
 
 			cutscenes.start();
@@ -69,15 +70,9 @@ var option = {
 		lib.$('.restart-btn').addEventListener('click', function() {
 			spriteList.reset();
 		});
+
 		lib.$('#mycanvas').addEventListener('click', function() {
-			//alert(1);
 			spriteList.pop();
-		});
-		lib.$('#d1').addEventListener('click', function() {
-			alert(1);
-			cutscenes.start();
-			gameControl.start();
-			audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
 		});
 
 		gameControl.startAnimate = function(time) {
