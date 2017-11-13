@@ -78,7 +78,7 @@ var config = {
 	canvasHeight: 0,
 	groundHeight: 0,
 	grade: 1,
-	GRAVITY_FORCE: 90 * 6 * 1.2,
+	GRAVITY_FORCE: 90 * 6 * 1,
 	velocityX: 100,
 	velocityY: 150 * 1.2,
 	initVelocityX: 100 * 1.2,
@@ -654,7 +654,7 @@ var option = {
 			_spriteList.spriteList.reset();
 		});
 		_lib.lib.$('#mycanvas').addEventListener('click', function () {
-			alert(1);
+			//alert(1);
 			_spriteList.spriteList.pop();
 		});
 		_lib.lib.$('#d1').addEventListener('click', function () {

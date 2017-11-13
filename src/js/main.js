@@ -70,7 +70,7 @@ var option = {
 			spriteList.reset();
 		});
 		lib.$('#mycanvas').addEventListener('click', function() {
-			alert(1);
+			//alert(1);
 			spriteList.pop();
 		});
 		lib.$('#d1').addEventListener('click', function() {
