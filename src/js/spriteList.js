@@ -205,7 +205,7 @@ var spriteList = {
     pop: function() {
         if (!this.bird.isDie) {
             this.bird.velocityY = -config.velocityY;
-            audioControl.audioPlay(config.gameSourceObj.audioList.wing);
+            audioControl.audioPlay(config.gameSourceObj.audioList.swooshing);
         }
     },
     reset: function() {
