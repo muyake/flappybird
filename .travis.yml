@@ -1,0 +1,20 @@
+language: node_js
+before_install:
+- nvm install 6
+addons:
+  ssh_known_hosts: 182.92.153.2
+  apt:
+    packages:
+    - sshpass
+install:
+- npm install
+script: true
+after_success:
+- sh "./bin/deploy.sh"
+branches:
+  only:
+  - master
+env:
+  global:
+  - secure: vCNx0ly6obBW6LUUczGQlKlhDUteeWdzCbUxx/SHtRVwjOzCNyQvb+Ad6BeMsUZnqPhhoYd2FA2cgU7qzPi8rMQ3HIwYjvuLsxH/ncJA6bIRU6nXy2URBBpMxeWUIKFaU+Guv8rFvKwuleMruwPSLM73/2QvbLvO//4zb1/O+tzXExfC3r0sY/NgPycMShtSr+CHPhe3yjnfWd+vnu5xXMXi21Q5feQtTZsAFXoNyfLqdHFRg08yjxPspM8IgJcNQXXn6y3pJGa6vwCongf2gyHcaVNJSUb9YJwpv5OaN3YOMiswJlqHfWIHZXM9Ilc2HIW7Y/3eGCRU2Y956FpXdAxliwKqqcOXoUgJTm7HZbKGcIBzwOhovt/67u3NPOf6X8/MgCD+qdnjyF5V8VL2YqY2KJHRqlBWmkHRmL6EE4OoR16IlMcdBsoFuOwCFKw9cf0/F0Tx+03ZTn3D2jfXI/DG/8bOuRNDLC8zLvOzXuDNgY+vJptagCTaXCWFQ2nREKdd4gZLQPiCQya2Q4s+kldiUi8/gzSQFVkO8Khu/8JOAc+ObCYCdjcQw42CK9o2NJU186JNY1dDclb7WzzM98z+o7e7ySBxL3bwAsiHAIZpcSkG9VU1ruYw9wogzcYGRBRqmJQQ97OajJqOxh1jVCsNuYFhcXRLbRhhYA2MioY=
+  - secure: HgDnwbSFcpsxH0Gb6dNOFjXDbJwCsynGzdD6gUU9hfKZs9iEGzjWJv8FeblmOqC95BHuujO7Y64EuYiSSnToxsLslpu/CQMhM2Hc17EYzdnrmOeK9e0bLkgRlHpk05UfqOt+SDiT6q7j/rQPXplDcj8BhJw3e466puWHKV3GAHCaSkicICZi+VJBeaXtMMlRnpmg1z9hGYBIBOAe1VzUeVB2LIW4uqHaBf8yEG7dQTtHcqMxXpqrY2K3QcxSj0SOQBIWgfCPfHOqGD3+P4WbgFYzaZHr1inFbcQtPlXKkwQTl2gTKdhDLN8DXDby4DIwTM/0cc65t2Rbu25WOvxjiLxpvIsjoxR5MTHRU08ffj8rgNMMw5B2OoK6GlnKnvndcVEh6i3S85zZ6RmPERa3K3//+U06s3Ev0OofMl9ulEA+NOyDeM5Oau/06Tvazzg2UDAaK7OrlrN/spFzivKae5/ej/uWUFXEHXUfLvl1WLOMWWz1z6uJ7aoWcVCrXRVpEn+Lm7q0c9Z8o4j2DMW7o1nNpV5Ks0bRPsv5+ZFG0reUKz3zgBpRsuSvoIuIfkVHHq8cbNyia/O2X7giWWhKm759f7Q7cBNtv4/YkWLZP9BKuNYxkd96tcUxz+6kS4Y1wjiYPs9NWuuebp80LGN8h5dVJZRw5LOgCAnZFU3SfXo=
