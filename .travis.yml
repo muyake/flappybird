@@ -10,7 +10,6 @@ install:
 - npm install
 script: true
 after_success:
-- sh "./bin/test.sh"
 - sh "./bin/deploy.sh"
 branches:
   only:
