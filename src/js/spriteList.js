@@ -7,7 +7,7 @@ import {
 } from './libs/lib.js';
 import {
     Pipeline
-} from './Pipeline.js';
+} from './pipeline.js';
 import {
     config
 } from './config.js';

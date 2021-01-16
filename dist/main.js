@@ -1359,7 +1359,7 @@ var _ground = __webpack_require__(31);
 
 var _lib = __webpack_require__(1);
 
-var _Pipeline = __webpack_require__(33);
+var _pipeline = __webpack_require__(33);
 
 var _config = __webpack_require__(0);
 
@@ -1432,13 +1432,13 @@ var spriteList = {
             var num = _config.config.canvasHeight - _config.config.groundHeight;
             item.left = startleft + interval * index;
             item.width = _sourceConfig2.default.pipConfig.width;
-            self.pipelineList.push(new _Pipeline.Pipeline({
+            self.pipelineList.push(new _pipeline.Pipeline({
                 isDown: true,
                 name: "pipeline",
                 left: startleft + interval * index,
                 height: item.mid - item.height / 2
             }));
-            self.pipelineList.push(new _Pipeline.Pipeline({
+            self.pipelineList.push(new _pipeline.Pipeline({
                 isDown: false,
                 name: "pipeline",
                 left: startleft + interval * index,
